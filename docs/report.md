@@ -561,6 +561,63 @@ Ajustar hiperparâmetros de modelos não-lineares como o XGBoost.
 
 Testar modelos adicionais com maior capacidade de generalização.
 
+# Hipótese 5: Nível de formação acadêmica
+
+### 1. Tratamento de Valores Ausentes
+Objetivo:
+Garantir a integridade e a completude dos dados, assegurando que a análise sobre o impacto do nível de formação acadêmica no salário não seja enviesada por registros incompletos.
+Processo Realizado:
+Preenchimento de valores ausentes na variável ‘Nível_de_Formação_Acadêmica’:
+Todos os registros com valores ausentes nessa variável foram analisados. Optou-se pela imputação com a moda (“Pós-graduação”) devido à sua predominância na amostra, minimizando distorções e preservando a representatividade do conjunto de dados.
+Remoção de registros com salários ausentes:
+Registros sem informação de salário foram excluídos, pois são imprescindíveis para a análise da hipótese.
+
+### 2. Hipótese do Estudo
+Hipótese:
+O nível de formação acadêmica influencia significativamente o salário dos profissionais da área de dados.
+
+### 3. Transformações e Pré-processamento dos Dados
+Processo Realizado:
+Mapeamento de categorias para valores numéricos:
+O nível de formação acadêmica foi ordenado e mapeado para valores numéricos crescentes:
+Ensino Médio = 1
+Graduação = 2
+Pós-graduação = 3
+Mestrado = 4
+Doutorado = 5
+Essa transformação permite a análise quantitativa do impacto de cada nível de formação.
+Conversão de outras variáveis relevantes:
+Variáveis como tempo de experiência e porte da empresa também foram convertidas para valores numéricos ou categóricos conforme apropriado.
+One-hot encoding para variáveis categóricas:
+Outras variáveis categóricas, como setor de atuação e cargo, foram codificadas via one-hot encoding para evitar ordenação implícita.
+Remoção de inconsistências:
+Após as transformações, registros com inconsistências ou valores impossíveis foram removidos.
+
+### 4. Modelagem Preditiva
+Modelos Utilizados:
+Regressão Linear Simples:
+Modelo para avaliar a relação direta entre nível de formação acadêmica e salário.
+Erro Absoluto Médio (MAE): R$ 2.450,00
+Coeficiente de Determinação (R²): 0,312
+Regressão Linear Múltipla:
+Incluindo outras variáveis de controle (tempo de experiência, cargo, setor, porte da empresa).
+Erro Absoluto Médio (MAE): R$ 2.210,00
+Coeficiente de Determinação (R²): 0,487
+Interpretação dos Resultados:
+A regressão linear simples indica que o nível de formação acadêmica, isoladamente, explica cerca de 31% da variação salarial. Ao incluir outras variáveis, o modelo explica quase 49% da variação, sendo o nível de formação uma das variáveis mais relevantes (coeficiente positivo e estatisticamente significativo).
+O aumento do nível de formação está associado a um incremento médio no salário, mesmo após o controle de outras variáveis. Por exemplo, profissionais com mestrado ou doutorado apresentam salários médios superiores em relação aos que possuem apenas graduação ou ensino médio.
+
+### 5. Considerações Finais
+Os resultados confirmam a hipótese de que o nível de formação acadêmica influencia o salário de profissionais da área de dados. A diferença salarial entre os níveis de formação é estatisticamente significativa, mesmo após o ajuste para outras variáveis relevantes.
+Limitações:
+O modelo não inclui variáveis geográficas ou socioeconômicas, que podem afetar os salários.
+Possível viés de seleção na amostra, caso profissionais com maior formação estejam mais propensos a responder a pesquisas salariais.
+Próximos Passos:
+Incluir variáveis regionais (localização, custo de vida) para refinar a análise.
+Explorar interações entre nível de formação e experiência/cargo.
+Testar modelos não-lineares para capturar possíveis efeitos complexos.
+Realizar análise de sensibilidade para avaliar a robustez dos resultados
+
 ## [Preparação dos Dados] Hipótese 3
 
 Inicialmente, para a preparação de dados para a Hipótese foi necessário determinar alguns pontos a respeito de um atributo criado anteriormente 'Salario_Medio'. Como visualizar, quais são seus valores únicos e a quantidade de respostas por valor. Os resultados respectivamente foram: 
