@@ -543,10 +543,22 @@ Erro Absoluto Médio (MAE): 2.766,00
 
 Coeficiente de Determinação (R²): 0,478
 
+
+(O teste abaixo foi feito considerando apenas as 2 variáveis pensadas inicialmente na hipótese)
+=== Regressão Linear ===
+MAE: 5323.6442419655605
+R²: 0.01065716316951204
+
+=== XGBoost ===
+MAE: 5360.752834262643
+R²: -0.0038376364030112686
+
 Interpretação dos Resultados:
 Os dois modelos apresentaram desempenhos comparáveis, com ligeira vantagem para a regressão linear em termos de erro médio e explicação da variância do salário. O valor de R² indica que aproximadamente 50% da variação nos salários pode ser explicada pelas variáveis incluídas no modelo, o que demonstra uma relação moderada.
 
 A performance do modelo XGBoost, embora inferior, pode estar relacionada à ausência de ajustes finos em seus hiperparâmetros, ou ainda à predominância de relações lineares entre as variáveis.
+
+O segundo teste foi feito usando apenas as variáveis: Número de funcionários da empresa e Setor da empresa. O modelo apresentou resultados que apontam um correlação mínima com o salário.
 
 ### 5. Considerações Finais
 Os resultados obtidos sugerem que a hipótese é parcialmente confirmada. Variáveis como setor de atuação, porte da empresa, nível de ensino, cargo atual e tempo de experiência apresentam influência sobre a variável resposta (salário médio). No entanto, o modelo também indica que existem outros fatores não considerados neste estudo que podem impactar significativamente o salário dos profissionais da área de dados.
