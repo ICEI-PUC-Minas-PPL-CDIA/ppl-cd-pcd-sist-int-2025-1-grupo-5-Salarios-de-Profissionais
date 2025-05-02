@@ -772,137 +772,228 @@ A preparação dos dados consiste dos seguintes passos:
 
 ```python
 
-# Importação de bibliotecas para visualização
-import seaborn as sns
+# Importação de bibliotecas
+import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder, StandardScaler
+from sklearn.ensemble import GradientBoostingRegressor
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.metrics import mean_squared_error, r2_score
 
-# Configurar o estilo dos gráficos para usar o tema 'ggplot' (mais profissional)
-plt.style.use('ggplot')
+# 1. PRÉ-PROCESSAMENTO E FEATURE ENGINEERING ===================================
 
-# 1. GRÁFICO DE VALORES REAIS VS PREDITOS ======================================
+# Criar cópia do dataframe original para preservar os dados brutos
+df = dados.copy()
 
-# Criar figura com tamanho específico (10x6 polegadas)
-plt.figure(figsize=(10, 6))
+# Definir a ordem das categorias para variáveis ordinais
+# Essas ordens são importantes para o OrdinalEncoder entender a hierarquia
+experiencia_order = ['Não tenho experiência na área de dados',
+                    'Menos de 1 ano',
+                    'De 1 a 2 anos',
+                    'De 2 a 3 anos',
+                    'De 3 a 4 anos',
+                    'De 4 a 6 anos',
+                    'De 5 a 6 anos',
+                    'De 7 a 10 anos',
+                    'Mais de 10 anos']
 
-# Scatter plot comparando valores reais (x) e preditos (y)
-# alpha=0.6 controla a transparência dos pontos para melhor visualização
-sns.scatterplot(x=y_test_exp,       # Valores reais do salário (escala original)
-                y=y_pred_test_exp,  # Valores preditos pelo modelo
-                alpha=0.6)          # Transparência dos pontos
+# Ordem para nível de ensino (do menor para o maior nível)
+ensino_order = ['Prefiro não informar',
+               'Ensino Médio',
+               'Técnico/Profissionalizante',
+               'Graduação',
+               'Pós-graduação',
+               'Mestrado',
+               'Doutorado']
 
-# Linha de referência (idealmente os pontos deveriam estar sobre esta linha)
-plt.plot([y_test_exp.min(), y_test_exp.max()],  # Eixo X (min a max)
-         [y_test_exp.min(), y_test_exp.max()],  # Eixo Y (min a max)
-         'r--',  # Linha vermelha tracejada
-         lw=2)   # Espessura da linha
+# 2. SELEÇÃO E PREPARAÇÃO DOS DADOS ===========================================
 
-# Configurações do gráfico
-plt.title('Valores Reais vs Preditos (Teste)', fontsize=14)  # Título com tamanho de fonte
-plt.xlabel('Salário Real (R$)', fontsize=12)  # Rótulo do eixo X
-plt.ylabel('Salário Predito (R$)', fontsize=12)  # Rótulo do eixo Y
-plt.grid(True)  # Habilitar grid
-plt.show()  # Mostrar o gráfico
+# Selecionar apenas as colunas relevantes para o modelo
+colunas_relevantes = [
+    'Salario_Medio',          # Variável alvo (o que queremos prever)
+    'PIB_2021_OR',            # Variável numérica 1
+    'IDHM',                   # Variável numérica 2
+    'Tempo_de_experiencia_na_area_de_dados',  # Variável categórica ordinal
+    'Nivel_de_Ensino',        # Variável categórica ordinal
+    'Setor',                  # Variável categórica nominal
+    'Uf'                      # Variável categórica nominal (não usada diretamente)
+]
 
-# 2. DISTRIBUIÇÃO DOS RESÍDUOS ================================================
+# Criar novo dataframe apenas com as colunas selecionadas
+df_selecionado = df[colunas_relevantes].copy()
 
-# Calcular os resíduos (diferença entre real e predito)
-residuos = y_test_exp - y_pred_test_exp
+# 3. TRATAMENTO DE VALORES FALTANTES ==========================================
 
-# Criar nova figura
-plt.figure(figsize=(10, 6))
+# Remover linhas onde as variáveis essenciais estão faltando
+df_sem_na = df_selecionado.dropna(subset=['Salario_Medio', 'PIB_2021_OR', 'IDHM']).copy()
 
-# Histograma + curva de densidade dos resíduos
-sns.histplot(residuos,  # Valores dos resíduos
-             kde=True,   # Adicionar Kernel Density Estimation (curva de densidade)
-             bins=30)    # Número de barras do histograma
+# Preencher valores faltantes nas colunas categóricas
+df_sem_na['Nivel_de_Ensino'] = df_sem_na['Nivel_de_Ensino'].fillna('Prefiro não informar')
+df_sem_na['Setor'] = df_sem_na['Setor'].fillna('Outro')
 
-# Linha vertical vermelha no zero (onde os resíduos deveriam se concentrar)
-plt.axvline(x=0, color='r', linestyle='--')
+# 4. PADRONIZAÇÃO DE VALORES CATEGÓRICOS ======================================
 
-# Configurações do gráfico
-plt.title('Distribuição dos Resíduos (Teste)', fontsize=14)
-plt.xlabel('Erro (Real - Predito) em R$', fontsize=12)
-plt.ylabel('Frequência', fontsize=12)
-plt.grid(True)
-plt.show()
+# Padronizar os valores da coluna de experiência:
+# 1. Converter para minúsculas
+# 2. Remover espaços extras
+# 3. Preencher valores faltantes
+# 4. Mapear variações para valores consistentes
+df_sem_na['Tempo_de_experiencia_na_area_de_dados'] = (
+    df_sem_na['Tempo_de_experiencia_na_area_de_dados']
+    .str.lower()
+    .str.strip()
+    .fillna('não tenho experiência na área de dados')
+    .replace({
+        'menos de 1 ano': 'Menos de 1 ano',
+        'de 1 a 2 anos': 'De 1 a 2 anos',
+        'de 3 a 4 anos': 'De 3 a 4 anos',
+        'de 5 a 6 anos': 'De 5 a 6 anos',
+        'de 7 a 10 anos': 'De 7 a 10 anos',
+        'não tenho experiência na área de dados': 'Não tenho experiência na área de dados'
+    })
+)
 
-# 3. IMPORTÂNCIA DAS FEATURES (para modelos ensemble) =========================
+# 5. TRATAMENTO DE OUTLIERS ===================================================
 
-# Verificar se o modelo tem o atributo feature_importances_
-if hasattr(full_pipeline.named_steps['regressor'], 'feature_importances_'):
+# Calcular os limites para identificar outliers usando o método IQR
+Q1 = df_sem_na['Salario_Medio'].quantile(0.25)
+Q3 = df_sem_na['Salario_Medio'].quantile(0.75)
+IQR = Q3 - Q1
 
-    # Obter nomes das features após pré-processamento:
+# Filtrar apenas os valores dentro do intervalo aceitável
+df_sem_outliers = df_sem_na[
+    (df_sem_na['Salario_Medio'] >= Q1 - 1.5*IQR) &
+    (df_sem_na['Salario_Medio'] <= Q3 + 1.5*IQR)
+].copy()
 
-    # Features numéricas originais
-    num_features = ['PIB_2021_OR', 'IDHM', 'PIB_per_capita']
+# 6. ENGENHARIA DE FEATURES ===================================================
 
-    # Features categóricas codificadas
-    exp_features = ['Experiência']  # Nome da coluna após codificação ordinal
-    ensino_features = ['Nível Ensino']  # Nome da coluna após codificação ordinal
+# Renomear coluna para um nome mais consistente
+df_preparado = df_sem_outliers.rename(columns={
+    'Tempo_de_experiencia_na_area_de_dados': 'Tempo_de_experiencia_agrupado'
+})
 
-    # Obter nomes das colunas one-hot para Setor
-    setor_features = full_pipeline.named_steps['preprocessor']\
-                        .named_transformers_['setor']\
-                        .named_steps['encoder']\
-                        .get_feature_names_out(['Setor'])
+# Criar nova feature: PIB per capita (PIB dividido pelo IDHM)
+# Essa nova feature pode capturar melhor a relação entre riqueza e desenvolvimento
+df_preparado['PIB_per_capita'] = df_preparado['PIB_2021_OR'] / df_preparado['IDHM']
 
-    # Combinar todos os nomes de features
-    all_features = num_features + exp_features + ensino_features + list(setor_features)
+# 7. PIPELINE DE PRÉ-PROCESSAMENTO ============================================
 
-    # Obter importância das features do modelo
-    importances = full_pipeline.named_steps['regressor'].feature_importances_
+# Configurar o pré-processamento para diferentes tipos de variáveis:
+preprocessor = ColumnTransformer(
+    transformers=[
+        # Variáveis numéricas:
+        # 1. Preencher faltantes com a mediana
+        # 2. Padronizar (StandardScaler)
+        ('num', Pipeline([
+            ('imputer', SimpleImputer(strategy='median')),
+            ('scaler', StandardScaler())
+        ]), ['PIB_2021_OR', 'IDHM', 'PIB_per_capita']),
 
-    # Criar DataFrame com features e suas importâncias
-    feat_imp = pd.DataFrame({'Feature': all_features, 'Importance': importances})
+        # Tempo de experiência (variável ordinal):
+        # 1. Preencher faltantes com valor padrão
+        # 2. Codificar como números mantendo a ordem
+        ('exp', Pipeline([
+            ('imputer', SimpleImputer(strategy='constant',
+                                    fill_value='Não tenho experiência na área de dados')),
+            ('encoder', OrdinalEncoder(categories=[experiencia_order],
+                                     handle_unknown='use_encoded_value',
+                                     unknown_value=-1))
+        ]), ['Tempo_de_experiencia_agrupado']),
 
-    # Ordenar e pegar as 15 mais importantes
-    feat_imp = feat_imp.sort_values('Importance', ascending=False).head(15)
+        # Nível de ensino (variável ordinal):
+        # Mesmo tratamento que tempo de experiência
+        ('ensino', Pipeline([
+            ('imputer', SimpleImputer(strategy='constant',
+                                    fill_value='Prefiro não informar')),
+            ('encoder', OrdinalEncoder(categories=[ensino_order],
+                                    handle_unknown='use_encoded_value',
+                                    unknown_value=-1))
+        ]), ['Nivel_de_Ensino']),
 
-    # Criar gráfico de barras horizontais
-    plt.figure(figsize=(12, 8))
-    sns.barplot(x='Importance',       # Valores no eixo X
-                y='Feature',          # Categorias no eixo Y
-                data=feat_imp,        # DataFrame com os dados
-                palette='viridis')    # Esquema de cores
+        # Setor (variável nominal):
+        # 1. Preencher faltantes
+        # 2. Aplicar one-hot encoding (criar colunas binárias para cada categoria)
+        ('setor', Pipeline([
+            ('imputer', SimpleImputer(strategy='constant',
+                                    fill_value='Outro')),
+            ('encoder', OneHotEncoder(handle_unknown='ignore',
+                                    sparse_output=False))
+        ]), ['Setor'])
+    ],
+    remainder='drop'  # Ignorar colunas não especificadas
+)
 
-    # Configurações do gráfico
-    plt.title('Top 15 Features por Importância', fontsize=14)
-    plt.xlabel('Importância Relativa', fontsize=12)
-    plt.ylabel('')  # Remover rótulo do eixo Y
-    plt.grid(True, axis='x')  # Grid apenas no eixo X
-    plt.show()
+# 8. PIPELINE COMPLETO DO MODELO ==============================================
 
-# 4. BOXPLOT DE RESÍDUOS POR FAIXA SALARIAL (OPCIONAL) ========================
+# Criar pipeline que:
+# 1. Pré-processa os dados
+# 2. Aplica o modelo Gradient Boosting
+full_pipeline = Pipeline([
+    ('preprocessor', preprocessor),
+    ('regressor', GradientBoostingRegressor(
+        n_estimators=150,      # Número de árvores (mais que o usual para melhor performance)
+        learning_rate=0.1,     # Taxa de aprendizado (shrinkage)
+        max_depth=4,           # Profundidade máxima de cada árvore
+        min_samples_leaf=10,   # Número mínimo de amostras nas folhas
+        random_state=42        # Semente aleatória para reprodutibilidade
+    ))
+])
 
-# Criar cópia do DataFrame de teste para análise
-df_test = X_test.copy()
+# 9. PREPARAÇÃO DOS DADOS PARA MODELAGEM ======================================
 
-# Adicionar colunas auxiliares
-df_test['Salario_Real'] = y_test_exp  # Salários reais
-df_test['Residuo'] = residuos         # Resíduos calculados
+# Separar em variáveis explicativas (X) e variável alvo (y)
+X = df_preparado[['PIB_2021_OR', 'IDHM', 'PIB_per_capita',
+                'Tempo_de_experiencia_agrupado', 'Nivel_de_Ensino', 'Setor']]
 
-# Criar faixas salariais (quintis - divide em 5 grupos com mesma quantidade)
-df_test['Faixa_Salarial'] = pd.qcut(df_test['Salario_Real'], q=5)
+# Aplicar transformação logarítmica no salário para lidar com a escala e outliers
+y = np.log1p(df_preparado['Salario_Medio'])
 
-# Criar figura
-plt.figure(figsize=(12, 6))
+# 10. DIVISÃO DOS DADOS ======================================================
 
-# Boxplot dos resíduos por faixa salarial
-sns.boxplot(x='Faixa_Salarial',  # Eixo X: faixas salariais
-            y='Residuo',         # Eixo Y: resíduos
-            data=df_test)        # DataFrame com os dados
+# Separar em conjuntos de treino (80%) e teste (20%)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y,
+    test_size=0.2,
+    random_state=42  # Semente fixa para reprodutibilidade
+)
 
-# Linha de referência no zero
-plt.axhline(y=0, color='r', linestyle='--')
+# 11. TREINAMENTO DO MODELO ==================================================
 
-# Configurações do gráfico
-plt.title('Distribuição dos Resíduos por Faixa Salarial', fontsize=14)
-plt.xlabel('Faixa Salarial (Quintis)', fontsize=12)
-plt.ylabel('Erro (Real - Predito) em R$', fontsize=12)
-plt.xticks(rotation=45)  # Rotacionar rótulos do eixo X para melhor legibilidade
-plt.grid(True)
-plt.show()
+# Treinar o pipeline completo (pré-processamento + modelo)
+full_pipeline.fit(X_train, y_train)
 
+# 12. AVALIAÇÃO DO MODELO ====================================================
+
+# Fazer previsões nos conjuntos de treino e teste
+y_pred_train = full_pipeline.predict(X_train)
+y_pred_test = full_pipeline.predict(X_test)
+
+# Converter valores de volta para a escala original (R$)
+y_train_exp = np.expm1(y_train)
+y_test_exp = np.expm1(y_test)
+y_pred_train_exp = np.expm1(y_pred_train)
+y_pred_test_exp = np.expm1(y_pred_test)
+
+# Calcular métricas de erro na escala original
+train_rmse = np.sqrt(mean_squared_error(y_train_exp, y_pred_train_exp))
+test_rmse = np.sqrt(mean_squared_error(y_test_exp, y_pred_test_exp))
+
+# 13. RELATÓRIO DE PERFORMANCE ===============================================
+
+print("\n=== Métricas de Desempenho ===")
+print(f"Train R²: {r2_score(y_train, y_pred_train):.3f}")  # Variância explicada (treino)
+print(f"Test R²: {r2_score(y_test, y_pred_test):.3f}")      # Variância explicada (teste)
+print(f"Train RMSE: R${train_rmse:.2f}")  # Erro médio em reais (treino)
+print(f"Test RMSE: R${test_rmse:.2f}")    # Erro médio em reais (teste)
+
+# Validação cruzada para estimativa mais robusta do desempenho
+cv_scores = cross_val_score(full_pipeline, X, y, cv=5, scoring='r2')
+print(f"\nValidação Cruzada R²: {cv_scores.mean():.3f} (±{cv_scores.std():.3f})")
 ```
 
 ![Sem título](https://github.com/user-attachments/assets/b951b6bc-8662-414b-a6ae-aca124e6d8bc)
