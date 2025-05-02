@@ -703,7 +703,7 @@ A preparação dos dados consiste dos seguintes passos:
 
 # Modelo para Hipótese 1 - Existe uma correlação entre o valor do salário com o PIB e o IHD do estado que o profissional trabalha?
 
-**Modelo:** Random Forest
+### **Modelo:** Random Forest
 
 ## Justificativa:
 - **Lida bem com Não-Linearidade:** As relações entre as features (experiência, educação, PIB) e o salário raramente são perfeitamente lineares. O Random Forest captura essas relações complexas de forma eficaz.
@@ -1005,7 +1005,7 @@ print(f"\nValidação Cruzada R²: {cv_scores.mean():.3f} (±{cv_scores.std():.3
 ### Train RMSE: R$4589.71
 ### Test RMSE: R$5233.47
 
-Validação Cruzada R²: 0.438 (±0.012)
+### Validação Cruzada R²: 0.438 (±0.012)
 
 ![Sem título](https://github.com/user-attachments/assets/b951b6bc-8662-414b-a6ae-aca124e6d8bc)
 ![Sem título-1](https://github.com/user-attachments/assets/3e80b7b5-1f85-4a4f-92ed-ea78bedff58b)
