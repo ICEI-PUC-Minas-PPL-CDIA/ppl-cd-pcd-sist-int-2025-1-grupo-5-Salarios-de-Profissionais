@@ -903,6 +903,7 @@ plt.xticks(rotation=45)  # Rotacionar rótulos do eixo X para melhor legibilidad
 plt.grid(True)
 plt.show()
 
+```
 
 ![Sem título](https://github.com/user-attachments/assets/b951b6bc-8662-414b-a6ae-aca124e6d8bc)
 ![Sem título-1](https://github.com/user-attachments/assets/3e80b7b5-1f85-4a4f-92ed-ea78bedff58b)
