@@ -531,13 +531,13 @@ As variáveis categóricas restantes foram transformadas em variáveis binárias
 ### 4. Modelagem Preditiva
 Modelos Utilizados:
 
-Regressão Linear
+=== Regressão Linear ===
 
 Erro Absoluto Médio (MAE): 2.605,37
 
 Coeficiente de Determinação (R²): 0,528
 
-XGBoost Regressor
+=== XGBoost Regressor ===
 
 Erro Absoluto Médio (MAE): 2.766,00
 
