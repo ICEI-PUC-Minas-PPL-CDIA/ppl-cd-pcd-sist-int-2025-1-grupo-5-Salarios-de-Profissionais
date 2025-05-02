@@ -999,10 +999,11 @@ print(f"\nValidação Cruzada R²: {cv_scores.mean():.3f} (±{cv_scores.std():.3
 ## Resultado
 
 === Métricas de Desempenho ===
-Train R²: 0.517
-Test R²: 0.439
-Train RMSE: R$4589.71
-Test RMSE: R$5233.47
+
+### Train R²: 0.517
+### Test R²: 0.439
+### Train RMSE: R$4589.71
+### Test RMSE: R$5233.47
 
 Validação Cruzada R²: 0.438 (±0.012)
 
