@@ -698,6 +698,216 @@ A preparação dos dados consiste dos seguintes passos:
 
 ### Modelo 1: Algoritmo
 
+
+### Resultados obtidos com o modelo 1.
+
+# Modelo para Hipótese 1 - Existe uma correlação entre o valor do salário com o PIB e o IHD do estado que o profissional trabalha?
+
+**Modelo:** Random Forest
+
+## Justificativa:
+- **Lida bem com Não-Linearidade:** As relações entre as features (experiência, educação, PIB) e o salário raramente são perfeitamente lineares. O Random Forest captura essas relações complexas de forma eficaz.
+- **Captura Interações entre Features:** Identifica automaticamente como diferentes variáveis interagem (ex: impacto do Nivel_de_Ensino pode variar por Setor).
+- **Robustez a Outliers:** Menos sensível a valores extremos que modelos como Regressão Linear.
+- **Funciona com Dados Mistos:** Lida bem com variáveis numéricas (PIB, IDHM) e categóricas (Experiência, Ensino, Setor).
+- **Redução de Overfitting:** Combate overfitting através da agregação de múltiplas árvores.
+- **Importância das Features:** Fornece métricas de importância das variáveis.
+- **Menos Exigente em Ajuste Fino:** Desempenho razoável mesmo com hiperparâmetros padrão.
+
+### Processo Utilizado para Amostragem de Dados
+
+1. **Pré-processamento Inicial**
+   - Transformação logarítmica da variável alvo (salário)
+   - Criação de faixas salariais usando quintis (5 grupos)
+
+2. **Divisão Treino-Teste**
+   - Separação estratificada (80% treino, 20% teste)
+   - Preservação da distribuição original de salários
+
+3. **Validação Cruzada**
+   - K-Fold estratificado (5 folds)
+   - Manutenção da distribuição salarial em cada fold
+
+4. **Pós-processamento**
+   - Transformação inversa dos valores preditos
+   - Cálculo de métricas na escala monetária original
+
+### Descrição dos Parâmetros Utilizados
+
+#### 1. `train_test_split` (Divisão Treino-Teste)
+| Parâmetro      | Valor | Descrição | Justificativa |
+|----------------|-------|-----------|---------------|
+| `test_size`    | 0.2   | 20% para teste | Balanceia generalização e avaliação |
+| `stratify`     | strat (Quintis) | Mantém proporção de faixas salariais | Evita viés na avaliação |
+| `random_state` | 42    | Semente aleatória | Garante reprodutibilidade |
+
+#### 2. `StratifiedKFold` (Validação Cruzada)
+| Parâmetro      | Valor | Descrição | Justificativa |
+|----------------|-------|-----------|---------------|
+| `n_splits`     | 5     | 5 folds   | Balanceia robustez e eficiência |
+| `shuffle`      | True  | Embaralha dados | Evita influência de padrões de ordenação |
+| `random_state` | 42    | Semente   | Garante consistência |
+
+#### 3. `pd.qcut` (Criação de Faixas Salariais)
+| Parâmetro | Valor | Descrição | Justificativa |
+|-----------|-------|-----------|---------------|
+| `q`       | 5     | 5 quintis | Garante igual quantidade por faixa |
+| `labels`  | False | Retorna intervalos numéricos | Facilita uso em stratify |
+
+#### 4. Transformação Logarítmica
+| Função        | Descrição | Justificativa |
+|---------------|-----------|---------------|
+| `np.log1p(y)` | log(1 + x) | Evita erros com zero e reduz outliers |
+| `np.expm1(y_pred)` | exp(x) - 1 | Retorna à escala original (R$) |
+
+#### 5. Visualização
+| Parâmetro  | Exemplo | Descrição |
+|------------|---------|-----------|
+| `figsize`  | (10, 6) | Tamanho da figura |
+| `alpha`    | 0.6     | Transparência |
+| `kde`      | True    | Curva de densidade |
+| `palette`  | 'viridis' | Esquema de cores |
+
+### Trechos do Código
+
+```python
+
+# Importação de bibliotecas para visualização
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Configurar o estilo dos gráficos para usar o tema 'ggplot' (mais profissional)
+plt.style.use('ggplot')
+
+# 1. GRÁFICO DE VALORES REAIS VS PREDITOS ======================================
+
+# Criar figura com tamanho específico (10x6 polegadas)
+plt.figure(figsize=(10, 6))
+
+# Scatter plot comparando valores reais (x) e preditos (y)
+# alpha=0.6 controla a transparência dos pontos para melhor visualização
+sns.scatterplot(x=y_test_exp,       # Valores reais do salário (escala original)
+                y=y_pred_test_exp,  # Valores preditos pelo modelo
+                alpha=0.6)          # Transparência dos pontos
+
+# Linha de referência (idealmente os pontos deveriam estar sobre esta linha)
+plt.plot([y_test_exp.min(), y_test_exp.max()],  # Eixo X (min a max)
+         [y_test_exp.min(), y_test_exp.max()],  # Eixo Y (min a max)
+         'r--',  # Linha vermelha tracejada
+         lw=2)   # Espessura da linha
+
+# Configurações do gráfico
+plt.title('Valores Reais vs Preditos (Teste)', fontsize=14)  # Título com tamanho de fonte
+plt.xlabel('Salário Real (R$)', fontsize=12)  # Rótulo do eixo X
+plt.ylabel('Salário Predito (R$)', fontsize=12)  # Rótulo do eixo Y
+plt.grid(True)  # Habilitar grid
+plt.show()  # Mostrar o gráfico
+
+# 2. DISTRIBUIÇÃO DOS RESÍDUOS ================================================
+
+# Calcular os resíduos (diferença entre real e predito)
+residuos = y_test_exp - y_pred_test_exp
+
+# Criar nova figura
+plt.figure(figsize=(10, 6))
+
+# Histograma + curva de densidade dos resíduos
+sns.histplot(residuos,  # Valores dos resíduos
+             kde=True,   # Adicionar Kernel Density Estimation (curva de densidade)
+             bins=30)    # Número de barras do histograma
+
+# Linha vertical vermelha no zero (onde os resíduos deveriam se concentrar)
+plt.axvline(x=0, color='r', linestyle='--')
+
+# Configurações do gráfico
+plt.title('Distribuição dos Resíduos (Teste)', fontsize=14)
+plt.xlabel('Erro (Real - Predito) em R$', fontsize=12)
+plt.ylabel('Frequência', fontsize=12)
+plt.grid(True)
+plt.show()
+
+# 3. IMPORTÂNCIA DAS FEATURES (para modelos ensemble) =========================
+
+# Verificar se o modelo tem o atributo feature_importances_
+if hasattr(full_pipeline.named_steps['regressor'], 'feature_importances_'):
+
+    # Obter nomes das features após pré-processamento:
+
+    # Features numéricas originais
+    num_features = ['PIB_2021_OR', 'IDHM', 'PIB_per_capita']
+
+    # Features categóricas codificadas
+    exp_features = ['Experiência']  # Nome da coluna após codificação ordinal
+    ensino_features = ['Nível Ensino']  # Nome da coluna após codificação ordinal
+
+    # Obter nomes das colunas one-hot para Setor
+    setor_features = full_pipeline.named_steps['preprocessor']\
+                        .named_transformers_['setor']\
+                        .named_steps['encoder']\
+                        .get_feature_names_out(['Setor'])
+
+    # Combinar todos os nomes de features
+    all_features = num_features + exp_features + ensino_features + list(setor_features)
+
+    # Obter importância das features do modelo
+    importances = full_pipeline.named_steps['regressor'].feature_importances_
+
+    # Criar DataFrame com features e suas importâncias
+    feat_imp = pd.DataFrame({'Feature': all_features, 'Importance': importances})
+
+    # Ordenar e pegar as 15 mais importantes
+    feat_imp = feat_imp.sort_values('Importance', ascending=False).head(15)
+
+    # Criar gráfico de barras horizontais
+    plt.figure(figsize=(12, 8))
+    sns.barplot(x='Importance',       # Valores no eixo X
+                y='Feature',          # Categorias no eixo Y
+                data=feat_imp,        # DataFrame com os dados
+                palette='viridis')    # Esquema de cores
+
+    # Configurações do gráfico
+    plt.title('Top 15 Features por Importância', fontsize=14)
+    plt.xlabel('Importância Relativa', fontsize=12)
+    plt.ylabel('')  # Remover rótulo do eixo Y
+    plt.grid(True, axis='x')  # Grid apenas no eixo X
+    plt.show()
+
+# 4. BOXPLOT DE RESÍDUOS POR FAIXA SALARIAL (OPCIONAL) ========================
+
+# Criar cópia do DataFrame de teste para análise
+df_test = X_test.copy()
+
+# Adicionar colunas auxiliares
+df_test['Salario_Real'] = y_test_exp  # Salários reais
+df_test['Residuo'] = residuos         # Resíduos calculados
+
+# Criar faixas salariais (quintis - divide em 5 grupos com mesma quantidade)
+df_test['Faixa_Salarial'] = pd.qcut(df_test['Salario_Real'], q=5)
+
+# Criar figura
+plt.figure(figsize=(12, 6))
+
+# Boxplot dos resíduos por faixa salarial
+sns.boxplot(x='Faixa_Salarial',  # Eixo X: faixas salariais
+            y='Residuo',         # Eixo Y: resíduos
+            data=df_test)        # DataFrame com os dados
+
+# Linha de referência no zero
+plt.axhline(y=0, color='r', linestyle='--')
+
+# Configurações do gráfico
+plt.title('Distribuição dos Resíduos por Faixa Salarial', fontsize=14)
+plt.xlabel('Faixa Salarial (Quintis)', fontsize=12)
+plt.ylabel('Erro (Real - Predito) em R$', fontsize=12)
+plt.xticks(rotation=45)  # Rotacionar rótulos do eixo X para melhor legibilidade
+plt.grid(True)
+plt.show()
+
+
+![Sem título](https://github.com/user-attachments/assets/b951b6bc-8662-414b-a6ae-aca124e6d8bc)
+![Sem título-1](https://github.com/user-attachments/assets/3e80b7b5-1f85-4a4f-92ed-ea78bedff58b)
+
+
 Substitua o título pelo nome do algoritmo que será utilizado. P. ex. árvore de decisão, rede neural, SVM, etc.
 Justifique a escolha do modelo.
 Apresente o processo utilizado para amostragem de dados (particionamento, cross-validation).
