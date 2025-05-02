@@ -996,6 +996,16 @@ cv_scores = cross_val_score(full_pipeline, X, y, cv=5, scoring='r2')
 print(f"\nValidação Cruzada R²: {cv_scores.mean():.3f} (±{cv_scores.std():.3f})")
 ```
 
+## Resultado
+
+=== Métricas de Desempenho ===
+Train R²: 0.517
+Test R²: 0.439
+Train RMSE: R$4589.71
+Test RMSE: R$5233.47
+
+Validação Cruzada R²: 0.438 (±0.012)
+
 ![Sem título](https://github.com/user-attachments/assets/b951b6bc-8662-414b-a6ae-aca124e6d8bc)
 ![Sem título-1](https://github.com/user-attachments/assets/3e80b7b5-1f85-4a4f-92ed-ea78bedff58b)
 
