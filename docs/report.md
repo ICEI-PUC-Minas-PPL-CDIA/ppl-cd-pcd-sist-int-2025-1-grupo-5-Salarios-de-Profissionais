@@ -742,6 +742,14 @@ O nível de formação acadêmica tem impacto significativo no salário, mesmo a
 
 **Resumo:**  
 O primeiro modelo preditivo (Regressão Linear) confirma a hipótese de que o nível de formação acadêmica influencia significativamente o salário dos profissionais de dados, mesmo após o controle de outras variáveis relevantes.
+### Distribuição Salarial por Formação
+![Distribuição Salarial](https://github.com/user-attachments/assets/...)
+*Média salarial aumenta progressivamente com o nível de formação.*
+
+### Importância das Variáveis
+![Importância das Variáveis](https://github.com/user-attachments/assets/...)
+*Nível de formação é a variável mais relevante no modelo.*
+
 
 
 
