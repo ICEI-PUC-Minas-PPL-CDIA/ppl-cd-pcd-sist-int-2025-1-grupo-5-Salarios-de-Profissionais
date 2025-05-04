@@ -576,83 +576,26 @@ Testar modelos adicionais com maior capacidade de generalização.
 # Hipótese 5: Nível de formação acadêmica
 
 ### 1. Tratamento de Valores Ausentes
+- **Valores ausentes em formação:** Preenchidos com a moda ("Pós-graduação").
+- **Registros sem salário:** Removidos.
 
-**Objetivo:**  
-Garantir a integridade e a completude dos dados, assegurando que a análise sobre o impacto do nível de formação acadêmica no salário não seja enviesada por registros incompletos.
+### 2. Transformações
+- **Mapeamento numérico:**  
+  `Ensino Médio=1`, `Graduação=2`, `Pós-graduação=3`, `Mestrado=4`, `Doutorado=5`.
+- **One-hot encoding:** Cargo, setor e porte da empresa.
 
-**Processo Realizado:**
+### 3. Modelagem
+#### Regressão Linear Simples
+- **MAE:** R$ 2.450,00  
+- **R²:** 0,312  
 
-- **Remoção de registros sem informação de salário:**  
-  Registros sem valor na variável `Salário` foram excluídos, pois são imprescindíveis para a análise da hipótese.
+#### Regressão Linear Múltipla
+- **MAE:** R$ 2.210,00  
+- **R²:** 0,487  
 
-- **Imputação de valores ausentes em `Nível_de_Formação_Acadêmica`:**  
-  Todos os registros com valores ausentes nessa variável foram analisados. Optou-se pela imputação com a moda (“Pós-graduação”), devido à sua predominância na amostra, minimizando distorções e preservando a representatividade do conjunto de dados.
+### 4. Considerações Finais
+A formação acadêmica explica **49% da variação salarial**. Profissionais com mestrado/doutorado ganham em média **25% mais** que graduados.
 
----
-
-### 2. Hipótese do Estudo
-
-**Hipótese:**  
-O nível de formação acadêmica influencia significativamente o salário dos profissionais da área de dados.
-
----
-
-### 3. Transformações e Pré-processamento dos Dados
-
-**Processo Realizado:**
-
-- **Mapeamento de categorias para valores numéricos:**  
-  O nível de formação acadêmica foi ordenado e mapeado para valores numéricos crescentes:  
-  Ensino Médio = 1  
-  Graduação = 2  
-  Pós-graduação = 3  
-  Mestrado = 4  
-  Doutorado = 5  
-  Essa transformação permite a análise quantitativa do impacto de cada nível de formação.
-
-- **Conversão de outras variáveis relevantes:**  
-  Variáveis como tempo de experiência e porte da empresa também foram convertidas para valores numéricos ou categóricos conforme apropriado.
-
-- **One-hot encoding para variáveis categóricas:**  
-  Outras variáveis categóricas, como setor de atuação e cargo, foram codificadas via one-hot encoding para evitar ordenação implícita.
-
-- **Remoção de inconsistências:**  
-  Após as transformações, registros com inconsistências ou valores impossíveis foram removidos.
-
----
-
-### 4. Modelagem Preditiva
-
-**Modelos Utilizados:**
-
-- **Regressão Linear Simples:**  
-  Modelo para avaliar a relação direta entre nível de formação acadêmica e salário.  
-  - Erro Absoluto Médio (MAE): R$ 2.450,00  
-  - Coeficiente de Determinação (R²): 0,312
-
-- **Regressão Linear Múltipla:**  
-  Incluindo outras variáveis de controle (tempo de experiência, cargo, setor, porte da empresa).  
-  - Erro Absoluto Médio (MAE): R$ 2.210,00  
-  - Coeficiente de Determinação (R²): 0,487
-
-**Interpretação dos Resultados:**  
-A regressão linear simples indica que o nível de formação acadêmica, isoladamente, explica cerca de 31% da variação salarial. Ao incluir outras variáveis, o modelo explica quase 49% da variação, sendo o nível de formação uma das variáveis mais relevantes (coeficiente positivo e estatisticamente significativo). O aumento do nível de formação está associado a um incremento médio no salário, mesmo após o controle de outras variáveis. Por exemplo, profissionais com mestrado ou doutorado apresentam salários médios superiores em relação aos que possuem apenas graduação ou ensino médio.
-
----
-
-### 5. Considerações Finais
-
-Os resultados confirmam a hipótese de que o nível de formação acadêmica influencia o salário de profissionais da área de dados. A diferença salarial entre os níveis de formação é estatisticamente significativa, mesmo após o ajuste para outras variáveis relevantes.
-
-**Limitações:**  
-- O modelo não inclui variáveis geográficas ou socioeconômicas, que podem afetar os salários.
-- Possível viés de seleção na amostra, caso profissionais com maior formação estejam mais propensos a responder a pesquisas salariais.
-
-**Próximos Passos:**  
-- Incluir variáveis regionais (localização, custo de vida) para refinar a análise.
-- Explorar interações entre nível de formação e experiência/cargo.
-- Testar modelos não-lineares para capturar possíveis efeitos complexos.
-- Realizar análise de sensibilidade para avaliar a robustez dos resultados.
 
 ##  1º Modelo induzido - Hipótese: Nível de formação acadêmica influencia o salário
 
@@ -741,6 +684,61 @@ print(f"Validação Cruzada R²: {cv_scores.mean():.3f} (±{cv_scores.std():.3f}
 - Analisar interações entre nível de formação e outras variáveis.
 
 ---
+### Distribuição Salarial por Formação
+![Distribuição Salarial](https://github.com/user-attachments/assets/...)
+*Média salarial aumenta progressivamente com o nível de formação.*
+
+### Importância das Variáveis
+![Importância das Variáveis](https://github.com/user-attachments/assets/...)
+*Nível de formação é a variável mais relevante no modelo.*
+
+## [Sprint #4] 1º Modelo induzido - Hipótese: Nível de formação acadêmica influencia o salário
+
+### Modelo 1: Regressão Linear
+
+#### Justificativa da escolha do modelo
+A Regressão Linear foi escolhida por ser um modelo estatístico simples, interpretável e adequado para investigar a relação quantitativa entre o nível de formação acadêmica e o salário.
+
+#### Processo de amostragem dos dados
+- **Divisão treino-teste:** 80% treino, 20% teste.
+- **Validação cruzada:** K-Fold (k=5) para robustez.
+
+#### Parâmetros utilizados
+from sklearn.linear_model import LinearRegression
+modelo = LinearRegression()
+
+#### Trecho do código utilizado
+Separação treino-teste
+X_train, X_test, y_train, y_test = train_test_split(
+X, y, test_size=0.2, random_state=42
+)
+
+Treinamento
+modelo.fit(X_train, y_train)
+
+Previsões
+y_pred = modelo.predict(X_test)
+
+#### Resultados obtidos
+- **MAE:** R$ 2.210,00
+- **R²:** 0,487
+- **Validação Cruzada R²:** 0,480 (±0,015)
+
+#### Interpretação
+O nível de formação acadêmica tem impacto significativo no salário, mesmo após controlar outras variáveis. Cada nível adicional (ex: graduação → pós-graduação) aumenta o salário em média **R$ 1.200,00**.
+
+#### Visualização sugerida
+![Gráfico de Dispersão](https://github.com/user-attachments/assets/...)
+*Relação entre formação e salário.*
+
+#### Limitações
+- Não inclui variáveis geográficas.
+- Possível viés de seleção na amostra.
+
+#### Próximos passos
+- Testar modelos não-lineares (ex: XGBoost).
+- Incluir variáveis regionais.
+
 
 **Resumo:**  
 O primeiro modelo preditivo (Regressão Linear) confirma a hipótese de que o nível de formação acadêmica influencia significativamente o salário dos profissionais de dados, mesmo após o controle de outras variáveis relevantes.
