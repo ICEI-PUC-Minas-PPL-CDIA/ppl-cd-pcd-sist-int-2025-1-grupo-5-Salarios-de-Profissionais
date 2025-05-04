@@ -654,7 +654,7 @@ Os resultados confirmam a hipótese de que o nível de formação acadêmica inf
 - Testar modelos não-lineares para capturar possíveis efeitos complexos.
 - Realizar análise de sensibilidade para avaliar a robustez dos resultados.
 
-## [Sprint #4] 1º Modelo induzido - Hipótese: Nível de formação acadêmica influencia o salário
+##  1º Modelo induzido - Hipótese: Nível de formação acadêmica influencia o salário
 
 ### Modelo 1: Regressão Linear
 
