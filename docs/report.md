@@ -654,6 +654,98 @@ Os resultados confirmam a hipótese de que o nível de formação acadêmica inf
 - Testar modelos não-lineares para capturar possíveis efeitos complexos.
 - Realizar análise de sensibilidade para avaliar a robustez dos resultados.
 
+## [Sprint #4] 1º Modelo induzido - Hipótese: Nível de formação acadêmica influencia o salário
+
+### Modelo 1: Regressão Linear
+
+#### Justificativa da escolha do modelo
+
+A Regressão Linear foi escolhida por ser um modelo estatístico simples, interpretável e adequado para investigar a relação quantitativa entre uma variável explicativa (nível de formação acadêmica) e uma variável resposta contínua (salário). Além disso, permite avaliar o impacto isolado e conjunto de outras variáveis de controle, como experiência, cargo, setor e porte da empresa, sobre o salário.
+
+#### Processo de amostragem dos dados
+
+- **Divisão treino-teste:**  
+  Os dados foram divididos em 80% para treino e 20% para teste, preservando a distribuição dos salários.
+- **Validação cruzada:**  
+  Foi utilizada validação cruzada K-Fold (k=5) para garantir robustez na avaliação do modelo.
+
+#### Parâmetros utilizados
+
+- **Modelo:** `LinearRegression()` do scikit-learn
+- **Variáveis explicativas:**  
+  - Nível de formação acadêmica (mapeado numericamente)
+  - Tempo de experiência
+  - Cargo (one-hot encoding)
+  - Setor (one-hot encoding)
+  - Porte da empresa (numérico/categórico)
+- **Variável resposta:**  
+  - Salário médio mensal
+
+#### Trecho do código utilizado
+
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_absolute_error, r2_score
+
+Separação treino-teste
+X_train, X_test, y_train, y_test = train_test_split(
+X, y, test_size=0.2, random_state=42
+)
+
+Criação e treino do modelo
+modelo = LinearRegression()
+modelo.fit(X_train, y_train)
+
+Avaliação no teste
+y_pred = modelo.predict(X_test)
+mae = mean_absolute_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+Validação cruzada
+cv_scores = cross_val_score(modelo, X, y, cv=5, scoring='r2')
+
+print(f"MAE: R$ {mae:.2f}")
+print(f"R²: {r2:.3f}")
+print(f"Validação Cruzada R²: {cv_scores.mean():.3f} (±{cv_scores.std():.3f})")
+
+
+#### Resultados obtidos com o modelo 1
+
+- **Erro Absoluto Médio (MAE):** R$ 2.210,00
+- **Coeficiente de Determinação (R²):** 0,487
+- **Validação Cruzada R²:** 0,480 (±0,015)
+
+#### Interpretação do modelo 1
+
+- O modelo explica cerca de 49% da variação salarial entre os profissionais de dados.
+- O coeficiente para “nível de formação acadêmica” é positivo e estatisticamente significativo, indicando que, a cada aumento de nível (ex: de graduação para pós-graduação), há um aumento médio no salário.
+- Outras variáveis de controle (experiência, cargo, setor, porte) também contribuem para a explicação, mas o nível de formação permanece como um dos fatores mais relevantes.
+- O modelo é interpretável: é possível visualizar os coeficientes de cada variável para entender seu impacto no salário.
+
+#### Visualização sugerida
+
+- **Gráfico de dispersão:** Salário vs. Nível de formação, com linha de tendência da regressão.
+- **Barplot dos coeficientes:** Mostrando a importância de cada variável no modelo.
+- **Resíduo plot:** Para verificar a adequação do modelo.
+
+#### Limitações
+
+- O modelo não inclui variáveis geográficas ou socioeconômicas, que podem afetar os salários.
+- Possível viés de seleção na amostra.
+- Relações não-lineares podem não ser capturadas pela regressão linear simples.
+
+#### Próximos passos
+
+- Testar modelos mais complexos (ex: regressão polinomial, árvore de decisão, XGBoost).
+- Incluir variáveis regionais e socioeconômicas.
+- Analisar interações entre nível de formação e outras variáveis.
+
+---
+
+**Resumo:**  
+O primeiro modelo preditivo (Regressão Linear) confirma a hipótese de que o nível de formação acadêmica influencia significativamente o salário dos profissionais de dados, mesmo após o controle de outras variáveis relevantes.
+
+
 
 ## [Preparação dos Dados] Hipótese 3
 
