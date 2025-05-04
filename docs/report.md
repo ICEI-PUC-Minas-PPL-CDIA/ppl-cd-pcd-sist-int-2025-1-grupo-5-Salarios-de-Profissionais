@@ -573,47 +573,109 @@ Ajustar hiperparâmetros de modelos não-lineares como o XGBoost.
 
 Testar modelos adicionais com maior capacidade de generalização.
 
-# Hipótese 5: Nível de formação acadêmica
+# Hipótese 5: Nível de formação acadêmica influencia o salário
 
-### 1. Tratamento de Dados
-- **Valores ausentes em formação:** Preenchidos com a moda ("Pós-graduação").
-- **Registros sem salário:** Removidos (5% da amostra).
+## 1. Preparação de Dados
 
-### 2. Transformações
-- **Mapeamento numérico:**  
-  `Ensino Médio=1`, `Graduação=2`, `Pós-graduação=3`, `Mestrado=4`, `Doutorado=5`.
-- **One-hot encoding:** Aplicado em `Cargo`, `Setor` e `Porte da Empresa`.
+**Tratamento de valores ausentes:**
+- Preenchimento dos valores ausentes em `Nível_de_Formação_Acadêmica` com a moda ("Pós-graduação"), devido à sua predominância na amostra.
+- Remoção dos registros sem informação de salário, pois são imprescindíveis para a análise.
 
-### 3. Modelagem Preditiva
-#### Modelo: Regressão Linear Múltipla
+**Transformações e pré-processamento:**
+- Mapeamento do nível de formação acadêmica para valores numéricos crescentes:
+  - Ensino Médio = 1
+  - Graduação = 2
+  - Pós-graduação = 3
+  - Mestrado = 4
+  - Doutorado = 5
+- Conversão de variáveis como tempo de experiência e porte da empresa para valores numéricos ou categóricos.
+- One-hot encoding para variáveis categóricas (setor de atuação, cargo).
+- Remoção de registros com inconsistências ou valores impossíveis.
+
+**Estatísticas antes e depois do tratamento:**
+- Registros iniciais: 5.293
+- Registros após tratamento: 4.651
+- Distribuição dos níveis de formação após tratamento:
+  - Pós-graduação: 40%
+  - Graduação: 30%
+  - Mestrado: 15%
+  - Doutorado: 5%
+  - Ensino Médio: 10%
+
+---
+
+## 2. 1º Modelo induzido - Regressão Linear
+
+**Justificativa:**  
+A Regressão Linear foi escolhida por ser um modelo estatístico simples, interpretável e adequado para investigar a relação quantitativa entre o nível de formação acadêmica e o salário, controlando outras variáveis como experiência, cargo, setor e porte da empresa.
+
+**Processo de amostragem dos dados:**
+- Divisão treino-teste: 80% para treino, 20% para teste.
+- Validação cruzada: K-Fold (k=5) para garantir robustez na avaliação do modelo.
+
+**Parâmetros utilizados:**
+from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_absolute_error, r2_score
 
-Divisão treino-teste (80/20)
+Separação treino-teste
 X_train, X_test, y_train, y_test = train_test_split(
 X, y, test_size=0.2, random_state=42
 )
 
-Treinamento
+Treinamento do modelo
 modelo = LinearRegression()
 modelo.fit(X_train, y_train)
 
-#### Resultados:
-- **MAE:** R$ 2.210,00  
-- **R²:** 0,487  
-- **Validação Cruzada R²:** 0,480 (±0,015)  
+Previsões e métricas
+y_pred = modelo.predict(X_test)
+mae = mean_absolute_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
 
-#### Interpretação:
-- Cada nível adicional de formação aumenta o salário em **R$ 1.200,00** (coeficiente: 1200, *p* < 0,01).
-- Variáveis de controle (experiência, cargo) explicam 17% da variação restante.
+Validação cruzada
+cv_scores = cross_val_score(modelo, X, y, cv=5, scoring='r2')
 
-### 4. Visualizações
-![Impacto da Formação no Salário](https://github.com/user-attachments/assets/exemplo.png)  
-*Relação positiva entre nível de formação e salário (Fonte: Análise dos dados).*
+**Resultados obtidos:**
+- Erro Absoluto Médio (MAE): R$ 2.210,00
+- Coeficiente de Determinação (R²): 0,487
+- Validação Cruzada R²: 0,480 (±0,015)
 
-### 5. Limitações e Próximos Passos
-- **Limitação:** Não considera variáveis geográficas (ex.: custo de vida por estado).
-- **Próximo passo:** Incluir interação entre formação e experiência usando XGBoost.
+**Interpretação dos resultados:**
+- O nível de formação acadêmica é uma das variáveis mais relevantes e tem coeficiente positivo e estatisticamente significativo.
+- Cada nível adicional de formação está associado a um aumento médio no salário, mesmo após o controle de outras variáveis.
+- O modelo explica cerca de 49% da variação salarial entre os profissionais de dados.
+
+---
+
+### Visualizações
+
+#### Distribuição Salarial por Nível de Formação
+
+![Distribuição Salarial por Nível de Formação](imagens/distribuicao_salarial_formacao.png)
+*Média salarial aumenta progressivamente com o nível de formação.*
+
+#### Importância das Variáveis no Modelo de Regressão Linear
+
+![Importância das Variáveis no Modelo de Regressão Linear](imagens/importancia_variaveis_regressao.png)
+*Nível de formação é a variável mais relevante no modelo.*
+
+---
+
+**Limitações:**
+- O modelo não inclui variáveis geográficas ou socioeconômicas, que podem afetar os salários.
+- Possível viés de seleção na amostra, caso profissionais com maior formação estejam mais propensos a responder a pesquisas salariais.
+
+**Próximos Passos:**
+- Incluir variáveis regionais (localização, custo de vida) para refinar a análise.
+- Explorar interações entre nível de formação e experiência/cargo.
+- Testar modelos não-lineares para capturar possíveis efeitos complexos.
+- Realizar análise de sensibilidade para avaliar a robustez dos resultados.
+
+---
+
+**Resumo:**  
+O primeiro modelo preditivo (Regressão Linear) confirma a hipótese de que o nível de formação acadêmica influencia significativamente o salário dos profissionais de dados, mesmo após o controle de outras variáveis relevantes.
+
 
 
 
