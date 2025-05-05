@@ -601,6 +601,19 @@ map_formacao = {
     'Doutorado': 5
 }
 df['Nivel_de_Ensino_Num'] = df['Nivel_de_Ensino'].map(map_formacao)
+# Codificação ordinal para experiência
+map_experiencia = {
+    'Não tenho experiência na área de dados': 0,
+    'Menos de 1 ano': 1,
+    'De 1 a 2 anos': 2,
+    'De 2 a 3 anos': 3,
+    'De 3 a 4 anos': 4,
+    'De 4 a 6 anos': 5,
+    'De 7 a 10 anos': 6,
+    'Mais de 10 anos': 7
+}
+df['Experiencia_Num'] = df['Tempo_de_experiencia_na_area_de_dados'].map(map_experiencia)
+
 
 # 4. Remoção de outliers salariais
 Q1 = df['Salario_Medio'].quantile(0.25)
@@ -643,6 +656,10 @@ map_experiencia = {
     # ... completar com todas as categorias
 }
 df['Experiencia_Num'] = df['Tempo_de_experiencia_na_area_de_dados'].map(map_experiencia)
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+df[['PIB_2021_OR', 'IDHM', 'PIB_per_capita']] = scaler.fit_transform(df[['PIB_2021_OR', 'IDHM', 'PIB_per_capita']])
 
 
 ---
@@ -682,11 +699,34 @@ cv_scores = cross_val_score(modelo, X, y, cv=5, scoring='r2')
 - Erro Absoluto Médio (MAE): R$ 2.210,00
 - Coeficiente de Determinação (R²): 0,487
 - Validação Cruzada R²: 0,480 (±0,015)
+import matplotlib.pyplot as plt
+
+residuos = y_test - y_pred
+plt.figure(figsize=(10,6))
+plt.scatter(y_pred, residuos, alpha=0.5)
+plt.axhline(0, color='red', linestyle='--')
+plt.xlabel('Salário Previsto')
+plt.ylabel('Resíduos (Real - Previsto)')
+plt.title('Análise de Resíduos do Modelo')
+plt.show()
+
 
 **Interpretação dos resultados:**
 - O nível de formação acadêmica é uma das variáveis mais relevantes e tem coeficiente positivo e estatisticamente significativo.
 - Cada nível adicional de formação está associado a um aumento médio no salário, mesmo após o controle de outras variáveis.
 - O modelo explica cerca de 49% da variação salarial entre os profissionais de dados.
+import pandas as pd
+
+coeficientes = pd.DataFrame({
+    'Variável': X_train.columns,
+    'Coeficiente': modelo.coef_
+})
+print(coeficientes)
+import statsmodels.api as sm
+
+X2 = sm.add_constant(X)  # adiciona intercepto
+modelo_stats = sm.OLS(y, X2).fit()
+print(modelo_stats.summary())
 
 ---
 
