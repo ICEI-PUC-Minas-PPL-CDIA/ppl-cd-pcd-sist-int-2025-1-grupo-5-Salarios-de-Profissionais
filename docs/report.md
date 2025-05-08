@@ -103,6 +103,8 @@ A base de dados State of Data Brazil 2023 é rica em informações sobre profiss
 
 State of Data Brazil 2023
 
+Variáveis Gerais
+
 | Variável                          | Descrição                                                  | Tipo de Dado                              |
 |-----------------------------------|------------------------------------------------------------|-------------------------------------------|
 | Salario Médio                     | Média da faixa salarial mensal                             | Quantitativo - Contínuo                   |
@@ -128,6 +130,7 @@ State of Data Brazil 2023
 | Modelo de Trabalho                | Regime de trabalho                                         | Qualitativo - Nominal (Multivariado)      |
 | Setor da Empresa                  | Setor de atuação da empresa                                | Qualitativo - Nominal (Multivariado)      |
 
+Cargos (Binários)
 
 | Variável                          | Descrição | Tipo de Dado                        |
 |-----------------------------------|-----------|-------------------------------------|
@@ -141,6 +144,7 @@ State of Data Brazil 2023
 | Data_Product_Manager              | Cargo     | Qualitativo - Nominal (Binário)     |
 | Business_Analyst                  | Cargo     | Qualitativo - Nominal (Binário)     |
 
+Linguagens de Programação (Binários)
 
 | Variável                        | Tipo de Dado                        |
 |---------------------------------|-------------------------------------|
@@ -160,6 +164,7 @@ State of Data Brazil 2023
 | JavaScript                      | Qualitativo - Nominal (Binário)     |
 | Não utilizo nenhuma linguagem   | Qualitativo - Nominal (Binário)     |
 
+Ferramentas - Nuvem e Armazenamento (Binários)
 
 | Variável                | Tipo de Dado                        |
 |-------------------------|-------------------------------------|
@@ -171,6 +176,7 @@ State of Data Brazil 2023
 | Servidores On Premise   | Qualitativo - Nominal (Binário)     |
 | Cloud própria           | Qualitativo - Nominal (Binário)     |
 
+Ferramentas de BI (Binários)
 
 | Variável                              | Tipo de Dado                        |
 |---------------------------------------|-------------------------------------|
@@ -198,12 +204,15 @@ State of Data Brazil 2023
 | Fazemos todas as análises em planilhas | Qualitativo - Nominal (Binário)     |
 | Não utilizo nenhuma ferramenta de BI   | Qualitativo - Nominal (Binário)     |
 
+Tabela PIB 2021
+
 | Variável          | Tipo de Dado                | Descrição                                                         |
 |-------------------|----------------------------|-------------------------------------------------------------------|
 | UF                | Qualitativo - Nominal       | Sigla da Unidade da Federação (estados e Distrito Federal)        |
 | PIB_2021_OR       | Quantitativo - Contínuo     | Valor do Produto Interno Bruto em 2021 (milhões de reais)         |
 | Partic_Pib_Brasil | Quantitativo - Contínuo     | Participação percentual do estado no PIB nacional (0 a 1)         |
 
+Tabela IDHM 2021
 
 | Variável      | Tipo de Dado                | Descrição                                                         |
 |---------------|----------------------------|-------------------------------------------------------------------|
