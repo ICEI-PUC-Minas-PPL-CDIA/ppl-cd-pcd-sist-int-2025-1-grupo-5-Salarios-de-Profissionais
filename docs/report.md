@@ -102,118 +102,125 @@ A base de dados State of Data Brazil 2023 é rica em informações sobre profiss
 # Dicionário de Dados
 
 State of Data Brazil 2023
-Variável	Descrição	Tipo de Dado
-Salario Médio	Média da faixa salarial mensal	Quantitativo - Contínuo
-Nível	Nível de carreira (experiência, autonomia, responsabilidades)	Qualitativo - Ordinal
-Número de Funcionários da Empresa	Faixa do número de funcionários da empresa	Qualitativo - Ordinal
-Situação Atual de Trabalho	Tipo de vínculo empregatício	Qualitativo - Nominal (Multivariado)
-Área de Formação	Área acadêmica do profissional	Qualitativo - Nominal (Multivariado)
-Estado de Origem	Estado originário do profissional	Qualitativo - Nominal (Multivariado)
-Mudou de Estado	Se mudou de estado	Qualitativo - Nominal (Binário)
-PCD (Pessoa Com Deficiência)	Se possui alguma deficiência	Qualitativo - Nominal (Binário)
-Estado onde Mora	Estado de residência atual	Qualitativo - Nominal (Multivariado)
-UF onde Mora	Unidade Federativa da residência atual	Qualitativo - Nominal (Multivariado)
-Região onde Mora	Região do Brasil onde reside	Qualitativo - Nominal (Multivariado)
-Idade	Idade em anos	Quantitativo - Discreto
-Faixa de Idade	Faixa etária (ex: 22-24, 30-34)	Qualitativo - Ordinal
-Gênero	Gênero (Masculino, Feminino, etc.)	Qualitativo - Nominal (Binário)
-Etnia/Cor/Raça	Etnia, cor ou raça do profissional	Qualitativo - Nominal (Multivalorado)
-Nível de Ensino	Nível de escolaridade	Qualitativo - Ordinal
-Faixa Salarial Mensal	Intervalo de renda mensal	Qualitativo - Ordinal
-Experiência Profissional em Dados	Tempo de experiência em dados	Qualitativo - Ordinal
-Cargo Atual	Cargo ocupado atualmente	Qualitativo - Nominal (Multivariado)
-Tamanho da Empresa	Porte da empresa	Qualitativo - Ordinal
-Modelo de Trabalho	Regime de trabalho	Qualitativo - Nominal (Multivariado)
-Setor da Empresa	Setor de atuação da empresa	Qualitativo - Nominal (Multivariado)
 
-Cargos (Binários)
-Variável	Descrição	Tipo de Dado
-Analytics_Engineer	Cargo	Qualitativo - Nominal (Binário)
-Data_Engineer	Cargo	Qualitativo - Nominal (Binário)
-Data_Analyst	Cargo	Qualitativo - Nominal (Binário)
-Data_Scientist	Cargo	Qualitativo - Nominal (Binário)
-Database_Administrator	Cargo	Qualitativo - Nominal (Binário)
-Analista_de_Bussiness_Intelligence	Cargo	Qualitativo - Nominal (Binário)
-Data_Architect	Cargo	Qualitativo - Nominal (Binário)
-Data_Product_Manager	Cargo	Qualitativo - Nominal (Binário)
-Business_Analyst	Cargo	Qualitativo - Nominal (Binário)
+| Variável                          | Descrição                                                  | Tipo de Dado                              |
+|-----------------------------------|------------------------------------------------------------|-------------------------------------------|
+| Salario Médio                     | Média da faixa salarial mensal                             | Quantitativo - Contínuo                   |
+| Nível                             | Nível de carreira (experiência, autonomia, responsabilidades) | Qualitativo - Ordinal                 |
+| Número de Funcionários da Empresa | Faixa do número de funcionários da empresa                 | Qualitativo - Ordinal                     |
+| Situação Atual de Trabalho        | Tipo de vínculo empregatício                               | Qualitativo - Nominal (Multivariado)      |
+| Área de Formação                  | Área acadêmica do profissional                             | Qualitativo - Nominal (Multivariado)      |
+| Estado de Origem                  | Estado originário do profissional                          | Qualitativo - Nominal (Multivariado)      |
+| Mudou de Estado                   | Se mudou de estado                                         | Qualitativo - Nominal (Binário)           |
+| PCD (Pessoa Com Deficiência)      | Se possui alguma deficiência                               | Qualitativo - Nominal (Binário)           |
+| Estado onde Mora                  | Estado de residência atual                                 | Qualitativo - Nominal (Multivariado)      |
+| UF onde Mora                      | Unidade Federativa da residência atual                     | Qualitativo - Nominal (Multivariado)      |
+| Região onde Mora                  | Região do Brasil onde reside                               | Qualitativo - Nominal (Multivariado)      |
+| Idade                             | Idade em anos                                              | Quantitativo - Discreto                   |
+| Faixa de Idade                    | Faixa etária (ex: 22-24, 30-34)                            | Qualitativo - Ordinal                     |
+| Gênero                            | Gênero (Masculino, Feminino, etc.)                         | Qualitativo - Nominal (Binário)           |
+| Etnia/Cor/Raça                    | Etnia, cor ou raça do profissional                         | Qualitativo - Nominal (Multivalorado)     |
+| Nível de Ensino                   | Nível de escolaridade                                      | Qualitativo - Ordinal                     |
+| Faixa Salarial Mensal             | Intervalo de renda mensal                                  | Qualitativo - Ordinal                     |
+| Experiência Profissional em Dados | Tempo de experiência em dados                              | Qualitativo - Ordinal                     |
+| Cargo Atual                       | Cargo ocupado atualmente                                   | Qualitativo - Nominal (Multivariado)      |
+| Tamanho da Empresa                | Porte da empresa                                           | Qualitativo - Ordinal                     |
+| Modelo de Trabalho                | Regime de trabalho                                         | Qualitativo - Nominal (Multivariado)      |
+| Setor da Empresa                  | Setor de atuação da empresa                                | Qualitativo - Nominal (Multivariado)      |
 
-Linguagens de Programação (Binários)
-Variável	Tipo de Dado
-SQL	Qualitativo - Nominal (Binário)
-R	Qualitativo - Nominal (Binário)
-Python	Qualitativo - Nominal (Binário)
-C/C++/C#	Qualitativo - Nominal (Binário)
-.NET	Qualitativo - Nominal (Binário)
-Java	Qualitativo - Nominal (Binário)
-Julia	Qualitativo - Nominal (Binário)
-SAS	Qualitativo - Nominal (Binário)
-Visual Basic	Qualitativo - Nominal (Binário)
-Scala	Qualitativo - Nominal (Binário)
-MATLAB	Qualitativo - Nominal (Binário)
-Rust	Qualitativo - Nominal (Binário)
-PHP	Qualitativo - Nominal (Binário)
-JavaScript	Qualitativo - Nominal (Binário)
-Não utilizo nenhuma linguagem	Qualitativo - Nominal (Binário)
 
-Ferramentas - Nuvem e Armazenamento (Binários)
-Variável	Tipo de Dado
-Azure (Microsoft)	Qualitativo - Nominal (Binário)
-Amazon Web Services	Qualitativo - Nominal (Binário)
-Google Cloud (GCP)	Qualitativo - Nominal (Binário)
-Oracle Cloud	Qualitativo - Nominal (Binário)
-IBM	Qualitativo - Nominal (Binário)
-Servidores On Premise	Qualitativo - Nominal (Binário)
-Cloud própria	Qualitativo - Nominal (Binário)
+| Variável                          | Descrição | Tipo de Dado                        |
+|-----------------------------------|-----------|-------------------------------------|
+| Analytics_Engineer                | Cargo     | Qualitativo - Nominal (Binário)     |
+| Data_Engineer                     | Cargo     | Qualitativo - Nominal (Binário)     |
+| Data_Analyst                      | Cargo     | Qualitativo - Nominal (Binário)     |
+| Data_Scientist                    | Cargo     | Qualitativo - Nominal (Binário)     |
+| Database_Administrator            | Cargo     | Qualitativo - Nominal (Binário)     |
+| Analista_de_Bussiness_Intelligence| Cargo     | Qualitativo - Nominal (Binário)     |
+| Data_Architect                    | Cargo     | Qualitativo - Nominal (Binário)     |
+| Data_Product_Manager              | Cargo     | Qualitativo - Nominal (Binário)     |
+| Business_Analyst                  | Cargo     | Qualitativo - Nominal (Binário)     |
 
-Ferramentas de BI (Binários)
-Variável	Tipo de Dado
-Microsoft Power BI	Qualitativo - Nominal (Binário)
-Qlik View/Qlik Sense	Qualitativo - Nominal (Binário)
-Tableau	Qualitativo - Nominal (Binário)
-Metabase	Qualitativo - Nominal (Binário)
-Superset	Qualitativo - Nominal (Binário)
-Redash	Qualitativo - Nominal (Binário)
-Looker	Qualitativo - Nominal (Binário)
-Looker Studio (Google Data Studio)	Qualitativo - Nominal (Binário)
-Amazon Quicksight	Qualitativo - Nominal (Binário)
-Mode	Qualitativo - Nominal (Binário)
-Alteryx	Qualitativo - Nominal (Binário)
-MicroStrategy	Qualitativo - Nominal (Binário)
-IBM Analytics/Cognos	Qualitativo - Nominal (Binário)
-SAP Business Objects/SAP Analytics	Qualitativo - Nominal (Binário)
-Oracle Business Intelligence	Qualitativo - Nominal (Binário)
-Salesforce/Einstein Analytics	Qualitativo - Nominal (Binário)
-Birst	Qualitativo - Nominal (Binário)
-SAS Visual Analytics	Qualitativo - Nominal (Binário)
-Grafana	Qualitativo - Nominal (Binário)
-TIBCO Spotfire	Qualitativo - Nominal (Binário)
-Pentaho	Qualitativo - Nominal (Binário)
-Fazemos todas as análises em planilhas	Qualitativo - Nominal (Binário)
-Não utilizo nenhuma ferramenta de BI	Qualitativo - Nominal (Binário)
 
-Tabela PIB 2021
-Variável	Tipo de Dado	Descrição
-UF	Qualitativo - Nominal	Sigla da Unidade da Federação (estados e Distrito Federal)
-PIB_2021_OR	Quantitativo - Contínuo	Valor do Produto Interno Bruto em 2021 (milhões de reais)
-Partic_Pib_Brasil	Quantitativo - Contínuo	Participação percentual do estado no PIB nacional (0 a 1)
+| Variável                        | Tipo de Dado                        |
+|---------------------------------|-------------------------------------|
+| SQL                             | Qualitativo - Nominal (Binário)     |
+| R                               | Qualitativo - Nominal (Binário)     |
+| Python                          | Qualitativo - Nominal (Binário)     |
+| C/C++/C#                        | Qualitativo - Nominal (Binário)     |
+| .NET                            | Qualitativo - Nominal (Binário)     |
+| Java                            | Qualitativo - Nominal (Binário)     |
+| Julia                           | Qualitativo - Nominal (Binário)     |
+| SAS                             | Qualitativo - Nominal (Binário)     |
+| Visual Basic                    | Qualitativo - Nominal (Binário)     |
+| Scala                           | Qualitativo - Nominal (Binário)     |
+| MATLAB                          | Qualitativo - Nominal (Binário)     |
+| Rust                            | Qualitativo - Nominal (Binário)     |
+| PHP                             | Qualitativo - Nominal (Binário)     |
+| JavaScript                      | Qualitativo - Nominal (Binário)     |
+| Não utilizo nenhuma linguagem   | Qualitativo - Nominal (Binário)     |
 
-Tabela IDHM 2021
-Variável	Tipo de Dado	Descrição
-Ano	Quantitativo - Discreto	Ano de referência dos dados
-Uf	Qualitativo - Nominal	Sigla da Unidade da Federação
-Nome_Estado	Qualitativo - Nominal	Nome completo do estado brasileiro ou DF
-IDHM	Quantitativo - Contínuo	Índice de Desenvolvimento Humano Municipal (0 a 1)
-IDHM_L	Quantitativo - Contínuo	Dimensão Longevidade do IDHM (0 a 1)
-IDHM_E	Quantitativo - Contínuo	Dimensão Educação do IDHM (0 a 1)
-IDHM_R	Quantitativo - Contínuo	Dimensão Renda do IDHM (0 a 1)
-IDHMAD	Quantitativo - Contínuo	IDHM Ajustado à Desigualdade (0 a 1)
-IDHMAD_L	Quantitativo - Contínuo	Dimensão Longevidade do IDHMAD (0 a 1)
-IDHMAD_E	Quantitativo - Contínuo	Dimensão Educação do IDHMAD (0 a 1)
-IDHMAD_R	Quantitativo - Contínuo	Dimensão Renda do IDHMAD (0 a 1)
-RDPC	Quantitativo - Contínuo	Renda Domiciliar per Capita (em R$)
-GINI	Quantitativo - Contínuo	Índice de Gini (medida de desigualdade, 0 a 1)
-THEIL	Quantitativo - Contínuo	Índice de Theil (medida de desigualdade, ≥ 0)
+
+| Variável                | Tipo de Dado                        |
+|-------------------------|-------------------------------------|
+| Azure (Microsoft)       | Qualitativo - Nominal (Binário)     |
+| Amazon Web Services     | Qualitativo - Nominal (Binário)     |
+| Google Cloud (GCP)      | Qualitativo - Nominal (Binário)     |
+| Oracle Cloud            | Qualitativo - Nominal (Binário)     |
+| IBM                     | Qualitativo - Nominal (Binário)     |
+| Servidores On Premise   | Qualitativo - Nominal (Binário)     |
+| Cloud própria           | Qualitativo - Nominal (Binário)     |
+
+
+| Variável                              | Tipo de Dado                        |
+|---------------------------------------|-------------------------------------|
+| Microsoft Power BI                    | Qualitativo - Nominal (Binário)     |
+| Qlik View/Qlik Sense                  | Qualitativo - Nominal (Binário)     |
+| Tableau                               | Qualitativo - Nominal (Binário)     |
+| Metabase                              | Qualitativo - Nominal (Binário)     |
+| Superset                              | Qualitativo - Nominal (Binário)     |
+| Redash                                | Qualitativo - Nominal (Binário)     |
+| Looker                                | Qualitativo - Nominal (Binário)     |
+| Looker Studio (Google Data Studio)    | Qualitativo - Nominal (Binário)     |
+| Amazon Quicksight                     | Qualitativo - Nominal (Binário)     |
+| Mode                                  | Qualitativo - Nominal (Binário)     |
+| Alteryx                               | Qualitativo - Nominal (Binário)     |
+| MicroStrategy                         | Qualitativo - Nominal (Binário)     |
+| IBM Analytics/Cognos                  | Qualitativo - Nominal (Binário)     |
+| SAP Business Objects/SAP Analytics     | Qualitativo - Nominal (Binário)     |
+| Oracle Business Intelligence           | Qualitativo - Nominal (Binário)     |
+| Salesforce/Einstein Analytics          | Qualitativo - Nominal (Binário)     |
+| Birst                                 | Qualitativo - Nominal (Binário)     |
+| SAS Visual Analytics                   | Qualitativo - Nominal (Binário)     |
+| Grafana                               | Qualitativo - Nominal (Binário)     |
+| TIBCO Spotfire                        | Qualitativo - Nominal (Binário)     |
+| Pentaho                               | Qualitativo - Nominal (Binário)     |
+| Fazemos todas as análises em planilhas | Qualitativo - Nominal (Binário)     |
+| Não utilizo nenhuma ferramenta de BI   | Qualitativo - Nominal (Binário)     |
+
+| Variável          | Tipo de Dado                | Descrição                                                         |
+|-------------------|----------------------------|-------------------------------------------------------------------|
+| UF                | Qualitativo - Nominal       | Sigla da Unidade da Federação (estados e Distrito Federal)        |
+| PIB_2021_OR       | Quantitativo - Contínuo     | Valor do Produto Interno Bruto em 2021 (milhões de reais)         |
+| Partic_Pib_Brasil | Quantitativo - Contínuo     | Participação percentual do estado no PIB nacional (0 a 1)         |
+
+
+| Variável      | Tipo de Dado                | Descrição                                                         |
+|---------------|----------------------------|-------------------------------------------------------------------|
+| Ano           | Quantitativo - Discreto     | Ano de referência dos dados                                       |
+| Uf            | Qualitativo - Nominal       | Sigla da Unidade da Federação                                     |
+| Nome_Estado   | Qualitativo - Nominal       | Nome completo do estado brasileiro ou DF                          |
+| IDHM          | Quantitativo - Contínuo     | Índice de Desenvolvimento Humano Municipal (0 a 1)                |
+| IDHM_L        | Quantitativo - Contínuo     | Dimensão Longevidade do IDHM (0 a 1)                              |
+| IDHM_E        | Quantitativo - Contínuo     | Dimensão Educação do IDHM (0 a 1)                                 |
+| IDHM_R        | Quantitativo - Contínuo     | Dimensão Renda do IDHM (0 a 1)                                    |
+| IDHMAD        | Quantitativo - Contínuo     | IDHM Ajustado à Desigualdade (0 a 1)                              |
+| IDHMAD_L      | Quantitativo - Contínuo     | Dimensão Longevidade do IDHMAD (0 a 1)                            |
+| IDHMAD_E      | Quantitativo - Contínuo     | Dimensão Educação do IDHMAD (0 a 1)                               |
+| IDHMAD_R      | Quantitativo - Contínuo     | Dimensão Renda do IDHMAD (0 a 1)                                  |
+| RDPC          | Quantitativo - Contínuo     | Renda Domiciliar per Capita (em R$)                               |
+| GINI          | Quantitativo - Contínuo     | Índice de Gini (medida de desigualdade, 0 a 1)                    |
+| THEIL         | Quantitativo - Contínuo     | Índice de Theil (medida de desigualdade, ≥ 0)                     |
 
 
 ##    Descrição de dados :bar_chart:
