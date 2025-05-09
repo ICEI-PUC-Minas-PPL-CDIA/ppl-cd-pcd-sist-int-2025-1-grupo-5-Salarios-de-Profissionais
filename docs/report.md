@@ -548,6 +548,13 @@ Erro Absoluto Médio (MAE): 2.766,00
 Coeficiente de Determinação (R²): 0,478
 
 
+=== Novo Modelo XGBoost ===
+MAE: 2366.31
+R²: 0.6030
+Acurácia por Faixa: 37.86%
+(Acurácia por faixa se refere ao fato de que embora o teste tenha sido feito com o salario médio das faixas, o correto seria o valor se encontrar dentro da faixa esperada, nesse caso, apenas %37,86 das vezes o valor previsto se encontra na faixa real, entretanto, o MAE diminui em comparação com os outros modelos testados e o R² aumentou)
+
+
 (O teste abaixo foi feito considerando apenas as 2 variáveis pensadas inicialmente na hipótese)
 === Regressão Linear ===
 MAE: 5323.6442419655605
