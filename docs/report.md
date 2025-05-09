@@ -101,132 +101,136 @@ A base de dados State of Data Brazil 2023 é rica em informações sobre profiss
  
 # Dicionário de Dados
 
-| Variável                                | Descrição                                                                 | Tipo de Dado                            |
-|-----------------------------------------|---------------------------------------------------------------------------|-----------------------------------------|
-| Salario Médio                           | Média da faixa salarial mensal                                            | Quantitativo - Contínuo                 |
-| Nível                                   | Nível de carreira (experiência, autonomia, responsabilidades)             | Qualitativo - Ordinal                   |
-| Número de Funcionários da Empresa       | Faixa do número de funcionários da empresa                                | Qualitativo - Ordinal                   |
-| Situação Atual de Trabalho              | Tipo de vínculo empregatício                                              | Qualitativo - Nominal - Multivariado    |
-| Área de Formação                        | Área acadêmica do profissional                                            | Qualitativo - Nominal - Multivariado    |
-| Estado de Origem                        | Estado originário do profissional                                         | Qualitativo - Nominal - Multivariado    |
-| Mudou de Estado                         | Se mudou de estado                                                        | Qualitativo - Nominal - Binário         |
-| PCD (Pessoa Com Deficiência)            | Se possui alguma deficiência                                              | Qualitativo - Nominal - Binário         |
-| Estado onde Mora                        | Estado de residência atual                                                | Qualitativo - Nominal - Multivariado    |
-| UF onde Mora                            | Unidade Federativa da residência atual                                    | Qualitativo - Nominal - Multivariado    |
-| Região onde Mora                        | Região do Brasil onde reside                                              | Qualitativo - Nominal - Multivariado    |
-| Idade                                   | Idade em anos                                                             | Quantitativo - Discreto                 |
-| Faixa de Idade                          | Faixa etária (ex: 22-24, 30-34)                                           | Qualitativo - Ordinal                   |
-| Gênero                                  | Gênero (Masculino, Feminino, etc.)                                        | Qualitativo - Nominal - Binário         |
-| Etnia/Cor/Raça                          | Etnia, cor ou raça do profissional                                        | Qualitativo - Nominal - Multivalorado   |
-| Nível de Ensino                         | Nível de escolaridade                                                     | Qualitativo - Ordinal                   |
-| Faixa Salarial Mensal                   | Intervalo de renda mensal                                                 | Qualitativo - Ordinal                   |
-| Experiência Profissional em Dados       | Tempo de experiência em dados                                             | Qualitativo - Ordinal                   |
-| Cargo Atual                             | Cargo ocupado atualmente                                                  | Qualitativo - Nominal - Multivariado    |
-| Tamanho da Empresa                      | Porte da empresa                                                          | Qualitativo - Ordinal                   |
-| Modelo de Trabalho                      | Regime de trabalho                                                        | Qualitativo - Nominal - Multivariado    |
-| Setor da Empresa                        | Setor de atuação                                                          | Qualitativo - Nominal - Multivariado    |
+State of Data Brazil 2023
 
-## Cargos (Binários)
+Variáveis Gerais
 
-| Variável                                | Descrição                              | Tipo de Dado                       |
-|-----------------------------------------|----------------------------------------|------------------------------------|
-| Analytics_Engineer                      | Cargo                                  | Qualitativo - Nominal - Binário    |
-| Data_Engineer                           | Cargo                                  | Qualitativo - Nominal - Binário    |
-| Data_Analyst                            | Cargo                                  | Qualitativo - Nominal - Binário    |
-| Data_Scientist                          | Cargo                                  | Qualitativo - Nominal - Binário    |
-| Database_Administrator                  | Cargo                                  | Qualitativo - Nominal - Binário    |
-| Analista_de_Bussiness_Intelligence      | Cargo                                  | Qualitativo - Nominal - Binário    |
-| Data_Architect                          | Cargo                                  | Qualitativo - Nominal - Binário    |
-| Data_Product_Manager                    | Cargo                                  | Qualitativo - Nominal - Binário    |
-| Business_Analyst                        | Cargo                                  | Qualitativo - Nominal - Binário    |
+| Variável                          | Descrição                                                  | Tipo de Dado                              |
+|-----------------------------------|------------------------------------------------------------|-------------------------------------------|
+| Salario Médio                     | Média da faixa salarial mensal                             | Quantitativo - Contínuo                   |
+| Nível                             | Nível de carreira (experiência, autonomia, responsabilidades) | Qualitativo - Ordinal                 |
+| Número de Funcionários da Empresa | Faixa do número de funcionários da empresa                 | Qualitativo - Ordinal                     |
+| Situação Atual de Trabalho        | Tipo de vínculo empregatício                               | Qualitativo - Nominal (Multivariado)      |
+| Área de Formação                  | Área acadêmica do profissional                             | Qualitativo - Nominal (Multivariado)      |
+| Estado de Origem                  | Estado originário do profissional                          | Qualitativo - Nominal (Multivariado)      |
+| Mudou de Estado                   | Se mudou de estado                                         | Qualitativo - Nominal (Binário)           |
+| PCD (Pessoa Com Deficiência)      | Se possui alguma deficiência                               | Qualitativo - Nominal (Binário)           |
+| Estado onde Mora                  | Estado de residência atual                                 | Qualitativo - Nominal (Multivariado)      |
+| UF onde Mora                      | Unidade Federativa da residência atual                     | Qualitativo - Nominal (Multivariado)      |
+| Região onde Mora                  | Região do Brasil onde reside                               | Qualitativo - Nominal (Multivariado)      |
+| Idade                             | Idade em anos                                              | Quantitativo - Discreto                   |
+| Faixa de Idade                    | Faixa etária (ex: 22-24, 30-34)                            | Qualitativo - Ordinal                     |
+| Gênero                            | Gênero (Masculino, Feminino, etc.)                         | Qualitativo - Nominal (Binário)           |
+| Etnia/Cor/Raça                    | Etnia, cor ou raça do profissional                         | Qualitativo - Nominal (Multivalorado)     |
+| Nível de Ensino                   | Nível de escolaridade                                      | Qualitativo - Ordinal                     |
+| Faixa Salarial Mensal             | Intervalo de renda mensal                                  | Qualitativo - Ordinal                     |
+| Experiência Profissional em Dados | Tempo de experiência em dados                              | Qualitativo - Ordinal                     |
+| Cargo Atual                       | Cargo ocupado atualmente                                   | Qualitativo - Nominal (Multivariado)      |
+| Tamanho da Empresa                | Porte da empresa                                           | Qualitativo - Ordinal                     |
+| Modelo de Trabalho                | Regime de trabalho                                         | Qualitativo - Nominal (Multivariado)      |
+| Setor da Empresa                  | Setor de atuação da empresa                                | Qualitativo - Nominal (Multivariado)      |
 
-## Linguagens de Programação (Binários)
+Cargos (Binários)
 
-| Variável                                | Tipo de Dado                       |
-|-----------------------------------------|------------------------------------|
-| SQL                                     | Qualitativo - Nominal - Binário    |
-| R                                       | Qualitativo - Nominal - Binário    |
-| Python                                  | Qualitativo - Nominal - Binário    |
-| C/C++/C#                                | Qualitativo - Nominal - Binário    |
-| .NET                                    | Qualitativo - Nominal - Binário    |
-| Java                                    | Qualitativo - Nominal - Binário    |
-| Julia                                   | Qualitativo - Nominal - Binário    |
-| SAS                                     | Qualitativo - Nominal - Binário    |
-| Visual Basic                            | Qualitativo - Nominal - Binário    |
-| Scala                                   | Qualitativo - Nominal - Binário    |
-| MATLAB                                  | Qualitativo - Nominal - Binário    |
-| Rust                                    | Qualitativo - Nominal - Binário    |
-| PHP                                     | Qualitativo - Nominal - Binário    |
-| JavaScript                              | Qualitativo - Nominal - Binário    |
-| Não utilizo nenhuma linguagem           | Qualitativo - Nominal - Binário    |
+| Variável                          | Descrição | Tipo de Dado                        |
+|-----------------------------------|-----------|-------------------------------------|
+| Analytics_Engineer                | Cargo     | Qualitativo - Nominal (Binário)     |
+| Data_Engineer                     | Cargo     | Qualitativo - Nominal (Binário)     |
+| Data_Analyst                      | Cargo     | Qualitativo - Nominal (Binário)     |
+| Data_Scientist                    | Cargo     | Qualitativo - Nominal (Binário)     |
+| Database_Administrator            | Cargo     | Qualitativo - Nominal (Binário)     |
+| Analista_de_Bussiness_Intelligence| Cargo     | Qualitativo - Nominal (Binário)     |
+| Data_Architect                    | Cargo     | Qualitativo - Nominal (Binário)     |
+| Data_Product_Manager              | Cargo     | Qualitativo - Nominal (Binário)     |
+| Business_Analyst                  | Cargo     | Qualitativo - Nominal (Binário)     |
 
-## Ferramentas - Nuvem e Armazenamento (Binários)
+Linguagens de Programação (Binários)
 
-| Variável                                | Tipo de Dado                       |
-|-----------------------------------------|------------------------------------|
-| Azure (Microsoft)                       | Qualitativo - Nominal - Binário    |
-| Amazon Web Services                     | Qualitativo - Nominal - Binário    |
-| Google Cloud (GCP)                      | Qualitativo - Nominal - Binário    |
-| Oracle Cloud                            | Qualitativo - Nominal - Binário    |
-| IBM                                     | Qualitativo - Nominal - Binário    |
-| Servidores On Premise                   | Qualitativo - Nominal - Binário    |
-| Cloud própria                           | Qualitativo - Nominal - Binário    |
+| Variável                        | Tipo de Dado                        |
+|---------------------------------|-------------------------------------|
+| SQL                             | Qualitativo - Nominal (Binário)     |
+| R                               | Qualitativo - Nominal (Binário)     |
+| Python                          | Qualitativo - Nominal (Binário)     |
+| C/C++/C#                        | Qualitativo - Nominal (Binário)     |
+| .NET                            | Qualitativo - Nominal (Binário)     |
+| Java                            | Qualitativo - Nominal (Binário)     |
+| Julia                           | Qualitativo - Nominal (Binário)     |
+| SAS                             | Qualitativo - Nominal (Binário)     |
+| Visual Basic                    | Qualitativo - Nominal (Binário)     |
+| Scala                           | Qualitativo - Nominal (Binário)     |
+| MATLAB                          | Qualitativo - Nominal (Binário)     |
+| Rust                            | Qualitativo - Nominal (Binário)     |
+| PHP                             | Qualitativo - Nominal (Binário)     |
+| JavaScript                      | Qualitativo - Nominal (Binário)     |
+| Não utilizo nenhuma linguagem   | Qualitativo - Nominal (Binário)     |
 
-## Ferramentas de BI (Binários)
+Ferramentas - Nuvem e Armazenamento (Binários)
 
-| Variável                                | Tipo de Dado                       |
-|-----------------------------------------|------------------------------------|
-| Microsoft Power BI                      | Qualitativo - Nominal - Binário    |
-| Qlik View/Qlik Sense                    | Qualitativo - Nominal - Binário    |
-| Tableau                                 | Qualitativo - Nominal - Binário    |
-| Metabase                                | Qualitativo - Nominal - Binário    |
-| Superset                                | Qualitativo - Nominal - Binário    |
-| Redash                                  | Qualitativo - Nominal - Binário    |
-| Looker                                  | Qualitativo - Nominal - Binário    |
-| Looker Studio (Google Data Studio)      | Qualitativo - Nominal - Binário    |
-| Amazon Quicksight                       | Qualitativo - Nominal - Binário    |
-| Mode                                    | Qualitativo - Nominal - Binário    |
-| Alteryx                                 | Qualitativo - Nominal - Binário    |
-| MicroStrategy                           | Qualitativo - Nominal - Binário    |
-| IBM Analytics/Cognos                    | Qualitativo - Nominal - Binário    |
-| SAP Business Objects/SAP Analytics      | Qualitativo - Nominal - Binário    |
-| Oracle Business Intelligence            | Qualitativo - Nominal - Binário    |
-| Salesforce/Einstein Analytics           | Qualitativo - Nominal - Binário    |
-| Birst                                   | Qualitativo - Nominal - Binário    |
-| SAS Visual Analytics                    | Qualitativo - Nominal - Binário    |
-| Grafana                                 | Qualitativo - Nominal - Binário    |
-| TIBCO Spotfire                          | Qualitativo - Nominal - Binário    |
-| Pentaho                                 | Qualitativo - Nominal - Binário    |
-| Fazemos todas as análises em planilhas  | Qualitativo - Nominal - Binário    |
-| Não utilizo nenhuma ferramenta de BI    | Qualitativo - Nominal - Binário    |
+| Variável                | Tipo de Dado                        |
+|-------------------------|-------------------------------------|
+| Azure (Microsoft)       | Qualitativo - Nominal (Binário)     |
+| Amazon Web Services     | Qualitativo - Nominal (Binário)     |
+| Google Cloud (GCP)      | Qualitativo - Nominal (Binário)     |
+| Oracle Cloud            | Qualitativo - Nominal (Binário)     |
+| IBM                     | Qualitativo - Nominal (Binário)     |
+| Servidores On Premise   | Qualitativo - Nominal (Binário)     |
+| Cloud própria           | Qualitativo - Nominal (Binário)     |
 
+Ferramentas de BI (Binários)
 
-Tabela Pib 2021
+| Variável                              | Tipo de Dado                        |
+|---------------------------------------|-------------------------------------|
+| Microsoft Power BI                    | Qualitativo - Nominal (Binário)     |
+| Qlik View/Qlik Sense                  | Qualitativo - Nominal (Binário)     |
+| Tableau                               | Qualitativo - Nominal (Binário)     |
+| Metabase                              | Qualitativo - Nominal (Binário)     |
+| Superset                              | Qualitativo - Nominal (Binário)     |
+| Redash                                | Qualitativo - Nominal (Binário)     |
+| Looker                                | Qualitativo - Nominal (Binário)     |
+| Looker Studio (Google Data Studio)    | Qualitativo - Nominal (Binário)     |
+| Amazon Quicksight                     | Qualitativo - Nominal (Binário)     |
+| Mode                                  | Qualitativo - Nominal (Binário)     |
+| Alteryx                               | Qualitativo - Nominal (Binário)     |
+| MicroStrategy                         | Qualitativo - Nominal (Binário)     |
+| IBM Analytics/Cognos                  | Qualitativo - Nominal (Binário)     |
+| SAP Business Objects/SAP Analytics     | Qualitativo - Nominal (Binário)     |
+| Oracle Business Intelligence           | Qualitativo - Nominal (Binário)     |
+| Salesforce/Einstein Analytics          | Qualitativo - Nominal (Binário)     |
+| Birst                                 | Qualitativo - Nominal (Binário)     |
+| SAS Visual Analytics                   | Qualitativo - Nominal (Binário)     |
+| Grafana                               | Qualitativo - Nominal (Binário)     |
+| TIBCO Spotfire                        | Qualitativo - Nominal (Binário)     |
+| Pentaho                               | Qualitativo - Nominal (Binário)     |
+| Fazemos todas as análises em planilhas | Qualitativo - Nominal (Binário)     |
+| Não utilizo nenhuma ferramenta de BI   | Qualitativo - Nominal (Binário)     |
 
-| Dado | Tipo de Dado | Descrição |
-|:-----|:------------|:----------|
-| UF | Qualitativo Nominal | Sigla da Unidade da Federação (estados brasileiros e Distrito Federal) - dados não numéricos sem ordem intrínseca |
-| PIB_2021_OR | Quantitativo Contínuo | Valor do Produto Interno Bruto em 2021, em milhões de reais (admite valores intermediários, apesar de estar representado como inteiro) |
-| Partic_Pib_Brasil | Quantitativo Contínuo | Participação percentual do estado no PIB nacional (valores decimais entre 0 e 1) |
+Tabela PIB 2021
+
+| Variável          | Tipo de Dado                | Descrição                                                         |
+|-------------------|----------------------------|-------------------------------------------------------------------|
+| UF                | Qualitativo - Nominal       | Sigla da Unidade da Federação (estados e Distrito Federal)        |
+| PIB_2021_OR       | Quantitativo - Contínuo     | Valor do Produto Interno Bruto em 2021 (milhões de reais)         |
+| Partic_Pib_Brasil | Quantitativo - Contínuo     | Participação percentual do estado no PIB nacional (0 a 1)         |
 
 Tabela IDHM 2021
 
-| Dado | Tipo de Dado | Descrição |
-|:-----|:------------|:----------|
-| Ano | Quantitativo Discreto | Ano de referência dos dados (valores inteiros específicos) |
-| Uf | Qualitativo Nominal | Sigla da Unidade da Federação (categorias sem ordem intrínseca) |
-| Nome_Estado | Qualitativo Nominal | Nome completo do estado brasileiro ou DF |
-| IDHM | Quantitativo Contínuo | Índice de Desenvolvimento Humano Municipal (escala 0-1) |
-| IDHM_L | Quantitativo Contínuo | Dimensão Longevidade do IDHM (escala 0-1) |
-| IDHM_E | Quantitativo Contínuo | Dimensão Educação do IDHM (escala 0-1) |
-| IDHM_R | Quantitativo Contínuo | Dimensão Renda do IDHM (escala 0-1) |
-| IDHMAD | Quantitativo Contínuo | IDHM Ajustado à Desigualdade (escala 0-1) |
-| IDHMAD_L | Quantitativo Contínuo | Dimensão Longevidade do IDHMAD (escala 0-1) |
-| IDHMAD_E | Quantitativo Contínuo | Dimensão Educação do IDHMAD (escala 0-1) |
-| IDHMAD_R | Quantitativo Contínuo | Dimensão Renda do IDHMAD (escala 0-1) |
-| RDPC | Quantitativo Contínuo | Renda Domiciliar per Capita (em R$) |
-| GINI | Quantitativo Contínuo | Índice de Gini (medida de desigualdade 0-1) |
-| THEIL | Quantitativo Contínuo | Índice de Theil (medida de desigualdade ≥0) |
+| Variável      | Tipo de Dado                | Descrição                                                         |
+|---------------|----------------------------|-------------------------------------------------------------------|
+| Ano           | Quantitativo - Discreto     | Ano de referência dos dados                                       |
+| Uf            | Qualitativo - Nominal       | Sigla da Unidade da Federação                                     |
+| Nome_Estado   | Qualitativo - Nominal       | Nome completo do estado brasileiro ou DF                          |
+| IDHM          | Quantitativo - Contínuo     | Índice de Desenvolvimento Humano Municipal (0 a 1)                |
+| IDHM_L        | Quantitativo - Contínuo     | Dimensão Longevidade do IDHM (0 a 1)                              |
+| IDHM_E        | Quantitativo - Contínuo     | Dimensão Educação do IDHM (0 a 1)                                 |
+| IDHM_R        | Quantitativo - Contínuo     | Dimensão Renda do IDHM (0 a 1)                                    |
+| IDHMAD        | Quantitativo - Contínuo     | IDHM Ajustado à Desigualdade (0 a 1)                              |
+| IDHMAD_L      | Quantitativo - Contínuo     | Dimensão Longevidade do IDHMAD (0 a 1)                            |
+| IDHMAD_E      | Quantitativo - Contínuo     | Dimensão Educação do IDHMAD (0 a 1)                               |
+| IDHMAD_R      | Quantitativo - Contínuo     | Dimensão Renda do IDHMAD (0 a 1)                                  |
+| RDPC          | Quantitativo - Contínuo     | Renda Domiciliar per Capita (em R$)                               |
+| GINI          | Quantitativo - Contínuo     | Índice de Gini (medida de desigualdade, 0 a 1)                    |
+| THEIL         | Quantitativo - Contínuo     | Índice de Theil (medida de desigualdade, ≥ 0)                     |
+
 
 ##    Descrição de dados :bar_chart:
 
@@ -812,314 +816,68 @@ A preparação dos dados consiste dos seguintes passos:
 
 ### Resultados obtidos com o modelo 1.
 
-# Modelo para Hipótese 1 - Existe uma correlação entre o valor do salário com o PIB e o IHD do estado que o profissional trabalha?
+# Modelo para Hipótese 1 - Quais limiares de PIB estadual e IDH melhor discriminam as diferentes faixas salariais dos profissionais?
 
-### **Modelo:** Random Forest
+### **Modelo:** Árvore de Decisão
 
 ## Justificativa:
-- **Lida bem com Não-Linearidade:** As relações entre as features (experiência, educação, PIB) e o salário raramente são perfeitamente lineares. O Random Forest captura essas relações complexas de forma eficaz.
-- **Captura Interações entre Features:** Identifica automaticamente como diferentes variáveis interagem (ex: impacto do Nivel_de_Ensino pode variar por Setor).
-- **Robustez a Outliers:** Menos sensível a valores extremos que modelos como Regressão Linear.
-- **Funciona com Dados Mistos:** Lida bem com variáveis numéricas (PIB, IDHM) e categóricas (Experiência, Ensino, Setor).
-- **Redução de Overfitting:** Combate overfitting através da agregação de múltiplas árvores.
-- **Importância das Features:** Fornece métricas de importância das variáveis.
-- **Menos Exigente em Ajuste Fino:** Desempenho razoável mesmo com hiperparâmetros padrão.
+- **Justificativa: As faixas salariais são definidas por intervalos fixos (R1.001−R1.001−R4.000, R4.001−R4.001−R6.000, etc.), criando relações não-lineares entre variáveis econômicas (PIB, IHD) e o target.
+- **Vantagem da Árvore: Modela naturalmente relações não-lineares através de divisões binárias sequenciais, identificando pontos de corte ótimos nos preditores.
 
 ### Processo Utilizado para Amostragem de Dados
 
 1. **Pré-processamento Inicial**
-   - Transformação logarítmica da variável alvo (salário)
-   - Criação de faixas salariais usando quintis (5 grupos)
-
-2. **Divisão Treino-Teste**
-   - Separação estratificada (80% treino, 20% teste)
-   - Preservação da distribuição original de salários
-
-3. **Validação Cruzada**
-   - K-Fold estratificado (5 folds)
-   - Manutenção da distribuição salarial em cada fold
-
-4. **Pós-processamento**
-   - Transformação inversa dos valores preditos
-   - Cálculo de métricas na escala monetária original
-
-### Descrição dos Parâmetros Utilizados
-
-#### 1. `train_test_split` (Divisão Treino-Teste)
-| Parâmetro      | Valor | Descrição | Justificativa |
-|----------------|-------|-----------|---------------|
-| `test_size`    | 0.2   | 20% para teste | Balanceia generalização e avaliação |
-| `stratify`     | strat (Quintis) | Mantém proporção de faixas salariais | Evita viés na avaliação |
-| `random_state` | 42    | Semente aleatória | Garante reprodutibilidade |
-
-#### 2. `StratifiedKFold` (Validação Cruzada)
-| Parâmetro      | Valor | Descrição | Justificativa |
-|----------------|-------|-----------|---------------|
-| `n_splits`     | 5     | 5 folds   | Balanceia robustez e eficiência |
-| `shuffle`      | True  | Embaralha dados | Evita influência de padrões de ordenação |
-| `random_state` | 42    | Semente   | Garante consistência |
-
-#### 3. `pd.qcut` (Criação de Faixas Salariais)
-| Parâmetro | Valor | Descrição | Justificativa |
-|-----------|-------|-----------|---------------|
-| `q`       | 5     | 5 quintis | Garante igual quantidade por faixa |
-| `labels`  | False | Retorna intervalos numéricos | Facilita uso em stratify |
-
-#### 4. Transformação Logarítmica
-| Função        | Descrição | Justificativa |
-|---------------|-----------|---------------|
-| `np.log1p(y)` | log(1 + x) | Evita erros com zero e reduz outliers |
-| `np.expm1(y_pred)` | exp(x) - 1 | Retorna à escala original (R$) |
-
-#### 5. Visualização
-| Parâmetro  | Exemplo | Descrição |
-|------------|---------|-----------|
-| `figsize`  | (10, 6) | Tamanho da figura |
-| `alpha`    | 0.6     | Transparência |
-| `kde`      | True    | Curva de densidade |
-| `palette`  | 'viridis' | Esquema de cores |
-
-### Trechos do Código
-
-```python
-
-# Importação de bibliotecas
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.compose import ColumnTransformer
-from sklearn.pipeline import Pipeline
-from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder, StandardScaler
-from sklearn.ensemble import GradientBoostingRegressor
-from sklearn.model_selection import train_test_split, cross_val_score
-from sklearn.metrics import mean_squared_error, r2_score
-
-# 1. PRÉ-PROCESSAMENTO E FEATURE ENGINEERING ===================================
-
-# Criar cópia do dataframe original para preservar os dados brutos
-df = dados.copy()
-
-# Definir a ordem das categorias para variáveis ordinais
-# Essas ordens são importantes para o OrdinalEncoder entender a hierarquia
-experiencia_order = ['Não tenho experiência na área de dados',
-                    'Menos de 1 ano',
-                    'De 1 a 2 anos',
-                    'De 2 a 3 anos',
-                    'De 3 a 4 anos',
-                    'De 4 a 6 anos',
-                    'De 5 a 6 anos',
-                    'De 7 a 10 anos',
-                    'Mais de 10 anos']
-
-# Ordem para nível de ensino (do menor para o maior nível)
-ensino_order = ['Prefiro não informar',
-               'Ensino Médio',
-               'Técnico/Profissionalizante',
-               'Graduação',
-               'Pós-graduação',
-               'Mestrado',
-               'Doutorado']
-
-# 2. SELEÇÃO E PREPARAÇÃO DOS DADOS ===========================================
-
-# Selecionar apenas as colunas relevantes para o modelo
-colunas_relevantes = [
-    'Salario_Medio',          # Variável alvo (o que queremos prever)
-    'PIB_2021_OR',            # Variável numérica 1
-    'IDHM',                   # Variável numérica 2
-    'Tempo_de_experiencia_na_area_de_dados',  # Variável categórica ordinal
-    'Nivel_de_Ensino',        # Variável categórica ordinal
-    'Setor',                  # Variável categórica nominal
-    'Uf'                      # Variável categórica nominal (não usada diretamente)
-]
-
-# Criar novo dataframe apenas com as colunas selecionadas
-df_selecionado = df[colunas_relevantes].copy()
-
-# 3. TRATAMENTO DE VALORES FALTANTES ==========================================
-
-# Remover linhas onde as variáveis essenciais estão faltando
-df_sem_na = df_selecionado.dropna(subset=['Salario_Medio', 'PIB_2021_OR', 'IDHM']).copy()
-
-# Preencher valores faltantes nas colunas categóricas
-df_sem_na['Nivel_de_Ensino'] = df_sem_na['Nivel_de_Ensino'].fillna('Prefiro não informar')
-df_sem_na['Setor'] = df_sem_na['Setor'].fillna('Outro')
-
-# 4. PADRONIZAÇÃO DE VALORES CATEGÓRICOS ======================================
-
-# Padronizar os valores da coluna de experiência:
-# 1. Converter para minúsculas
-# 2. Remover espaços extras
-# 3. Preencher valores faltantes
-# 4. Mapear variações para valores consistentes
-df_sem_na['Tempo_de_experiencia_na_area_de_dados'] = (
-    df_sem_na['Tempo_de_experiencia_na_area_de_dados']
-    .str.lower()
-    .str.strip()
-    .fillna('não tenho experiência na área de dados')
-    .replace({
-        'menos de 1 ano': 'Menos de 1 ano',
-        'de 1 a 2 anos': 'De 1 a 2 anos',
-        'de 3 a 4 anos': 'De 3 a 4 anos',
-        'de 5 a 6 anos': 'De 5 a 6 anos',
-        'de 7 a 10 anos': 'De 7 a 10 anos',
-        'não tenho experiência na área de dados': 'Não tenho experiência na área de dados'
-    })
-)
-
-# 5. TRATAMENTO DE OUTLIERS ===================================================
-
-# Calcular os limites para identificar outliers usando o método IQR
-Q1 = df_sem_na['Salario_Medio'].quantile(0.25)
-Q3 = df_sem_na['Salario_Medio'].quantile(0.75)
-IQR = Q3 - Q1
-
-# Filtrar apenas os valores dentro do intervalo aceitável
-df_sem_outliers = df_sem_na[
-    (df_sem_na['Salario_Medio'] >= Q1 - 1.5*IQR) &
-    (df_sem_na['Salario_Medio'] <= Q3 + 1.5*IQR)
-].copy()
-
-# 6. ENGENHARIA DE FEATURES ===================================================
-
-# Renomear coluna para um nome mais consistente
-df_preparado = df_sem_outliers.rename(columns={
-    'Tempo_de_experiencia_na_area_de_dados': 'Tempo_de_experiencia_agrupado'
-})
-
-# Criar nova feature: PIB per capita (PIB dividido pelo IDHM)
-# Essa nova feature pode capturar melhor a relação entre riqueza e desenvolvimento
-df_preparado['PIB_per_capita'] = df_preparado['PIB_2021_OR'] / df_preparado['IDHM']
-
-# 7. PIPELINE DE PRÉ-PROCESSAMENTO ============================================
-
-# Configurar o pré-processamento para diferentes tipos de variáveis:
-preprocessor = ColumnTransformer(
-    transformers=[
-        # Variáveis numéricas:
-        # 1. Preencher faltantes com a mediana
-        # 2. Padronizar (StandardScaler)
-        ('num', Pipeline([
-            ('imputer', SimpleImputer(strategy='median')),
-            ('scaler', StandardScaler())
-        ]), ['PIB_2021_OR', 'IDHM', 'PIB_per_capita']),
-
-        # Tempo de experiência (variável ordinal):
-        # 1. Preencher faltantes com valor padrão
-        # 2. Codificar como números mantendo a ordem
-        ('exp', Pipeline([
-            ('imputer', SimpleImputer(strategy='constant',
-                                    fill_value='Não tenho experiência na área de dados')),
-            ('encoder', OrdinalEncoder(categories=[experiencia_order],
-                                     handle_unknown='use_encoded_value',
-                                     unknown_value=-1))
-        ]), ['Tempo_de_experiencia_agrupado']),
-
-        # Nível de ensino (variável ordinal):
-        # Mesmo tratamento que tempo de experiência
-        ('ensino', Pipeline([
-            ('imputer', SimpleImputer(strategy='constant',
-                                    fill_value='Prefiro não informar')),
-            ('encoder', OrdinalEncoder(categories=[ensino_order],
-                                    handle_unknown='use_encoded_value',
-                                    unknown_value=-1))
-        ]), ['Nivel_de_Ensino']),
-
-        # Setor (variável nominal):
-        # 1. Preencher faltantes
-        # 2. Aplicar one-hot encoding (criar colunas binárias para cada categoria)
-        ('setor', Pipeline([
-            ('imputer', SimpleImputer(strategy='constant',
-                                    fill_value='Outro')),
-            ('encoder', OneHotEncoder(handle_unknown='ignore',
-                                    sparse_output=False))
-        ]), ['Setor'])
-    ],
-    remainder='drop'  # Ignorar colunas não especificadas
-)
-
-# 8. PIPELINE COMPLETO DO MODELO ==============================================
-
-# Criar pipeline que:
-# 1. Pré-processa os dados
-# 2. Aplica o modelo Gradient Boosting
-full_pipeline = Pipeline([
-    ('preprocessor', preprocessor),
-    ('regressor', GradientBoostingRegressor(
-        n_estimators=150,      # Número de árvores (mais que o usual para melhor performance)
-        learning_rate=0.1,     # Taxa de aprendizado (shrinkage)
-        max_depth=4,           # Profundidade máxima de cada árvore
-        min_samples_leaf=10,   # Número mínimo de amostras nas folhas
-        random_state=42        # Semente aleatória para reprodutibilidade
-    ))
-])
-
-# 9. PREPARAÇÃO DOS DADOS PARA MODELAGEM ======================================
-
-# Separar em variáveis explicativas (X) e variável alvo (y)
-X = df_preparado[['PIB_2021_OR', 'IDHM', 'PIB_per_capita',
-                'Tempo_de_experiencia_agrupado', 'Nivel_de_Ensino', 'Setor']]
-
-# Aplicar transformação logarítmica no salário para lidar com a escala e outliers
-y = np.log1p(df_preparado['Salario_Medio'])
-
-# 10. DIVISÃO DOS DADOS ======================================================
-
-# Separar em conjuntos de treino (80%) e teste (20%)
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y,
-    test_size=0.2,
-    random_state=42  # Semente fixa para reprodutibilidade
-)
-
-# 11. TREINAMENTO DO MODELO ==================================================
-
-# Treinar o pipeline completo (pré-processamento + modelo)
-full_pipeline.fit(X_train, y_train)
-
-# 12. AVALIAÇÃO DO MODELO ====================================================
-
-# Fazer previsões nos conjuntos de treino e teste
-y_pred_train = full_pipeline.predict(X_train)
-y_pred_test = full_pipeline.predict(X_test)
-
-# Converter valores de volta para a escala original (R$)
-y_train_exp = np.expm1(y_train)
-y_test_exp = np.expm1(y_test)
-y_pred_train_exp = np.expm1(y_pred_train)
-y_pred_test_exp = np.expm1(y_pred_test)
-
-# Calcular métricas de erro na escala original
-train_rmse = np.sqrt(mean_squared_error(y_train_exp, y_pred_train_exp))
-test_rmse = np.sqrt(mean_squared_error(y_test_exp, y_pred_test_exp))
-
-# 13. RELATÓRIO DE PERFORMANCE ===============================================
-
-print("\n=== Métricas de Desempenho ===")
-print(f"Train R²: {r2_score(y_train, y_pred_train):.3f}")  # Variância explicada (treino)
-print(f"Test R²: {r2_score(y_test, y_pred_test):.3f}")      # Variância explicada (teste)
-print(f"Train RMSE: R${train_rmse:.2f}")  # Erro médio em reais (treino)
-print(f"Test RMSE: R${test_rmse:.2f}")    # Erro médio em reais (teste)
-
-# Validação cruzada para estimativa mais robusta do desempenho
-cv_scores = cross_val_score(full_pipeline, X, y, cv=5, scoring='r2')
-print(f"\nValidação Cruzada R²: {cv_scores.mean():.3f} (±{cv_scores.std():.3f})")
-```
+   - A coluna nível salarial foi dividida (Nível salárial)
+| Faixa Salarial | Intervalo de Valores     |
+|:--------------:|:-----------------------:|
+| Faixa 1        | R$1.001 - R$4.000       |
+| Faixa 2        | R$4.001 - R$10.000      |
+| Faixa 3        | R$10.001 - R$20.000     |
+| Faixa 4        | R$20.001+               |
+   
+| Etapa               | Descrição                                                                                                                                 | Código Relacionado                                                                 |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| **Pré-processamento Inicial** | Preparação dos dados antes da modelagem, incluindo tratamento de valores faltantes, codificação de variáveis categóricas e normalização. No seu caso, já está usando `base_treino` pronta. | `base_treino.drop(columns=['Nivel_Salarial'])` (seleção de features)              |
+| **Divisão Treino-Teste** | Separação dos dados em conjuntos de treino (75%) e teste (25%) com estratificação implícita, usando `random_state` para reprodutibilidade. | `train_test_split(..., test_size=0.25, random_state=42)`                          |
+| **Validação Cruzada** | Não implementada no código atual. Sugestão: usar `StratifiedKFold` para avaliação mais robusta do modelo.                                  | *(Não presente)*                                                                  |
+| **Pós-processamento** | Análise das previsões através de métricas de avaliação: acurácia, matriz de confusão e relatório de classificação por faixa salarial.     | `accuracy_score()`, `confusion_matrix()`, `classification_report()`               |
+| **Descrição dos Parâmetros** | - `criterion='gini'`: Medida de qualidade do split (impureza)<br>- `max_depth=4`: Limita profundidade da árvore para evitar overfitting<br>- `random_state=42`: Garante reprodutibilidade | `DecisionTreeClassifier(criterion='gini', max_depth=4, random_state=42)`          |
 
 ## Resultado
 
 === Métricas de Desempenho ===
 
-### Train R²: 0.517
-### Test R²: 0.439
-### Train RMSE: R$4589.71
-### Test RMSE: R$5233.47
+### Acurácia: 0.62
 
-### Validação Cruzada R²: 0.438 (±0.012)
+## Matrix de confusão:
 
-![Sem título](https://github.com/user-attachments/assets/b951b6bc-8662-414b-a6ae-aca124e6d8bc)
-![Sem título-1](https://github.com/user-attachments/assets/3e80b7b5-1f85-4a4f-92ed-ea78bedff58b)
+![Sem título](https://github.com/user-attachments/assets/ab46043f-a25b-45d1-9da4-2f6a01bd8680)
+
+![Sem título](https://github.com/user-attachments/assets/fcef2718-2f12-45d6-9bd4-9bd3339da894)
+
+## Análise da Matriz de Confusão
+
+| Métrica               | Classe 1 | Classe 2 | Classe 3 | Classe 4 |
+|-----------------------|---------|---------|---------|---------|
+| **Acertos**           | 99      | 191     | 281     | 0       |
+| **Erros principais**  | 97 → Classe 2 | 40 → Classe 1, 64 → Classe 3 | 97 → Classe 2 | 100% → Classe 3 |
+| **Taxa de acerto**    | 48.5%   | 63.7%   | 73.2%   | 0%      |
+
+## Principais Problemas Identificados:
+
+1. **Falha crítica na Classe 4**:
+   - 100% dos casos classificados erroneamente como Classe 3
+   - Possível causa: Desbalanceamento extremo ou falta de padrões discriminativos
+
+2. **Alta confusão entre Classes 1-2**:
+   - 97 casos da Classe 1 classificados como 2
+   - 40 casos da Classe 2 classificados como 1
+   - Sugere sobreposição de características entre estas classes
+
+3. **Melhor desempenho na Classe 3**:
+   - 73.2% de acurácia (melhor entre todas)
+   - Ainda apresenta 97 erros classificados como Classe 2
+
 
 
 Substitua o título pelo nome do algoritmo que será utilizado. P. ex. árvore de decisão, rede neural, SVM, etc.
