@@ -834,8 +834,9 @@ A preparação dos dados consiste dos seguintes passos:
 ### Processo Utilizado para Amostragem de Dados
 
 1. **Pré-processamento Inicial**
-   - A coluna nível salarial foi dividida (Nível salárial)
-| Faixa Salarial | Intervalo de Valores     |
+A coluna **Nível Salarial** foi dividida em:
+
+| Faixa Salarial | Intervalo de Valores    |
 |:--------------:|:-----------------------:|
 | Faixa 1        | R$1.001 - R$4.000       |
 | Faixa 2        | R$4.001 - R$10.000      |
