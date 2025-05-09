@@ -823,7 +823,7 @@ A preparação dos dados consiste dos seguintes passos:
 
 ### Resultados obtidos com o modelo 1.
 
-# Modelo para Hipótese 1 - Quais limiares de PIB estadual e IDH melhor discriminam as diferentes faixas salariais dos profissionais?
+# Modelo para Hipótese 1 - "Dado o PIB e o IDH de uma região/país, um profissional de dados tem maior probabilidade de ter um salário acima ou abaixo de uma determinada faixa salarial para a área?"
 
 ### **Modelo:** Árvore de Decisão
 
