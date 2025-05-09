@@ -834,7 +834,7 @@ A preparação dos dados consiste dos seguintes passos:
 ### Processo Utilizado para Amostragem de Dados
 
 1. **Pré-processamento Inicial**
-A coluna **Nível Salarial** foi dividida em:
+A coluna **Nível Salarial**, que é o target, foi dividida em:
 
 | Faixa Salarial | Intervalo de Valores    |
 |:--------------:|:-----------------------:|
@@ -842,6 +842,17 @@ A coluna **Nível Salarial** foi dividida em:
 | Faixa 2        | R$4.001 - R$10.000      |
 | Faixa 3        | R$10.001 - R$20.000     |
 | Faixa 4        | R$20.001+               |
+
+**Lista de Colunas utilizadas no treino e teste:**
+- IDHM
+- PIB_2021_OR  
+- Faixa_Etaria
+- Nivel_de_Ensino
+- Nível
+- Nivel_Salarial
+- Python
+- Tempo_de_experiencia_na_area_de_dados
+- Todas as 27 colunas Uf (Obs.: Coluna Uf foi subdividida para receber valores binários).
    
 | Etapa                     | Descrição                                                                                                                                 | Código Relacionado                                                                 |
 |---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
@@ -857,7 +868,7 @@ A coluna **Nível Salarial** foi dividida em:
 
 ### Acurácia: 0.62
 
-## Matrix de confusão:
+## Matriz de confusão:
 
 ![Sem título](https://github.com/user-attachments/assets/ab46043f-a25b-45d1-9da4-2f6a01bd8680)
 
