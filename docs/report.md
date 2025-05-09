@@ -592,18 +592,18 @@ Testar modelos adicionais com maior capacidade de generalização.
 - Preenchimento dos valores ausentes em `Nível_de_Formação_Acadêmica` com a moda ("Pós-graduação"), devido à sua predominância na amostra.
 - Remoção dos registros sem informação de salário, pois são imprescindíveis para a análise.
 
-  # 1. Seleção de colunas relevantes
+ ## 1. Seleção de colunas relevantes
 colunas_relevantes = [
     'Salario_Medio', 'Nivel_de_Ensino', 'Tempo_de_experiencia_na_area_de_dados',
     'Setor', 'PIB_2021_OR', 'IDHM'
 ]
 df = df[colunas_relevantes].copy()
 
-# 2. Tratamento de valores ausentes
+## 2. Tratamento de valores ausentes
 df['Nivel_de_Ensino'] = df['Nivel_de_Ensino'].fillna('Pós-graduação')
 df = df.dropna(subset=['Salario_Medio', 'PIB_2021_OR', 'IDHM'])
 
-# 3. Mapeamento do nível de formação acadêmica
+## 3. Mapeamento do nível de formação acadêmica
 map_formacao = {
     'Ensino Médio': 1,
     'Graduação': 2,
@@ -612,7 +612,7 @@ map_formacao = {
     'Doutorado': 5
 }
 df['Nivel_de_Ensino_Num'] = df['Nivel_de_Ensino'].map(map_formacao)
-# Codificação ordinal para experiência
+## Codificação ordinal para experiência
 map_experiencia = {
     'Não tenho experiência na área de dados': 0,
     'Menos de 1 ano': 1,
@@ -626,13 +626,13 @@ map_experiencia = {
 df['Experiencia_Num'] = df['Tempo_de_experiencia_na_area_de_dados'].map(map_experiencia)
 
 
-# 4. Remoção de outliers salariais
+## 4. Remoção de outliers salariais
 Q1 = df['Salario_Medio'].quantile(0.25)
 Q3 = df['Salario_Medio'].quantile(0.75)
 IQR = Q3 - Q1
 df = df[(df['Salario_Medio'] >= Q1 - 1.5 * IQR) & (df['Salario_Medio'] <= Q3 + 1.5 * IQR)]
 
-# 5. Engenharia de features: PIB per capita
+## 5. Engenharia de features: PIB per capita
 df['PIB_per_capita'] = df['PIB_2021_OR'] / df['IDHM']
 
 
@@ -656,10 +656,10 @@ df['PIB_per_capita'] = df['PIB_2021_OR'] / df['IDHM']
   - Mestrado: 15%
   - Doutorado: 5%
   - Ensino Médio: 10%
-# One-hot encoding para Setor
+## One-hot encoding para Setor
 df = pd.get_dummies(df, columns=['Setor'], drop_first=True)
 
-# Codificação ordinal para experiência
+## Codificação ordinal para experiência
 map_experiencia = {
     'Não tenho experiência na área de dados': 0,
     'Menos de 1 ano': 1,
