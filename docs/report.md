@@ -842,13 +842,13 @@ A preparação dos dados consiste dos seguintes passos:
 | Faixa 3        | R$10.001 - R$20.000     |
 | Faixa 4        | R$20.001+               |
    
-| Etapa               | Descrição                                                                                                                                 | Código Relacionado                                                                 |
-|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
-| **Pré-processamento Inicial** | Preparação dos dados antes da modelagem, incluindo tratamento de valores faltantes, codificação de variáveis categóricas e normalização. No seu caso, já está usando `base_treino` pronta. | `base_treino.drop(columns=['Nivel_Salarial'])` (seleção de features)              |
-| **Divisão Treino-Teste** | Separação dos dados em conjuntos de treino (75%) e teste (25%) com estratificação implícita, usando `random_state` para reprodutibilidade. | `train_test_split(..., test_size=0.25, random_state=42)`                          |
-| **Validação Cruzada** | Não implementada no código atual. Sugestão: usar `StratifiedKFold` para avaliação mais robusta do modelo.                                  | *(Não presente)*                                                                  |
-| **Pós-processamento** | Análise das previsões através de métricas de avaliação: acurácia, matriz de confusão e relatório de classificação por faixa salarial.     | `accuracy_score()`, `confusion_matrix()`, `classification_report()`               |
-| **Descrição dos Parâmetros** | - `criterion='gini'`: Medida de qualidade do split (impureza)<br>- `max_depth=4`: Limita profundidade da árvore para evitar overfitting<br>- `random_state=42`: Garante reprodutibilidade | `DecisionTreeClassifier(criterion='gini', max_depth=4, random_state=42)`          |
+| Etapa                     | Descrição                                                                                                                                 | Código Relacionado                                                                 |
+|---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| **Pré-processamento Inicial** | Preparação dos dados antes da modelagem, incluindo:<br>- Tratamento de valores faltantes<br>- Codificação de variáveis categóricas<br>- Normalização<br><br>*No seu caso, já está usando `base_treino` pronta.* | `base_treino.drop(columns=['Nivel_Salarial'])`<br>*(seleção de features)*        |
+| **Divisão Treino-Teste**  | Separação dos dados em:<br>- Treino (75%)<br>- Teste (25%)<br><br>Com estratificação implícita e `random_state` para reprodutibilidade.  | `train_test_split(..., test_size=0.25, random_state=42)`                         |
+| **Validação Cruzada**     | *Não implementada no código atual.*<br><br>Sugestão: usar `StratifiedKFold` para avaliação mais robusta.                                  | *(Não presente)*                                                                 |
+| **Pós-processamento**     | Análise das previsões através de:<br>- Acurácia<br>- Matriz de confusão<br>- Relatório de classificação por faixa salarial               | `accuracy_score()`<br>`confusion_matrix()`<br>`classification_report()`          |
+| **Descrição dos Parâmetros** | `DecisionTreeClassifier` configurado com:<br>- `criterion='gini'`: Mede a impureza dos splits<br>- `max_depth=4`: Limita profundidade para evitar overfitting<br>- `random_state=42`: Garante reprodutibilidade | `DecisionTreeClassifier(criterion='gini', max_depth=4, random_state=42)`        |
 
 ## Resultado
 
@@ -885,6 +885,27 @@ A preparação dos dados consiste dos seguintes passos:
    - 73.2% de acurácia (melhor entre todas)
    - Ainda apresenta 97 erros classificados como Classe 2
 
+4. **Conclusão**:
+
+- **Limitações do Modelo de Árvore de Decisão**:
+  - Desempenho comprometido devido a:
+    - **Dados desbalanceados** (natureza não-uniforme das classes)
+    - **Sobreposição de características** entre classes
+  - Problemas específicos identificados:
+    - **Falha crítica na Classe 4**:
+      - 100% de erro de classificação
+      - Possível causa: sub-representação nos dados de treino
+    - **Alta confusão entre Classes 1-2**:
+      - Limites de decisão inadequados para separar classes similares
+    - **Desempenho mediano na Classe 3**:
+      - Acurácia de 73.2% (melhor entre as classes)
+      - Ainda com 97 erros significativos
+  - Conclusão:
+    - Estrutura de decisão binária hierárquica mostrou-se:
+      - Pouco eficaz para múltiplas classes
+      - Limitada para variáveis altamente interdependentes
+
+	
 # Árvore de Decisão: [Hipótese] Quais ferramentas influenciam no salário médio?
 
 ## Abordagem Metodológica
