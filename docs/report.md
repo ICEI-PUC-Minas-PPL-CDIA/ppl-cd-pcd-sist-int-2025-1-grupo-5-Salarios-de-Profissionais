@@ -878,6 +878,64 @@ A preparação dos dados consiste dos seguintes passos:
    - 73.2% de acurácia (melhor entre todas)
    - Ainda apresenta 97 erros classificados como Classe 2
 
+# Árvore de Decisão: [Hipótese] Quais ferramentas influenciam no salário médio?
+
+## Abordagem Metodológica
+
+Para prever os salários médios dos profissionais de dados, foi construído um modelo de regressão baseado em árvore de decisão. Este modelo inicial foi desenvolvido com o objetivo de identificar os fatores mais relevantes que influenciam os salários na área de dados.
+
+### Conjunto de dados e variáveis
+
+O modelo utilizou as seguintes variáveis como preditoras:
+- **Localização geográfica**: UF onde o profissional reside (variável categórica)
+- **Conhecimento técnico**: Domínio de linguagens específicas como SQL e Python
+- **Perfil de habilidades técnicas**: Uso de linguagens estatísticas para análise de dados, linguagens web, empresariais e de sistema
+- **Ausência de habilidades em programação**: Indicador de não utilização de linguagens de programação
+
+A variável alvo foi o `salario_medio`, caracterizando um problema de regressão.
+
+### Processamento e construção do modelo
+
+O pipeline de modelagem incluiu:
+1. **Pré-processamento dos dados**:
+   - Codificação one-hot para variáveis categóricas (UF)
+   - Passagem direta das variáveis numéricas
+   
+2. **Algoritmo de modelagem**:
+   - Árvore de Decisão para Regressão
+   - Parâmetro de profundidade máxima = 5 para evitar overfitting
+
+3. **Validação**:
+   - Divisão dos dados em conjuntos de treino (80%) e teste (20%)
+
+## Resultados Principais
+
+### Importância das características
+
+Analisando a importância das features no modelo, identificamos os principais fatores que influenciam os salários:
+
+| Feature | Importância |
+|---------|------------|
+| Não utiliza linguagem de programação | 27.93% |
+| Conhecimento em SQL | 18.74% |
+| Conhecimento em Python | 17.65% |
+| Residência em local não identificado (NI) | 13.31% |
+| Residência em São Paulo (SP) | 10.99% |
+| Uso de linguagens empresariais | 6.42% |
+| Uso de linguagens estatísticas para análise de dados | 1.96% |
+| Residência no Distrito Federal (DF) | 1.08% |
+| Residência em Pernambuco (PE) | 0.57% |
+| Residência na Bahia (BA) | 0.54% |
+
+### Insights preliminares
+
+1. **Impacto negativo da falta de programação**: A característica mais importante foi "não utiliza linguagem de programação", sugerindo que este fator tem forte correlação com os salários (provavelmente negativa)
+
+2. **Relevância das habilidades técnicas**: SQL e Python destacam-se como as linguagens mais valorizadas no mercado, representando juntas cerca de 36% da importância no modelo
+
+3. **Fator geográfico**: A localização geográfica tem peso significativo, com destaque para profissionais em São Paulo
+
+4. **Especialização técnica**: Linguagens empresariais e estatísticas também influenciam os salários, embora com menor impacto que as linguagens principais
 
 
 Substitua o título pelo nome do algoritmo que será utilizado. P. ex. árvore de decisão, rede neural, SVM, etc.
