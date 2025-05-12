@@ -608,14 +608,14 @@ $$
 $$
 
 **Base Teórica:**  
-O modelo segue a equação de Mincer (1974)[1], amplamente utilizada em economia do trabalho. A inclusão de variáveis regionais (PIB/IDHM) é respaldada por estudos que demonstram seu impacto moderador nos salários.
+O modelo segue a equação de Mincer (1974)[^1], amplamente utilizada em economia do trabalho. A inclusão de variáveis regionais (PIB/IDHM) é respaldada por estudos que demonstram seu impacto moderador nos salários.
 
 #### Variáveis do Modelo
 
 | Variável             | Tipo          | Descrição                                                                 |
 |----------------------|---------------|---------------------------------------------------------------------------|
 | `Salario_Medio`      | Dependente    | Salário médio mensal em R$.                                               |
-| `Nivel_de_Ensino`    | Independente  | Escala ordinal (1: Graduação, 2: Pós-graduação, 3: Mestrado, 4: Doutorado). |
+| `Nivel_de_Ensino`    | Independente  | Escala ordinal: 1-Graduação, 2-Pós-graduação, 3-Mestrado, 4-Doutorado.    |
 | `Experiencia`        | Independente  | Anos de experiência na área de dados.                                     |
 | `Setor`              | Categórica    | Setor de atuação (codificado via one-hot encoding).                       |
 | `PIB_2021_OR`        | Contínua      | PIB per capita do estado (normalizado).                                   |
@@ -630,7 +630,7 @@ O modelo segue a equação de Mincer (1974)[1], amplamente utilizada em economia
 | PIB_2021_OR          | 600,00           | [300,00 ; 900,00]            | 0,002    |
 | IDHM                 | 800,00           | [350,00 ; 1250,00]           | 0,001    |
 
-O coeficiente para o nível de ensino foi positivo e estatisticamente significativo, indicando que cada nível adicional de formação acadêmica está associado a um aumento médio de R$ 1.850,00 no salário, controlando para as demais variáveis. Este resultado está alinhado com a literatura nacional e internacional sobre retornos da educação no mercado de trabalho[1][2].
+O coeficiente para o nível de ensino foi positivo e estatisticamente significativo, indicando que cada nível adicional de formação acadêmica está associado a um aumento médio de R$ 1.850,00 no salário, controlando para as demais variáveis. Este resultado está alinhado com a literatura nacional e internacional sobre retornos da educação no mercado de trabalho[^1][^2].
 
 #### Validação dos Pressupostos
 
@@ -642,15 +642,15 @@ O coeficiente para o nível de ensino foi positivo e estatisticamente significat
 ### Visualizações e Interpretação
 
 - **Boxplot salarial por nível de formação:** Evidenciou crescimento claro da mediana salarial conforme o avanço do nível de ensino.  
-  _Figura 1: Boxplot salarial por nível de formação_
+  *Figura 1: Boxplot salarial por nível de formação*  
 - **QQ-plot e histograma dos resíduos:** Confirmaram a normalidade dos resíduos e a adequação do modelo linear.  
-  _Figura 2: QQ-plot dos resíduos_
+  *Figura 2: QQ-plot dos resíduos*
 
 ### Discussão sobre Causalidade e Limitações
 
 Embora a associação entre nível de formação e salário seja robusta, este estudo é observacional.  
 Não é possível afirmar causalidade direta, pois fatores não observados (como habilidades interpessoais, networking ou área de atuação específica) podem influenciar tanto a formação quanto o salário.  
-Além disso, o modelo não inclui custo de vida regional, o que pode afetar a comparação entre estados. A ausência de variáveis de habilidade inata pode inflacionar o efeito da educação, conforme alertado por Arrow (1973)[2].
+Além disso, o modelo não inclui custo de vida regional, o que pode afetar a comparação entre estados. A ausência de variáveis de habilidade inata pode inflacionar o efeito da educação, conforme alertado por Arrow (1973)[^2].
 
 ### Justificativa para Modelos Não-Lineares e Próximos Passos
 
@@ -672,10 +672,9 @@ Empresas podem utilizar esses achados para estruturar planos de carreira e polí
 
 ### Referências
 
-1. Mincer, J. (1974). Schooling, Experience, and Earnings.  
-2. Arrow, K. J. (1973). Higher Education as a Filter.  
-3. IBGE. (2022). Indicadores de PIB e IDHM por UF.  
-4. [Inclua outras referências relevantes do seu projeto]
+[^1]: Mincer, J. (1974). Schooling, Experience, and Earnings.  
+[^2]: Arrow, K. J. (1973). Higher Education as a Filter.  
+[^3]: IBGE. (2022). Indicadores de PIB e IDHM por UF.  
 
 ## [Preparação dos Dados] Hipótese 3
 
