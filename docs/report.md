@@ -585,9 +585,7 @@ Ajustar hiperparâmetros de modelos não-lineares como o XGBoost.
 Testar modelos adicionais com maior capacidade de generalização.
 
 # Hipótese 5: Nível de formação acadêmica influencia o salário
-
-## 1. Preparação de Dados
-```python
+## Preparacao dos dados 
 colunas_relevantes = [
     'Salario_Medio', 'Nivel_de_Ensino', 'Tempo_de_experiencia_na_area_de_dados',
     'Setor', 'PIB_2021_OR', 'IDHM'
@@ -596,19 +594,19 @@ df = df[colunas_relevantes].copy()
 df['Nivel_de_Ensino'] = df['Nivel_de_Ensino'].fillna('Pós-graduação')
 df = df.dropna(subset=['Salario_Medio', 'PIB_2021_OR', 'IDHM'])
 
-map_formacao = {'Ensino Médio':1, 'Graduação':2, 'Pós-graduação':3, 'Mestrado':4, 'Doutorado':5}
+map_formacao = {'Ensino Médio': 1, 'Graduação': 2, 'Pós-graduação': 3, 'Mestrado': 4, 'Doutorado': 5}
 df['Nivel_de_Ensino_Num'] = df['Nivel_de_Ensino'].map(map_formacao)
 
 map_experiencia = {
-    'Não tenho experiência na área de dados':0, 'Menos de 1 ano':1, 'De 1 a 2 anos':2,
-    'De 2 a 3 anos':3, 'De 3 a 4 anos':4, 'De 4 a 6 anos':5, 'De 7 a 10 anos':6, 'Mais de 10 anos':7
+    'Não tenho experiência na área de dados': 0, 'Menos de 1 ano': 1, 'De 1 a 2 anos': 2,
+    'De 2 a 3 anos': 3, 'De 3 a 4 anos': 4, 'De 4 a 6 anos': 5, 'De 7 a 10 anos': 6, 'Mais de 10 anos': 7
 }
 df['Experiencia_Num'] = df['Tempo_de_experiencia_na_area_de_dados'].map(map_experiencia)
 
 Q1 = df['Salario_Medio'].quantile(0.25)
 Q3 = df['Salario_Medio'].quantile(0.75)
 IQR = Q3 - Q1
-df = df[(df['Salario_Medio'] >= Q1 - 1.5*IQR) & (df['Salario_Medio'] <= Q3 + 1.5*IQR)]
+df = df[(df['Salario_Medio'] >= Q1 - 1.5 * IQR) & (df['Salario_Medio'] <= Q3 + 1.5 * IQR)]
 
 df['Formacao_X_Experiencia'] = df['Nivel_de_Ensino_Num'] * df['Experiencia_Num']
 df = pd.get_dummies(df, columns=['Setor'], drop_first=True)
@@ -651,6 +649,7 @@ import seaborn as sns
 import numpy as np
 import scipy.stats as stats
 
+# Boxplot salarial
 plt.figure(figsize=(12,6))
 sns.boxplot(x='Nivel_de_Ensino', y='Salario_Medio', data=df, order=map_formacao.keys())
 plt.title('Distribuição Salarial por Nível de Formação')
@@ -658,12 +657,14 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
 
+# QQ-plot dos resíduos
 plt.figure(figsize=(8,4))
 stats.probplot(modelo_stats.resid, plot=plt)
 plt.title('Análise de Normalidade dos Resíduos')
 plt.tight_layout()
 plt.show()
 
+# Histograma dos resíduos
 sns.histplot(modelo_stats.resid, kde=True, stat='density')
 x = np.linspace(-4, 4, 100)
 plt.plot(x, stats.norm.pdf(x), 'r--', label='N(0,1)')
@@ -672,15 +673,17 @@ plt.legend()
 plt.tight_layout()
 plt.show()
 
+# Importância das variáveis (Random Forest)
 from sklearn.ensemble import RandomForestRegressor
 rf = RandomForestRegressor(n_estimators=100, random_state=42)
 rf.fit(X_train, y_train)
-importancias = pd.DataFrame({'Variável':X.columns, 'Importância':rf.feature_importances_})
+importancias = pd.DataFrame({'Variável': X.columns, 'Importância': rf.feature_importances_})
 importancias.nlargest(10, 'Importância').plot.barh(x='Variável', y='Importância')
 plt.title('Top 10 Variáveis Mais Importantes')
 plt.tight_layout()
 plt.show()
-Conclusão
+
+## Conclusão
 print('\nConclusão:')
 print(f'- O nível de formação acadêmica tem efeito positivo e estatisticamente significativo (p={modelo_stats.pvalues["Nivel_de_Ensino_Num"]:.4f}) no salário.')
 print(f'- Cada nível adicional de formação aumenta o salário em média em R$ {modelo_stats.params["Nivel_de_Ensino_Num"]:.2f}.')
