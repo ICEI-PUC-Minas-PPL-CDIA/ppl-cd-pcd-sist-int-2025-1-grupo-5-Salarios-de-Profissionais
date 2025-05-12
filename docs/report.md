@@ -595,6 +595,27 @@ df = df[colunas_relevantes].copy()
 df['Nivel_de_Ensino'] = df['Nivel_de_Ensino'].fillna('Pós-graduação')
 df = df.dropna(subset=['Salario_Medio', 'PIB_2021_OR', 'IDHM'])
 
+map_formacao = {'Ensino Médio':1, 'Graduação':2, 'Pós-graduação':3, 'Mestrado':4, 'Doutorado':5}
+df['Nivel_de_Ensino_Num'] = df['Nivel_de_Ensino'].map(map_formacao)
+
+map_experiencia = {
+    'Não tenho experiência na área de dados':0, 'Menos de 1 ano':1, 'De 1 a 2 anos':2,
+    'De 2 a 3 anos':3, 'De 3 a 4 anos':4, 'De 4 a 6 anos':5, 'De 7 a 10 anos':6, 'Mais de 10 anos':7
+}
+df['Experiencia_Num'] = df['Tempo_de_experiencia_na_area_de_dados'].map(map_experiencia)
+
+Q1 = df['Salario_Medio'].quantile(0.25)
+Q3 = df['Salario_Medio'].quantile(0.75)
+IQR = Q3 - Q1
+df = df[(df['Salario_Medio'] >= Q1 - 1.5*IQR) & (df['Salario_Medio'] <= Q3 + 1.5*IQR)]
+
+df['Formacao_X_Experiencia'] = df['Nivel_de_Ensino_Num'] * df['Experiencia_Num']
+df = pd.get_dummies(df, columns=['Setor'], drop_first=True)
+
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+df[['PIB_2021_OR', 'IDHM']] = scaler.fit_transform(df[['PIB_2021_OR', 'IDHM']])
+
 ## Codificação ordinal
 map_formacao = {'Ensino Médio': 1, 'Graduação': 2, 'Pós-graduação': 3, 'Mestrado': 4, 'Doutorado': 5}
 df['Nivel_de_Ensino_Num'] = df['Nivel_de_Ensino'].map(map_formacao)
@@ -627,6 +648,26 @@ X = df.drop(columns=['Salario_Medio', 'Tempo_de_experiencia_na_area_de_dados', '
 y = df['Salario_Medio']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
+X2 = sm.add_constant(X)
+modelo_stats = sm.OLS(y, X2).fit()
+print(modelo_stats.summary())
+
+from sklearn.linear_model import LinearRegression
+cv_scores = cross_val_score(LinearRegression(), X, y, cv=5, scoring='r2')
+print(f'\nValidação Cruzada R²: {cv_scores.mean():.3f} (±{cv_scores.std():.3f})')
+
+from statsmodels.stats.diagnostic import het_breuschpagan, het_white
+from scipy.stats import shapiro
+
+_, pval_bp = het_breuschpagan(modelo_stats.resid, modelo_stats.model.exog)
+_, pval_white = het_white(modelo_stats.resid, modelo_stats.model.exog)
+_, pval_shapiro = shapiro(modelo_stats.resid)
+
+print(f'\nTestes de Robustez:')
+print(f'- Breusch-Pagan (homocedasticidade): p={pval_bp:.4f}')
+print(f'- White (homocedasticidade): p={pval_white:.4f}')
+print(f'- Shapiro-Wilk (normalidade): p={pval_shapiro:.4f}')
+
 ## Regressão linear (statsmodels)
 X2 = sm.add_constant(X)
 modelo_stats = sm.OLS(y, X2).fit()
@@ -654,6 +695,36 @@ print(f'- Shapiro-Wilk (normalidade): p={pval_shapiro:.4f}')
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+
+plt.figure(figsize=(12,6))
+sns.boxplot(x='Nivel_de_Ensino', y='Salario_Medio', data=df, order=map_formacao.keys())
+plt.title('Distribuição Salarial por Nível de Formação')
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+plt.figure(figsize=(8,4))
+stats.probplot(modelo_stats.resid, plot=plt)
+plt.title('Análise de Normalidade dos Resíduos')
+plt.tight_layout()
+plt.show()
+
+sns.histplot(modelo_stats.resid, kde=True, stat='density')
+x = np.linspace(-4, 4, 100)
+plt.plot(x, stats.norm.pdf(x), 'r--', label='N(0,1)')
+plt.title('Distribuição dos Resíduos vs Normal Padrão')
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+from sklearn.ensemble import RandomForestRegressor
+rf = RandomForestRegressor(n_estimators=100, random_state=42)
+rf.fit(X_train, y_train)
+importancias = pd.DataFrame({'Variável':X.columns, 'Importância':rf.feature_importances_})
+importancias.nlargest(10, 'Importância').plot.barh(x='Variável', y='Importância')
+plt.title('Top 10 Variáveis Mais Importantes')
+plt.tight_layout()
+plt.show()
 
 ## Boxplot salarial
 plt.figure(figsize=(12,6))
@@ -692,17 +763,15 @@ plt.show()
 
 ## 4. Conclusão
 print('\nConclusão:')
-print('- O nível de formação acadêmica tem efeito positivo e estatisticamente significativo no salário dos profissionais de dados.')
-print('- Cada nível adicional de formação aumenta o salário em média em torno de R$ {:.2f}.'.format(modelo_stats.params['Nivel_de_Ensino_Num']))
-print('- O modelo explica aproximadamente {:.1f}% da variação salarial (R² ajustado).'.format(modelo_stats.rsquared_adj*100))
-print('- Recomenda-se incluir variáveis regionais e de custo de vida em análises futuras para maior precisão.')
+print(f'- O nível de formação acadêmica tem efeito positivo e estatisticamente significativo (p={modelo_stats.pvalues["Nivel_de_Ensino_Num"]:.4f}) no salário.')
+print(f'- Cada nível adicional de formação aumenta o salário em média em R$ {modelo_stats.params["Nivel_de_Ensino_Num"]:.2f}.')
+print(f'- O modelo explica {modelo_stats.rsquared_adj*100:.1f}% da variação salarial (R² ajustado).')
 print('\nLimitações:')
-print('- Não inclui variáveis regionais detalhadas ou custo de vida.')
-print('- Possível viés de autodeclaração salarial.')
+print('- Não considera variações regionais de custo de vida.')
+print('- Depende de dados auto reportados, sujeitos a viés.')
 print('\nPróximos passos:')
-print('- Adicionar variáveis regionais e de custo de vida.')
-print('- Explorar interações entre formação e experiência/cargo.')
-print('- Testar modelos não-lineares para efeitos complexos.')
+print('- Incluir variáveis geoeconômicas detalhadas.')
+print('- Testar modelos não lineares com PolynomialFeatures.')
 
 ## [Preparação dos Dados] Hipótese 3
 
