@@ -655,6 +655,12 @@ _, pval_shapiro = shapiro(modelo_stats.resid)
 
 ### Visualizações
 
+![Importância das Variáveis para o Salário](assets/importancia_variaveis_regressao-1.jpg)
+_Figura 1: Importância das variáveis no modelo de regressão. O nível de formação é o fator mais relevante para o salário._
+
+![Distribuição Salarial por Nível de Formação](assets/distribuicao_salarial_formacao-1.jpg)
+_Figura 2: Distribuição dos salários conforme o nível de formação. Salários aumentam significativamente com maior escolaridade._
+
 - **Boxplot salarial por nível de formação:**
 plt.figure(figsize=(12,6))
 sns.boxplot(x='Nivel_de_Ensino', y='Salario_Medio', data=df, order=map_formacao.keys())
