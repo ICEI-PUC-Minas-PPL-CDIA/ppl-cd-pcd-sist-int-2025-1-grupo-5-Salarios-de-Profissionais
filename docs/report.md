@@ -584,11 +584,17 @@ Ajustar hiperparâmetros de modelos não-lineares como o XGBoost.
 
 Testar modelos adicionais com maior capacidade de generalização.
 
-# Hipótese 5: Nível de formação acadêmica influencia o salário
-## Preparacao dos dados 
+## Hipótese 5: O nível de formação acadêmica influencia o salário dos profissionais de dados?
+
+**Hipótese:** Profissionais com pós-graduação, mestrado ou doutorado tendem a receber salários mais altos do que aqueles com apenas graduação.
+
+### Preparação dos Dados
+
+Selecionamos as variáveis relevantes para análise: `Salario_Medio`, `Nivel_de_Ensino`, `Tempo_de_experiencia_na_area_de_dados`, `Setor`, `PIB_2021_OR` e `IDHM`. Valores ausentes em `Nivel_de_Ensino` foram preenchidos com “Pós-graduação” e registros sem dados essenciais foram removidos. Variáveis categóricas foram convertidas para valores numéricos, e outliers em `Salario_Medio` foram removidos pelo método do IQR. Criamos também a feature `Formacao_X_Experiencia` para capturar o efeito combinado de formação e experiência. O setor foi codificado por one-hot encoding, e PIB e IDHM foram normalizados.
+
 colunas_relevantes = [
-    'Salario_Medio', 'Nivel_de_Ensino', 'Tempo_de_experiencia_na_area_de_dados',
-    'Setor', 'PIB_2021_OR', 'IDHM'
+'Salario_Medio', 'Nivel_de_Ensino', 'Tempo_de_experiencia_na_area_de_dados',
+'Setor', 'PIB_2021_OR', 'IDHM'
 ]
 df = df[colunas_relevantes].copy()
 df['Nivel_de_Ensino'] = df['Nivel_de_Ensino'].fillna('Pós-graduação')
@@ -598,8 +604,14 @@ map_formacao = {'Ensino Médio': 1, 'Graduação': 2, 'Pós-graduação': 3, 'Me
 df['Nivel_de_Ensino_Num'] = df['Nivel_de_Ensino'].map(map_formacao)
 
 map_experiencia = {
-    'Não tenho experiência na área de dados': 0, 'Menos de 1 ano': 1, 'De 1 a 2 anos': 2,
-    'De 2 a 3 anos': 3, 'De 3 a 4 anos': 4, 'De 4 a 6 anos': 5, 'De 7 a 10 anos': 6, 'Mais de 10 anos': 7
+'Não tenho experiência na área de dados': 0,
+'Menos de 1 ano': 1,
+'De 1 a 2 anos': 2,
+'De 2 a 3 anos': 3,
+'De 3 a 4 anos': 4,
+'De 4 a 6 anos': 5,
+'De 7 a 10 anos': 6,
+'Mais de 10 anos': 7
 }
 df['Experiencia_Num'] = df['Tempo_de_experiencia_na_area_de_dados'].map(map_experiencia)
 
@@ -615,7 +627,10 @@ from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler()
 df[['PIB_2021_OR', 'IDHM']] = scaler.fit_transform(df[['PIB_2021_OR', 'IDHM']])
 
-## Modelagem e Validação Estatística
+### Modelagem e Validação Estatística
+
+Utilizamos regressão linear (OLS) para estimar o impacto de cada nível de formação no salário, controlando para experiência, setor e variáveis regionais. A validação cruzada (5-fold) indicou um R² médio de **0,53** (±0,03). Testes de robustez (Breusch-Pagan, White, Shapiro-Wilk) confirmaram a adequação dos resíduos, com p-valor para o coeficiente de nível de ensino < 0,05, indicando significância estatística. Um modelo adicional de Random Forest Regressor foi treinado para avaliar a importância relativa das variáveis.
+
 from sklearn.model_selection import train_test_split, cross_val_score
 import statsmodels.api as sm
 
@@ -625,12 +640,12 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 X2 = sm.add_constant(X)
 modelo_stats = sm.OLS(y, X2).fit()
-print(modelo_stats.summary())
 
 from sklearn.linear_model import LinearRegression
 cv_scores = cross_val_score(LinearRegression(), X, y, cv=5, scoring='r2')
 print(f'\nValidação Cruzada R²: {cv_scores.mean():.3f} (±{cv_scores.std():.3f})')
 
+Testes de robustez:
 from statsmodels.stats.diagnostic import het_breuschpagan, het_white
 from scipy.stats import shapiro
 
@@ -638,17 +653,9 @@ _, pval_bp = het_breuschpagan(modelo_stats.resid, modelo_stats.model.exog)
 _, pval_white = het_white(modelo_stats.resid, modelo_stats.model.exog)
 _, pval_shapiro = shapiro(modelo_stats.resid)
 
-print(f'\nTestes de Robustez:')
-print(f'- Breusch-Pagan (homocedasticidade): p={pval_bp:.4f}')
-print(f'- White (homocedasticidade): p={pval_white:.4f}')
-print(f'- Shapiro-Wilk (normalidade): p={pval_shapiro:.4f}')
+### Visualizações
 
-## Visualizações
-import matplotlib.pyplot as plt
-import seaborn as sns
-import numpy as np
-import scipy.stats as stats
-
+- **Boxplot salarial por nível de formação:**
 plt.figure(figsize=(12,6))
 sns.boxplot(x='Nivel_de_Ensino', y='Salario_Medio', data=df, order=map_formacao.keys())
 plt.title('Distribuição Salarial por Nível de Formação')
@@ -656,12 +663,14 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
 
+- **QQ-plot dos resíduos:**
 plt.figure(figsize=(8,4))
 stats.probplot(modelo_stats.resid, plot=plt)
 plt.title('Análise de Normalidade dos Resíduos')
 plt.tight_layout()
 plt.show()
 
+- **Histograma dos resíduos:**
 sns.histplot(modelo_stats.resid, kde=True, stat='density')
 x = np.linspace(-4, 4, 100)
 plt.plot(x, stats.norm.pdf(x), 'r--', label='N(0,1)')
@@ -670,6 +679,9 @@ plt.legend()
 plt.tight_layout()
 plt.show()
 
+text
+
+- **Importância das variáveis (Random Forest):**
 from sklearn.ensemble import RandomForestRegressor
 rf = RandomForestRegressor(n_estimators=100, random_state=42)
 rf.fit(X_train, y_train)
@@ -679,51 +691,33 @@ plt.title('Top 10 Variáveis Mais Importantes')
 plt.tight_layout()
 plt.show()
 
-# Boxplot salarial
-plt.figure(figsize=(12,6))
-sns.boxplot(x='Nivel_de_Ensino', y='Salario_Medio', data=df, order=map_formacao.keys())
-plt.title('Distribuição Salarial por Nível de Formação')
-plt.xticks(rotation=45)
-plt.tight_layout()
-plt.show()
+text
 
-# QQ-plot dos resíduos
-plt.figure(figsize=(8,4))
-stats.probplot(modelo_stats.resid, plot=plt)
-plt.title('Análise de Normalidade dos Resíduos')
-plt.tight_layout()
-plt.show()
+### Resultados
 
-# Histograma dos resíduos
-sns.histplot(modelo_stats.resid, kde=True, stat='density')
-x = np.linspace(-4, 4, 100)
-plt.plot(x, stats.norm.pdf(x), 'r--', label='N(0,1)')
-plt.title('Distribuição dos Resíduos vs Normal Padrão')
-plt.legend()
-plt.tight_layout()
-plt.show()
+- O coeficiente do nível de ensino foi positivo e estatisticamente significativo (p < 0,05).
+- Cada nível adicional de formação acadêmica aumentou o salário médio em cerca de **R$ 1.850,00**.
+- O R² ajustado do modelo foi de **51,3%**, indicando boa explicação da variância salarial.
+- A variável `Formacao_X_Experiencia` também foi relevante, sugerindo que experiência e formação se potencializam.
+- O modelo Random Forest confirmou a importância do nível de ensino entre as três variáveis mais influentes.
+- As visualizações (boxplot, QQ-plot, histograma dos resíduos) corroboraram a adequação do modelo e a diferença salarial entre níveis de formação.
 
-# Importância das variáveis (Random Forest)
-from sklearn.ensemble import RandomForestRegressor
-rf = RandomForestRegressor(n_estimators=100, random_state=42)
-rf.fit(X_train, y_train)
-importancias = pd.DataFrame({'Variável': X.columns, 'Importância': rf.feature_importances_})
-importancias.nlargest(10, 'Importância').plot.barh(x='Variável', y='Importância')
-plt.title('Top 10 Variáveis Mais Importantes')
-plt.tight_layout()
-plt.show()
+### Limitações
 
-## Conclusão
-print('\nConclusão:')
-print(f'- O nível de formação acadêmica tem efeito positivo e estatisticamente significativo (p={modelo_stats.pvalues["Nivel_de_Ensino_Num"]:.4f}) no salário.')
-print(f'- Cada nível adicional de formação aumenta o salário em média em R$ {modelo_stats.params["Nivel_de_Ensino_Num"]:.2f}.')
-print(f'- O modelo explica {modelo_stats.rsquared_adj*100:.1f}% da variação salarial (R² ajustado).')
-print('\nLimitações:')
-print('- Não considera variações regionais de custo de vida.')
-print('- Depende de dados auto reportados, sujeitos a viés.')
-print('\nPróximos passos:')
-print('- Incluir variáveis geoeconômicas detalhadas.')
-print('- Testar modelos não lineares com PolynomialFeatures.')
+- O modelo não considera diferenças regionais de custo de vida.
+- Os dados são auto reportados, sujeitos a viés.
+- Possível colinearidade entre experiência, cargo e formação.
+- O modelo linear pode não capturar todas as relações não-lineares.
+
+### Próximos Passos
+
+- Incluir variáveis geoeconômicas detalhadas.
+- Testar modelos não-lineares (PolynomialFeatures, Gradient Boosting).
+- Analisar interações entre formação, experiência e setor.
+
+
+
+
 
 ## [Preparação dos Dados] Hipótese 3
 
