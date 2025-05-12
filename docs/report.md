@@ -597,7 +597,10 @@ Criamos também a feature `Formacao_X_Experiencia` para capturar o efeito combin
 O setor foi codificado por one-hot encoding, e PIB e IDHM foram normalizados.
 
 Antes de ajustar o modelo, verificamos a multicolinearidade entre as variáveis independentes utilizando o Variance Inflation Factor (VIF), garantindo que os efeitos estimados para o nível de ensino não fossem confundidos com outros fatores correlacionados.
-### Primeiro Modelo Induzido: Regressão Linear Múltipla (OLS)
+
+### Modelagem e Validação Estatística
+
+#### Primeiro Modelo Induzido: Regressão Linear Múltipla (OLS)
 
 **Equação do Modelo:**  
 $$
@@ -605,7 +608,7 @@ $$
 $$
 
 **Base Teórica:**  
-O modelo segue a equação de Mincer (1974), amplamente utilizada em economia do trabalho. A inclusão de variáveis regionais (PIB/IDHM) é respaldada por estudos que demonstram seu impacto moderador nos salários.
+O modelo segue a equação de Mincer (1974)[1], amplamente utilizada em economia do trabalho. A inclusão de variáveis regionais (PIB/IDHM) é respaldada por estudos que demonstram seu impacto moderador nos salários.
 
 #### Variáveis do Modelo
 
@@ -627,7 +630,7 @@ O modelo segue a equação de Mincer (1974), amplamente utilizada em economia do
 | PIB_2021_OR          | 600,00           | [300,00 ; 900,00]            | 0,002    |
 | IDHM                 | 800,00           | [350,00 ; 1250,00]           | 0,001    |
 
-O coeficiente para o nível de ensino foi positivo e estatisticamente significativo, indicando que cada nível adicional de formação acadêmica está associado a um aumento médio de R$ 1.850,00 no salário, controlando para as demais variáveis. Este resultado está alinhado com a literatura nacional e internacional sobre retornos da educação no mercado de trabalho.
+O coeficiente para o nível de ensino foi positivo e estatisticamente significativo, indicando que cada nível adicional de formação acadêmica está associado a um aumento médio de R$ 1.850,00 no salário, controlando para as demais variáveis. Este resultado está alinhado com a literatura nacional e internacional sobre retornos da educação no mercado de trabalho[1][2].
 
 #### Validação dos Pressupostos
 
@@ -636,54 +639,22 @@ O coeficiente para o nível de ensino foi positivo e estatisticamente significat
 - **Homocedasticidade:** Testes de Breusch-Pagan e White não rejeitaram a hipótese de variância constante.
 - **Ajuste do modelo:** R² ajustado = 0,53.
 
-#### Limitações
-
-- **Viés de habilidade não observada:** Como discutido por Arrow (1973), a educação pode atuar como sinalizador de habilidades inatas, não capturadas no modelo.
-- **Custo de vida regional:** A ausência desta variável limita a comparação interestadual.
-
-#### Referências
-
-- Mincer, J. (1974). Schooling, Experience, and Earnings.
-- Arrow, K. J. (1973). Higher Education as a Filter.
-- IBGE. (2022). Indicadores de PIB e IDHM por UF.
-- [Inclua outras referências relevantes do seu projeto]
-
----
-
-### Modelagem e Validação Estatística
-
-Utilizamos regressão linear (OLS) para estimar o impacto de cada nível de formação no salário, controlando para experiência, setor e variáveis regionais.  
-A validação cruzada (5-fold) indicou um R² médio de 0,53 (±0,03).  
-Testes de robustez (Breusch-Pagan, White, Shapiro-Wilk) confirmaram a adequação dos resíduos.  
-Um modelo adicional de Random Forest Regressor foi treinado para avaliar a importância relativa das variáveis.
-
-#### Principais Coeficientes do Modelo
-
-| Variável               | Coeficiente | Intervalo de Confiança (95%) | p-valor  |
-|-----------------------|-------------|------------------------------|----------|
-| Nível de Ensino       | 1850,00     | [1450,00 ; 2250,00]          | <0,001   |
-| Experiência           | 1100,00     | [900,00 ; 1300,00]           | <0,001   |
-| PIB_2021_OR           | 600,00      | [300,00 ; 900,00]            | 0,002    |
-| IDHM                  | 800,00      | [350,00 ; 1250,00]           | 0,001    |
-
-O coeficiente para o nível de ensino foi positivo e estatisticamente significativo, indicando que cada nível adicional de formação acadêmica está associado a um aumento médio de R$ 1.850,00 no salário, controlando para as demais variáveis.
-
 ### Visualizações e Interpretação
 
-- **Boxplot salarial por nível de formação:** Evidenciou crescimento claro da mediana salarial conforme o avanço do nível de ensino.
-- **QQ-plot e histograma dos resíduos:** Confirmaram a normalidade dos resíduos e a adequação do modelo linear.
-
-> _Figura: Distribuição Salarial por Nível de Formação_
+- **Boxplot salarial por nível de formação:** Evidenciou crescimento claro da mediana salarial conforme o avanço do nível de ensino.  
+  _Figura 1: Boxplot salarial por nível de formação_
+- **QQ-plot e histograma dos resíduos:** Confirmaram a normalidade dos resíduos e a adequação do modelo linear.  
+  _Figura 2: QQ-plot dos resíduos_
 
 ### Discussão sobre Causalidade e Limitações
 
 Embora a associação entre nível de formação e salário seja robusta, este estudo é observacional.  
 Não é possível afirmar causalidade direta, pois fatores não observados (como habilidades interpessoais, networking ou área de atuação específica) podem influenciar tanto a formação quanto o salário.  
-Além disso, o modelo não inclui custo de vida regional, o que pode afetar a comparação entre estados.
+Além disso, o modelo não inclui custo de vida regional, o que pode afetar a comparação entre estados. A ausência de variáveis de habilidade inata pode inflacionar o efeito da educação, conforme alertado por Arrow (1973)[2].
 
 ### Justificativa para Modelos Não-Lineares e Próximos Passos
 
-Apesar do bom ajuste do modelo linear, análises exploratórias sugerem que a relação entre formação e salário pode não ser estritamente linear (ex: retornos decrescentes para níveis mais altos de formação).  
+Apesar do bom ajuste do modelo linear, análises exploratórias (ex: gráfico de dispersão com curva LOWESS) sugerem que a relação entre formação e salário pode não ser estritamente linear (ex: retornos decrescentes para níveis mais altos de formação).  
 Por isso, recomenda-se testar modelos não-lineares, como regressão polinomial e Gradient Boosting, para capturar possíveis efeitos complexos.
 
 Também está prevista a inclusão de variáveis como custo de vida regional (ex: IPCA, aluguel médio por UF), a serem extraídas de bancos públicos como IBGE e FGV.  
@@ -699,7 +670,12 @@ Os scripts incluem desde o tratamento dos dados até a geração dos gráficos e
 Os resultados sugerem que investir em formação acadêmica superior está associado a salários mais elevados no setor de dados, mesmo considerando experiência e setor.  
 Empresas podem utilizar esses achados para estruturar planos de carreira e políticas salariais, enquanto profissionais podem tomar decisões mais informadas sobre educação continuada.
 
+### Referências
 
+1. Mincer, J. (1974). Schooling, Experience, and Earnings.  
+2. Arrow, K. J. (1973). Higher Education as a Filter.  
+3. IBGE. (2022). Indicadores de PIB e IDHM por UF.  
+4. [Inclua outras referências relevantes do seu projeto]
 
 ## [Preparação dos Dados] Hipótese 3
 
