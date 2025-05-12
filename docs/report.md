@@ -649,6 +649,36 @@ import seaborn as sns
 import numpy as np
 import scipy.stats as stats
 
+plt.figure(figsize=(12,6))
+sns.boxplot(x='Nivel_de_Ensino', y='Salario_Medio', data=df, order=map_formacao.keys())
+plt.title('Distribuição Salarial por Nível de Formação')
+plt.xticks(rotation=45)
+plt.tight_layout()
+plt.show()
+
+plt.figure(figsize=(8,4))
+stats.probplot(modelo_stats.resid, plot=plt)
+plt.title('Análise de Normalidade dos Resíduos')
+plt.tight_layout()
+plt.show()
+
+sns.histplot(modelo_stats.resid, kde=True, stat='density')
+x = np.linspace(-4, 4, 100)
+plt.plot(x, stats.norm.pdf(x), 'r--', label='N(0,1)')
+plt.title('Distribuição dos Resíduos vs Normal Padrão')
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+from sklearn.ensemble import RandomForestRegressor
+rf = RandomForestRegressor(n_estimators=100, random_state=42)
+rf.fit(X_train, y_train)
+importancias = pd.DataFrame({'Variável': X.columns, 'Importância': rf.feature_importances_})
+importancias.nlargest(10, 'Importância').plot.barh(x='Variável', y='Importância')
+plt.title('Top 10 Variáveis Mais Importantes')
+plt.tight_layout()
+plt.show()
+
 # Boxplot salarial
 plt.figure(figsize=(12,6))
 sns.boxplot(x='Nivel_de_Ensino', y='Salario_Medio', data=df, order=map_formacao.keys())
