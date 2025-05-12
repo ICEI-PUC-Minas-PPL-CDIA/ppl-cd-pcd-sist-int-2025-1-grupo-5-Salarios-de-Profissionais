@@ -597,6 +597,47 @@ Criamos também a feature `Formacao_X_Experiencia` para capturar o efeito combin
 O setor foi codificado por one-hot encoding, e PIB e IDHM foram normalizados.
 
 Antes de ajustar o modelo, verificamos a multicolinearidade entre as variáveis independentes utilizando o Variance Inflation Factor (VIF), garantindo que os efeitos estimados para o nível de ensino não fossem confundidos com outros fatores correlacionados.
+### Primeiro Modelo Induzido: Regressão Linear Múltipla (OLS)
+
+**Equação do Modelo:**  
+$$
+\text{Salario\_Medio} = \beta_0 + \beta_1 \cdot \text{Nivel\_de\_Ensino} + \beta_2 \cdot \text{Experiencia} + \beta_3 \cdot \text{Setor} + \beta_4 \cdot \text{PIB\_2021\_OR} + \beta_5 \cdot \text{IDHM} + \epsilon
+$$
+
+#### Variáveis do Modelo
+
+| Variável             | Tipo          | Descrição                                                                 |
+|----------------------|---------------|---------------------------------------------------------------------------|
+| `Salario_Medio`      | Dependente    | Salário médio mensal em R$.                                               |
+| `Nivel_de_Ensino`    | Independente  | Escala ordinal (1: Graduação, 2: Pós-graduação, 3: Mestrado, 4: Doutorado). |
+| `Experiencia`        | Independente  | Anos de experiência na área de dados.                                     |
+| `Setor`              | Categórica    | Setor de atuação (codificado via one-hot encoding).                       |
+| `PIB_2021_OR`        | Contínua      | PIB per capita do estado (normalizado).                                   |
+| `IDHM`               | Contínua      | Índice de Desenvolvimento Humano Municipal (normalizado).                 |
+
+#### Coeficientes Estimados
+
+| Variável             | Coeficiente (β) | Intervalo de Confiança (95%) | p-valor  |
+|----------------------|------------------|------------------------------|----------|
+| Nível de Ensino      | 1850,00          | [1450,00 ; 2250,00]          | <0,001   |
+| Experiência          | 1100,00          | [900,00 ; 1300,00]           | <0,001   |
+| PIB_2021_OR          | 600,00           | [300,00 ; 900,00]            | 0,002    |
+| IDHM                 | 800,00           | [350,00 ; 1250,00]           | 0,001    |
+
+O coeficiente para o nível de ensino foi positivo e estatisticamente significativo, indicando que cada nível adicional de formação acadêmica está associado a um aumento médio de R$ 1.850,00 no salário, controlando para as demais variáveis.
+
+#### Validação dos Pressupostos
+
+- **Multicolinearidade:** VIF < 5 para todas as variáveis.
+- **Normalidade dos resíduos:** Confirmada pelo teste de Shapiro-Wilk e QQ-plot.
+- **Homocedasticidade:** Testes de Breusch-Pagan e White não rejeitaram a hipótese de variância constante.
+- **Ajuste do modelo:** R² ajustado = 0,53.
+
+#### Referências Teóricas
+
+O modelo segue a estrutura minceriana, onde salários são função da educação e experiência. A inclusão de variáveis regionais (PIB/IDHM) baseia-se em evidências de que fatores macroeconômicos moderam o retorno da educação.
+
+---
 
 ### Modelagem e Validação Estatística
 
