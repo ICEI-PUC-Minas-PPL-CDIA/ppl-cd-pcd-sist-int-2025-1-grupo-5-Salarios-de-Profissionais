@@ -584,7 +584,7 @@ Ajustar hiperparâmetros de modelos não-lineares como o XGBoost.
 
 Testar modelos adicionais com maior capacidade de generalização.
 
-## Hipótese 5: O nível de formação acadêmica influencia o salário dos profissionais de dados?
+ ## Hipótese 5: O nível de formação acadêmica influencia o salário dos profissionais de dados?
 
 **Hipótese:** Profissionais com pós-graduação, mestrado ou doutorado tendem a receber salários mais altos do que aqueles com apenas graduação, mesmo após controlar para experiência, setor, PIB/IDHM do estado e outras variáveis relevantes.
 
@@ -604,7 +604,7 @@ Antes de ajustar o modelo, verificamos a multicolinearidade entre as variáveis 
 
 **Equação do Modelo:**  
 $$
-\text{Salario\_Medio} = \beta_0 + \beta_1 \cdot \text{Nivel\_de\_Ensino} + \beta_2 \cdot \text{Experiencia} + \beta_3 \cdot \text{Setor} + \beta_4 \cdot \text{PIB\_2021\_OR} + \beta_5 \cdot \text{IDHM} + \epsilon
+\text{Salario\_Medio} = \beta_0 + \beta_1 \cdot \text{Nivel\_de\_Ensino} + \beta_2 \cdot \text{Experiencia} + \beta_3 \cdot \text{Setor} + \beta_4 \cdot \text{PIB_2021\_OR} + \beta_5 \cdot \text{IDHM} + \epsilon
 $$
 
 **Base Teórica:**  
@@ -612,23 +612,23 @@ O modelo segue a equação de Mincer (1974)[^1], amplamente utilizada em economi
 
 #### Variáveis do Modelo
 
-| Variável             | Tipo          | Descrição                                                                 |
-|----------------------|---------------|---------------------------------------------------------------------------|
-| `Salario_Medio`      | Dependente    | Salário médio mensal em R$.                                               |
-| `Nivel_de_Ensino`    | Independente  | Escala ordinal: 1-Graduação, 2-Pós-graduação, 3-Mestrado, 4-Doutorado.    |
-| `Experiencia`        | Independente  | Anos de experiência na área de dados.                                     |
-| `Setor`              | Categórica    | Setor de atuação (codificado via one-hot encoding).                       |
-| `PIB_2021_OR`        | Contínua      | PIB per capita do estado (normalizado).                                   |
-| `IDHM`               | Contínua      | Índice de Desenvolvimento Humano Municipal (normalizado).                 |
+| Variável          | Tipo         | Descrição                                                                 |
+|-------------------|--------------|---------------------------------------------------------------------------|
+| Salario_Medio     | Dependente   | Salário médio mensal em R$.                                               |
+| Nivel_de_Ensino   | Independente | Escala ordinal: 1-Graduação, 2-Pós-graduação, 3-Mestrado, 4-Doutorado.    |
+| Experiencia       | Independente | Anos de experiência na área de dados.                                     |
+| Setor             | Categórica   | Setor de atuação (codificado via one-hot encoding).                       |
+| PIB_2021_OR       | Contínua     | PIB per capita do estado (normalizado).                                   |
+| IDHM              | Contínua     | Índice de Desenvolvimento Humano Municipal (normalizado).                 |
 
 #### Coeficientes Estimados
 
-| Variável             | Coeficiente (β) | Intervalo de Confiança (95%) | p-valor  |
-|----------------------|------------------|------------------------------|----------|
-| Nível de Ensino      | 1850,00          | [1450,00 ; 2250,00]          | <0,001   |
-| Experiência          | 1100,00          | [900,00 ; 1300,00]           | <0,001   |
-| PIB_2021_OR          | 600,00           | [300,00 ; 900,00]            | 0,002    |
-| IDHM                 | 800,00           | [350,00 ; 1250,00]           | 0,001    |
+| Variável          | Coeficiente (β) | Intervalo de Confiança (95%) | p-valor  |
+|-------------------|------------------|------------------------------|----------|
+| Nível de Ensino   | 1850,00          | [1450,00 ; 2250,00]          | <0,001   |
+| Experiência       | 1100,00          | [900,00 ; 1300,00]           | <0,001   |
+| PIB_2021_OR       | 600,00           | [300,00 ; 900,00]            | 0,002    |
+| IDHM              | 800,00           | [350,00 ; 1250,00]           | 0,001    |
 
 O coeficiente para o nível de ensino foi positivo e estatisticamente significativo, indicando que cada nível adicional de formação acadêmica está associado a um aumento médio de R$ 1.850,00 no salário, controlando para as demais variáveis. Este resultado está alinhado com a literatura nacional e internacional sobre retornos da educação no mercado de trabalho[^1][^2].
 
@@ -642,7 +642,7 @@ O coeficiente para o nível de ensino foi positivo e estatisticamente significat
 ### Visualizações e Interpretação
 
 - **Boxplot salarial por nível de formação:** Evidenciou crescimento claro da mediana salarial conforme o avanço do nível de ensino.  
-  *Figura 1: Boxplot salarial por nível de formação*  
+  *Figura 1: Boxplot salarial por nível de formação*
 - **QQ-plot e histograma dos resíduos:** Confirmaram a normalidade dos resíduos e a adequação do modelo linear.  
   *Figura 2: QQ-plot dos resíduos*
 
@@ -675,6 +675,7 @@ Empresas podem utilizar esses achados para estruturar planos de carreira e polí
 [^1]: Mincer, J. (1974). Schooling, Experience, and Earnings.  
 [^2]: Arrow, K. J. (1973). Higher Education as a Filter.  
 [^3]: IBGE. (2022). Indicadores de PIB e IDHM por UF.  
+
 
 ## [Preparação dos Dados] Hipótese 3
 
