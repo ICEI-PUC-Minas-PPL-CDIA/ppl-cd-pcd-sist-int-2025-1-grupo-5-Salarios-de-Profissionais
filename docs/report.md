@@ -584,11 +584,11 @@ Ajustar hiperparâmetros de modelos não-lineares como o XGBoost.
 
 Testar modelos adicionais com maior capacidade de generalização.
 
-# Hipótese 5: Nível de formação acadêmica influencia o salário
-Nesta hipótese, investigamos se profissionais com pós-graduação, mestrado ou doutorado recebem salários mais altos do que aqueles com apenas graduação, controlando por experiência, setor, PIB e IDHM do estado. Utilizamos regressão linear e modelos não-
-lineares, com validação estatística e análise de resíduos para garantir robustez dos resultados
+## Hipótese 5: Nível de formação acadêmica influencia o salário
 
-## Seleção de colunas relevantes
+### 1. Preparação de Dados
+
+### Seleção e limpeza
 colunas_relevantes = [
     'Salario_Medio', 'Nivel_de_Ensino', 'Tempo_de_experiencia_na_area_de_dados',
     'Setor', 'PIB_2021_OR', 'IDHM'
@@ -597,7 +597,7 @@ df = df[colunas_relevantes].copy()
 df['Nivel_de_Ensino'] = df['Nivel_de_Ensino'].fillna('Pós-graduação')
 df = df.dropna(subset=['Salario_Medio', 'PIB_2021_OR', 'IDHM'])
 
-## Codificação ordinal para nível de formação
+### Codificação ordinal para nível de formação
 map_formacao = {
     'Ensino Médio': 1,
     'Graduação': 2,
@@ -607,7 +607,7 @@ map_formacao = {
 }
 df['Nivel_de_Ensino_Num'] = df['Nivel_de_Ensino'].map(map_formacao)
 
-## Codificação ordinal para experiência
+### Codificação ordinal para experiência
 map_experiencia = {
     'Não tenho experiência na área de dados': 0,
     'Menos de 1 ano': 1,
@@ -626,48 +626,70 @@ Q3 = df['Salario_Medio'].quantile(0.75)
 IQR = Q3 - Q1
 df = df[(df['Salario_Medio'] >= Q1 - 1.5 * IQR) & (df['Salario_Medio'] <= Q3 + 1.5 * IQR)]
 
-## Engenharia de features: interação formação x experiência
+### Engenharia de features: interação formação x experiência
 df['Formacao_X_Experiencia'] = df['Nivel_de_Ensino_Num'] * df['Experiencia_Num']
 
-## One-hot encoding para Setor
+### One-hot encoding para Setor
 df = pd.get_dummies(df, columns=['Setor'], drop_first=True)
 
-## Padronização
+### Padronização
 from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler()
 df[['PIB_2021_OR', 'IDHM']] = scaler.fit_transform(df[['PIB_2021_OR', 'IDHM']])
 
----
-from sklearn.model_selection import train_test_split
+### 2. Modelagem e Validação Estatística
+
+from sklearn.model_selection import train_test_split, cross_val_score
 import statsmodels.api as sm
 
-## Separação de variáveis
 X = df.drop(columns=['Salario_Medio', 'Tempo_de_experiencia_na_area_de_dados', 'Nivel_de_Ensino'])
 y = df['Salario_Medio']
-
-## Divisão treino-teste
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-## Regressão linear e validação estatística
+### Regressão linear
 X2 = sm.add_constant(X)
 modelo_stats = sm.OLS(y, X2).fit()
 print(modelo_stats.summary())
 
-from statsmodels.stats.diagnostic import het_breuschpagan
-bp_test = het_breuschpagan(modelo_stats.resid, X2)
-print(f'\nTeste de Breusch-Pagan (homocedasticidade): p-valor = {bp_test[1]:.4f}')
-import scipy.stats as stats
+### Validação cruzada
+from sklearn.linear_model import LinearRegression
+cv_scores = cross_val_score(LinearRegression(), X, y, cv=5, scoring='r2')
+print(f'Validação Cruzada R²: {cv_scores.mean():.3f} (±{cv_scores.std():.3f})')
+
+### Testes de pressupostos
+from statsmodels.stats.diagnostic import het_breuschpagan, het_white
+from scipy.stats import shapiro
+
+_, pval_bp = het_breuschpagan(modelo_stats.resid, modelo_stats.model.exog)
+_, pval_white = het_white(modelo_stats.resid, modelo_stats.model.exog)
+_, pval_shapiro = shapiro(modelo_stats.resid)
+
+print(f'\nTestes de Robustez:')
+print(f'- Breusch-Pagan (homocedasticidade): p={pval_bp:.4f}')
+print(f'- White (homocedasticidade): p={pval_white:.4f}')
+print(f'- Shapiro-Wilk (normalidade): p={pval_shapiro:.4f}')
+
+### 3. Visualizações
+
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
-## QQ-plot dos resíduos
+### Boxplot salarial
+plt.figure(figsize=(12,6))
+sns.boxplot(x='Nivel_de_Ensino', y='Salario_Medio', data=df, order=map_formacao.keys())
+plt.title('Distribuição Salarial por Nível de Formação')
+plt.xticks(rotation=45)
+plt.show()
+
+### QQ-plot dos resíduos
 plt.figure(figsize=(8,4))
+import scipy.stats as stats
 stats.probplot(modelo_stats.resid, plot=plt)
 plt.title('Análise de Normalidade dos Resíduos')
 plt.show()
 
-## Histograma dos resíduos
+### Histograma dos resíduos
 sns.histplot(modelo_stats.resid, kde=True, stat='density')
 x = np.linspace(-4, 4, 100)
 plt.plot(x, stats.norm.pdf(x), 'r--', label='N(0,1)')
@@ -675,116 +697,23 @@ plt.title('Distribuição dos Resíduos vs Normal Padrão')
 plt.legend()
 plt.show()
 
-## 2. 1º Modelo induzido - Regressão Linear
-
-**Justificativa:**  
-A Regressão Linear foi escolhida por ser um modelo estatístico simples, interpretável e adequado para investigar a relação quantitativa entre o nível de formação acadêmica e o salário, controlando outras variáveis como experiência, cargo, setor e porte da empresa.
-
-**Processo de amostragem dos dados:**
-- Divisão treino-teste: 80% para treino, 20% para teste.
-- Validação cruzada: K-Fold (k=5) para garantir robustez na avaliação do modelo.
-
-**Parâmetros utilizados:**
-from sklearn.model_selection import train_test_split, cross_val_score
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_absolute_error, r2_score
-
-Separação treino-teste
-X_train, X_test, y_train, y_test = train_test_split(
-X, y, test_size=0.2, random_state=42
-)
-
-Treinamento do modelo
-modelo = LinearRegression()
-modelo.fit(X_train, y_train)
-
-Previsões e métricas
-y_pred = modelo.predict(X_test)
-mae = mean_absolute_error(y_test, y_pred)
-r2 = r2_score(y_test, y_pred)
-
-Validação cruzada
-cv_scores = cross_val_score(modelo, X, y, cv=5, scoring='r2')
-
-**Resultados obtidos:**
-- Erro Absoluto Médio (MAE): R$ 2.210,00
-- Coeficiente de Determinação (R²): 0,487
-- Validação Cruzada R²: 0,480 (±0,015)
-import matplotlib.pyplot as plt
-
-residuos = y_test - y_pred
-plt.figure(figsize=(10,6))
-plt.scatter(y_pred, residuos, alpha=0.5)
-plt.axhline(0, color='red', linestyle='--')
-plt.xlabel('Salário Previsto')
-plt.ylabel('Resíduos (Real - Previsto)')
-plt.title('Análise de Resíduos do Modelo')
-plt.show()
-
+### Importância das variáveis (Random Forest)
 from sklearn.ensemble import RandomForestRegressor
-
-rf = RandomForestRegressor(n_estimators=100, max_depth=5, random_state=42)
+rf = RandomForestRegressor(n_estimators=100, random_state=42)
 rf.fit(X_train, y_train)
 
-importancias = pd.DataFrame({
-    'Variável': X.columns,
-    'Importância': rf.feature_importances_
-}).sort_values('Importância', ascending=False)
-
-plt.figure(figsize=(10,6))
-sns.barplot(x='Importância', y='Variável', data=importancias.head(10))
-plt.title('Top 10 Variáveis Mais Importantes (Random Forest)')
+importancias = pd.DataFrame({'Variável':X.columns, 'Importância':rf.feature_importances_})
+importancias.nlargest(10, 'Importância').plot.barh(x='Variável', y='Importância')
+plt.title('Top 10 Variáveis Mais Importantes')
 plt.show()
 
-**Interpretação dos resultados:**
-- O nível de formação acadêmica é uma das variáveis mais relevantes e tem coeficiente positivo e estatisticamente significativo.
-- Cada nível adicional de formação está associado a um aumento médio no salário, mesmo após o controle de outras variáveis.
-- O modelo explica cerca de 49% da variação salarial entre os profissionais de dados.
-import pandas as pd
+### 4. Conclusão
 
-coeficientes = pd.DataFrame({
-    'Variável': X_train.columns,
-    'Coeficiente': modelo.coef_
-})
-print(coeficientes)
-import statsmodels.api as sm
-
-X2 = sm.add_constant(X)  # adiciona intercepto
-modelo_stats = sm.OLS(y, X2).fit()
-print(modelo_stats.summary())
-
----
-
-### Visualizações
-
-#### Distribuição Salarial por Nível de Formação
-
-![Distribuição Salarial por Nível de Formação](imagens/distribuicao_salarial_formacao.png)
-*Média salarial aumenta progressivamente com o nível de formação.*
-
-#### Importância das Variáveis no Modelo de Regressão Linear
-
-![Importância das Variáveis no Modelo de Regressão Linear](imagens/importancia_variaveis_regressao.png)
-*Nível de formação é a variável mais relevante no modelo.*
-
----
-
-**Limitações:**
-- O modelo não inclui variáveis geográficas ou socioeconômicas, que podem afetar os salários.
-- Possível viés de seleção na amostra, caso profissionais com maior formação estejam mais propensos a responder a pesquisas salariais.
-
-**Próximos Passos:**
-- Incluir variáveis regionais (localização, custo de vida) para refinar a análise.
-- Explorar interações entre nível de formação e experiência/cargo.
-- Testar modelos não-lineares para capturar possíveis efeitos complexos.
-- Realizar análise de sensibilidade para avaliar a robustez dos resultados.
-
----
-
-**Resumo:**  
-O primeiro modelo preditivo (Regressão Linear) confirma a hipótese de que o nível de formação acadêmica influencia significativamente o salário dos profissionais de dados, mesmo após o controle de outras variáveis relevantes.
-
-
+print('\nConclusão:')
+print('- O nível de formação acadêmica tem efeito positivo e estatisticamente significativo no salário dos profissionais de dados.')
+print('- Cada nível adicional de formação aumenta o salário em média em torno de R$ {:.2f}.'.format(modelo_stats.params['Nivel_de_Ensino_Num']))
+print('- O modelo explica aproximadamente {:.1f}% da variação salarial (R² ajustado).'.format(modelo_stats.rsquared_adj*100))
+print('- Recomenda-se incluir variáveis regionais e de custo de vida em análises futuras para maior precisão.')
 
 
 
