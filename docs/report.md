@@ -588,7 +588,7 @@ Testar modelos adicionais com maior capacidade de generalização.
 Nesta hipótese, investigamos se profissionais com pós-graduação, mestrado ou doutorado recebem salários mais altos do que aqueles com apenas graduação, controlando por experiência, setor, PIB e IDHM do estado. Utilizamos regressão linear e modelos não-
 lineares, com validação estatística e análise de resíduos para garantir robustez dos resultados
 
-# Seleção de colunas relevantes
+## Seleção de colunas relevantes
 colunas_relevantes = [
     'Salario_Medio', 'Nivel_de_Ensino', 'Tempo_de_experiencia_na_area_de_dados',
     'Setor', 'PIB_2021_OR', 'IDHM'
@@ -597,7 +597,7 @@ df = df[colunas_relevantes].copy()
 df['Nivel_de_Ensino'] = df['Nivel_de_Ensino'].fillna('Pós-graduação')
 df = df.dropna(subset=['Salario_Medio', 'PIB_2021_OR', 'IDHM'])
 
-# Codificação ordinal para nível de formação
+## Codificação ordinal para nível de formação
 map_formacao = {
     'Ensino Médio': 1,
     'Graduação': 2,
@@ -607,7 +607,7 @@ map_formacao = {
 }
 df['Nivel_de_Ensino_Num'] = df['Nivel_de_Ensino'].map(map_formacao)
 
-# Codificação ordinal para experiência
+## Codificação ordinal para experiência
 map_experiencia = {
     'Não tenho experiência na área de dados': 0,
     'Menos de 1 ano': 1,
@@ -620,19 +620,19 @@ map_experiencia = {
 }
 df['Experiencia_Num'] = df['Tempo_de_experiencia_na_area_de_dados'].map(map_experiencia)
 
-# Remoção de outliers salariais
+## Remoção de outliers salariais
 Q1 = df['Salario_Medio'].quantile(0.25)
 Q3 = df['Salario_Medio'].quantile(0.75)
 IQR = Q3 - Q1
 df = df[(df['Salario_Medio'] >= Q1 - 1.5 * IQR) & (df['Salario_Medio'] <= Q3 + 1.5 * IQR)]
 
-# Engenharia de features: interação formação x experiência
+## Engenharia de features: interação formação x experiência
 df['Formacao_X_Experiencia'] = df['Nivel_de_Ensino_Num'] * df['Experiencia_Num']
 
-# One-hot encoding para Setor
+## One-hot encoding para Setor
 df = pd.get_dummies(df, columns=['Setor'], drop_first=True)
 
-# Padronização
+## Padronização
 from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler()
 df[['PIB_2021_OR', 'IDHM']] = scaler.fit_transform(df[['PIB_2021_OR', 'IDHM']])
@@ -641,14 +641,14 @@ df[['PIB_2021_OR', 'IDHM']] = scaler.fit_transform(df[['PIB_2021_OR', 'IDHM']])
 from sklearn.model_selection import train_test_split
 import statsmodels.api as sm
 
-# Separação de variáveis
+## Separação de variáveis
 X = df.drop(columns=['Salario_Medio', 'Tempo_de_experiencia_na_area_de_dados', 'Nivel_de_Ensino'])
 y = df['Salario_Medio']
 
-# Divisão treino-teste
+## Divisão treino-teste
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Regressão linear e validação estatística
+## Regressão linear e validação estatística
 X2 = sm.add_constant(X)
 modelo_stats = sm.OLS(y, X2).fit()
 print(modelo_stats.summary())
@@ -661,13 +661,13 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 
-# QQ-plot dos resíduos
+## QQ-plot dos resíduos
 plt.figure(figsize=(8,4))
 stats.probplot(modelo_stats.resid, plot=plt)
 plt.title('Análise de Normalidade dos Resíduos')
 plt.show()
 
-# Histograma dos resíduos
+## Histograma dos resíduos
 sns.histplot(modelo_stats.resid, kde=True, stat='density')
 x = np.linspace(-4, 4, 100)
 plt.plot(x, stats.norm.pdf(x), 'r--', label='N(0,1)')
