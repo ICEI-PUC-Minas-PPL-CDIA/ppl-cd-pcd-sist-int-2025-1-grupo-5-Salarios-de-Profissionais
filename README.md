@@ -13,8 +13,9 @@ A aplicação integra múltiplas fontes de dados, realizando a coleta, processam
 
 ## Professor
 
--Prof. Hugo Bastos de Paula
--Prof. Hayala Nepomuceno Curto
+Prof. Hugo Bastos de Paula
+
+Prof. Hayala Nepomuceno Curto
 
 ## Instruções de utilização
 
