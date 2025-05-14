@@ -504,7 +504,7 @@ c) **Variáveis de Controle**
 **Princípios Orientadores:**  
 ✓ Interpretabilidade ✓ Preservação estatística ✓ Facilitar análise causal
 
-# Hipótese 2: Como o tamanho da empresa e setor afetam o salário
+## Hipótese 2: Como o tamanho da empresa e setor afetam o salário
 ### 1. Tratamento de Valores Ausentes
 Objetivo:
 Assegurar a qualidade e consistência dos dados, eliminando registros incompletos ou realizando o tratamento adequado para permitir a modelagem preditiva sem viés ou perda de performance.
@@ -582,7 +582,7 @@ Ajustar hiperparâmetros de modelos não-lineares como o XGBoost.
 
 Testar modelos adicionais com maior capacidade de generalização.
 
- ## Hipótese 5: O nível de formação acadêmica influencia o salário dos profissionais de dados?
+## Hipótese 5: O nível de formação acadêmica influencia o salário dos profissionais de dados?
 
 **Hipótese:** Profissionais com pós-graduação, mestrado ou doutorado tendem a receber salários mais altos do que aqueles com apenas graduação, mesmo após controlar para experiência, setor, PIB/IDHM do estado e outras variáveis relevantes.
 
@@ -630,7 +630,7 @@ O modelo segue a equação de Mincer (1974)[^1], amplamente utilizada em economi
 
 O coeficiente para o nível de ensino foi positivo e estatisticamente significativo, indicando que cada nível adicional de formação acadêmica está associado a um aumento médio de R$ 1.850,00 no salário, controlando para as demais variáveis. Este resultado está alinhado com a literatura nacional e internacional sobre retornos da educação no mercado de trabalho[^1][^2].
 
-#### Validação dos Pressupostos
+### Validação dos Pressupostos
 
 - **Multicolinearidade:** VIF < 5 para todas as variáveis.
 - **Normalidade dos resíduos:** Confirmada pelo teste de Shapiro-Wilk e QQ-plot.
@@ -724,11 +724,11 @@ A preparação dos dados consiste dos seguintes passos:
 
 ### Resultados obtidos com o modelo 1.
 
-# Modelo para Hipótese 1 - "Dado o PIB e o IDH de uma região/país, um profissional de dados tem maior probabilidade de ter um salário acima ou abaixo de uma determinada faixa salarial para a área?"
+## Modelo para Hipótese 1 - "Dado o PIB e o IDH de uma região/país, um profissional de dados tem maior probabilidade de ter um salário acima ou abaixo de uma determinada faixa salarial para a área?"
 
 ### **Modelo:** Árvore de Decisão
 
-## Justificativa:
+### Justificativa:
 - **Justificativa: As faixas salariais são definidas por intervalos fixos (R1.001−R1.001−R4.000, R4.001−R4.001−R6.000, etc.), criando relações não-lineares entre variáveis econômicas (PIB, IHD) e o target.
 - **Vantagem da Árvore: Modela naturalmente relações não-lineares através de divisões binárias sequenciais, identificando pontos de corte ótimos nos preditores.
 
@@ -762,13 +762,13 @@ A coluna **Nível Salarial**, que é o target, foi dividida em:
 | **Pós-processamento**     | Análise das previsões através de:<br>- Acurácia<br>- Matriz de confusão<br>- Relatório de classificação por faixa salarial               | `accuracy_score()`<br>`confusion_matrix()`<br>`classification_report()`          |
 | **Descrição dos Parâmetros** | `DecisionTreeClassifier` configurado com:<br>- `criterion='gini'`: Mede a impureza dos splits<br>- `max_depth=4`: Limita profundidade para evitar overfitting<br>- `random_state=42`: Garante reprodutibilidade | `DecisionTreeClassifier(criterion='gini', max_depth=4, random_state=42)`        |
 
-## Resultado
+### Resultado
 
 === Métricas de Desempenho ===
 
 ### Acurácia: 0.62
 
-## Matriz de confusão:
+### Matriz de confusão:
 
 ![Sem título](https://github.com/user-attachments/assets/ab46043f-a25b-45d1-9da4-2f6a01bd8680)
 
@@ -818,9 +818,9 @@ A coluna **Nível Salarial**, que é o target, foi dividida em:
       - Limitada para variáveis altamente interdependentes
 
 	
-# Árvore de Decisão: [Hipótese] Quais ferramentas influenciam no salário médio?
+## Árvore de Decisão: [Hipótese] Quais ferramentas influenciam no salário médio?
 
-## Abordagem Metodológica
+### Abordagem Metodológica
 
 Para prever os salários médios dos profissionais de dados, foi construído um modelo de regressão baseado em árvore de decisão. Este modelo inicial foi desenvolvido com o objetivo de identificar os fatores mais relevantes que influenciam os salários na área de dados.
 
