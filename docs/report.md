@@ -944,11 +944,11 @@ Acurácia: 69,9%
 
 F1-Score:
 
-Baixa: 76,1%
+• Baixa: 76,1%
 
-Média: 59,8%
+• Média: 59,8%
 
-Alta: 72,6%
+• Alta: 72,6%
 
 ### Matriz de confusão: Apresenta classificação mais precisa nas classes “Alta” e “Baixa”, com maior erro na classe “Média”, como esperado.
 
@@ -956,15 +956,15 @@ Interpretação do modelo 1
 
 Feature Importance (principais atributos):
 
-Idade
+• Idade
 
-Cargo Atual
+• Cargo Atual
 
-Tempo de experiência na área
+• Tempo de experiência na área
 
-Forma de trabalho
+• Forma de trabalho
 
-Gênero e UF
+• Gênero e UF
 
 O XGBoost constrói um modelo aditivo, onde cada nova árvore melhora o erro da anterior. A interpretação exata pode ser feita via SHAP ou ganho de informação.
 
@@ -974,23 +974,23 @@ Acurácia: 69,2%
 
 F1-Score:
 
-Baixa: 76,5%
+• Baixa: 76,5%
 
-Média: 58,7%
+• Média: 58,7%
 
-Alta: 73,2%
+• Alta: 73,2%
 
 ### Interpretação do modelo 2
 
 Feature Importance:
 
-Idade
+• Idade
 
-Nível (Pleno, Sênior)
+• Nível (Pleno, Sênior)
 
-Forma de trabalho
+• Forma de trabalho
 
-Cargo Atual
+• Cargo Atual
 
 As decisões da floresta são baseadas na média das previsões de várias árvores que se especializam em diferentes aspectos dos dados.
 
