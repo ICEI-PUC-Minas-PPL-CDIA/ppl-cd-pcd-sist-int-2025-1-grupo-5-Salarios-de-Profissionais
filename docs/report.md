@@ -877,6 +877,143 @@ Analisando a importância das features no modelo, identificamos os principais fa
 
 4. **Especialização técnica**: Linguagens empresariais e estatísticas também influenciam os salários, embora com menor impacto que as linguagens principais
 
+## Modelos Preditivos XGBoost e Random Forest 
+### Modelo 1: XGBoost (Extreme Gradient Boosting)
+
+Justificativa da escolha:
+O XGBoost é um dos algoritmos mais eficazes para tarefas de classificação com dados tabulares. Ele combina a simplicidade das árvores de decisão com o poder do boosting, uma técnica que treina modelos sequencialmente, corrigindo os erros cometidos pelas iterações anteriores. Isso resulta em um classificador robusto, preciso e eficiente.
+
+Processo de amostragem:
+Foi utilizado o particionamento simples dos dados com 80% para treino e 20% para teste, garantindo que a avaliação seja feita sobre dados não vistos. Além disso, aplicou-se validação cruzada (cross-validation) com 3 folds dentro do GridSearchCV para seleção dos hiperparâmetros.
+
+Parâmetros utilizados:
+
+learning_rate = 0.1
+
+max_depth = 5
+
+n_estimators = 100
+
+subsample = 1.0
+
+Trechos do código:
+
+xgb = XGBClassifier(
+    learning_rate=0.1,
+    max_depth=5,
+    n_estimators=100,
+    subsample=1.0,
+    use_label_encoder=False,
+    eval_metric='mlogloss',
+    random_state=42
+)
+xgb.fit(X_train, y_train)
+
+Fluxo Gráfico:
+
+Input -> Preenchimento de nulos -> Codificação (One-hot) -> Normalização (StandardScaler) -> Treino/Teste -> XGBoost -> Avaliação
+
+### Modelo 2: Random Forest (Floresta Aleatória)
+
+Justificativa da escolha:
+O Random Forest é um ensemble de árvores de decisão que oferece excelente desempenho em dados com muitas variáveis categóricas. Sua principal vantagem é a robustez a overfitting e a boa interpretabilidade.
+
+Processo de amostragem:
+Assim como no XGBoost, utilizou-se divisão de 80/20 entre treino e teste. A avaliação foi feita diretamente sobre o conjunto de teste, sem uso de validação cruzada adicional.
+
+Parâmetros utilizados:
+
+random_state = 42 (para reprodutibilidade)
+
+Os demais parâmetros foram mantidos como padrão
+
+Trechos do código:
+
+rf = RandomForestClassifier(random_state=42)
+rf.fit(X_train, y_train)
+
+Fluxo Gráfico:
+
+Input -> Preenchimento de nulos -> Codificação (One-hot) -> Normalização (StandardScaler) -> Treino/Teste -> Random Forest -> Avaliação
+
+## Resultados
+
+### Resultados obtidos com o modelo 1 (XGBoost)
+
+Acurácia: 69,9%
+
+F1-Score:
+
+Baixa: 76,1%
+
+Média: 59,8%
+
+Alta: 72,6%
+
+### Matriz de confusão: Apresenta classificação mais precisa nas classes “Alta” e “Baixa”, com maior erro na classe “Média”, como esperado.
+
+Interpretação do modelo 1
+
+Feature Importance (principais atributos):
+
+Idade
+
+Cargo Atual
+
+Tempo de experiência na área
+
+Forma de trabalho
+
+Gênero e UF
+
+O XGBoost constrói um modelo aditivo, onde cada nova árvore melhora o erro da anterior. A interpretação exata pode ser feita via SHAP ou ganho de informação.
+
+### Resultados obtidos com o modelo 2 (Random Forest)
+
+Acurácia: 69,2%
+
+F1-Score:
+
+Baixa: 76,5%
+
+Média: 58,7%
+
+Alta: 73,2%
+
+### Interpretação do modelo 2
+
+Feature Importance:
+
+Idade
+
+Nível (Pleno, Sênior)
+
+Forma de trabalho
+
+Cargo Atual
+
+As decisões da floresta são baseadas na média das previsões de várias árvores que se especializam em diferentes aspectos dos dados.
+
+### Análise comparativa dos modelos
+
+Ambos os modelos apresentaram desempenho semelhante.
+
+XGBoost mostrou ligeira vantagem na classe "Média", que é a mais difícil de separar.
+
+Random Forest é mais rápido de treinar e mais interpretável.
+
+O XGBoost, embora mais lento, tende a ser melhor quando ajustado corretamente.
+
+### Conclusão
+
+Desenvolvemos dois modelos preditivos para classificação da faixa salarial usando atributos demográficos e profissionais.
+
+O uso de quantis do Salario_Medio para agrupar os rótulos garantiu um balanceamento justo entre as classes.
+
+Os modelos obtiveram acurácia em torno de 70%, com bom desempenho na classificação de perfis salariais extremos (baixa/alta renda).
+
+O sistema pode ser utilizado para fins analíticos, de recomendação salarial, ou orientação profissional.
+
 
 Substitua o título pelo nome do algoritmo que será utilizado. P. ex. árvore de decisão, rede neural, SVM, etc.
 Justifique a escolha do modelo.
