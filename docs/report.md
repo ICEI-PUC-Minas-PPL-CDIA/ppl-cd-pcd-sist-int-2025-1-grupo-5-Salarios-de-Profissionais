@@ -246,7 +246,7 @@ A base de dados **State of Data Brazil 2023** retrata o perfil dos profissionais
 - **Terceiro quartil (75%)**: 36 anos  
 - **Valor máximo**: 73 anos
   
-![Distribuição de idade dos profissionais de dados](<./docs/imagens/Distribuição de idade dos profissionais de dados.png>)
+![Distribuição de idade dos profissionais de dados](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Distribui%C3%A7%C3%A3o%20de%20idade%20dos%20profissionais%20de%20dados.png?raw=true)
 
 ### Sexo ou Gênero
 - **Masculino**: 75,1% (3.975 respostas)  
