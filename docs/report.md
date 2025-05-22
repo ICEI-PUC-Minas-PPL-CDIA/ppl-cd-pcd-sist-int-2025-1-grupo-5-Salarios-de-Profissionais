@@ -1170,9 +1170,9 @@ knn = KNeighborsClassifier(n_neighbors=15)
 
 
 ![Matriz de Confusão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Matriz%20de%20confus%C3%A3o%20KNN.png)
-*Figura 1: Distribuição das classificações corretas e incorretas*
 
-![Curva de aprendizagem]([https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Matriz%20de%20confus%C3%A3o%20KNN.png](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Curva%20de%20aprendizagem%20knn.png))
+
+![Curva de aprendizagem](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Curva%20de%20aprendizagem%20knn.png)
 
 ## 🔍 Análise Crítica
 
