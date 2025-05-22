@@ -1131,18 +1131,18 @@ Descreva os parâmetros utilizados.
 Apresente trechos do código utilizado comentados. Se utilizou alguma ferramenta gráfica, apresente imagens
 com o fluxo de processamento.
 
-### Modelo 2: 
+## Modelo 2: 
 
-## Algoritmo KNN
+### Algoritmo KNN
 
-# Relatório de Avaliação do Modelo KNN
+### Relatório de Avaliação do Modelo KNN
 
-## 📌 Metodologia
+### 📌 Metodologia
 O modelo K-Vizinhos Mais Próximos (KNN) foi implementado com as seguintes etapas:
 
-# Relatório de Avaliação do Modelo KNN
+### Relatório de Avaliação do Modelo KNN
 
-## Metodologia
+### Metodologia
 
 O modelo K-Vizinhos Mais Próximos (KNN) foi implementado com as seguintes etapas:
 
@@ -1161,7 +1161,7 @@ imputer = SimpleImputer(strategy='mean')
 scaler = StandardScaler()
 knn = KNeighborsClassifier(n_neighbors=15)
 ```
-## 📊 Resultados Obtidos
+### 📊 Resultados Obtidos
 
 | Métrica          | Valor    |
 |------------------|----------|
@@ -1174,7 +1174,7 @@ knn = KNeighborsClassifier(n_neighbors=15)
 
 ![Curva de aprendizagem](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Curva%20de%20aprendizagem%20knn.png)
 
-## 🔍 Análise Crítica
+### 🔍 Análise Crítica
 
 ### 📉 Desempenho Moderado
 - Acurácia de teste (57.25%) indica desempenho pouco acima do acaso para múltiplas classes
