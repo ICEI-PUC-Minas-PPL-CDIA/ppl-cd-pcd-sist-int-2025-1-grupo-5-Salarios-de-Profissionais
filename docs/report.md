@@ -1131,9 +1131,59 @@ Descreva os parâmetros utilizados.
 Apresente trechos do código utilizado comentados. Se utilizou alguma ferramenta gráfica, apresente imagens
 com o fluxo de processamento.
 
-### Modelo 2: Algoritmo
+### Modelo 2: 
 
-Repita os passos anteriores para o segundo modelo.
+## Algoritmo KNN
+
+# Relatório de Avaliação do Modelo KNN
+
+## 📌 Metodologia
+O modelo K-Vizinhos Mais Próximos (KNN) foi implementado com as seguintes etapas:
+
+# Relatório de Avaliação do Modelo KNN
+
+## Metodologia
+
+O modelo K-Vizinhos Mais Próximos (KNN) foi implementado com as seguintes etapas:
+
+- **Pré-processamento**: Imputação de valores ausentes na coluna "Nível" usando a média  
+- **Divisão dos dados**: 80% para treino e 20% para teste  
+- **Escalonamento**: Padronização dos dados com `StandardScaler`  
+- **Treinamento**: Modelo KNN com `k=15` vizinhos  
+
+```python
+# Código de implementação (exemplo)
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+
+imputer = SimpleImputer(strategy='mean')
+scaler = StandardScaler()
+knn = KNeighborsClassifier(n_neighbors=15)
+```
+## 📊 Resultados Obtidos
+
+| Métrica          | Valor    |
+|------------------|----------|
+| Acurácia (Treino) | 64.87%   |
+| Acurácia (Teste)  | 57.25%   |
+
+![Matriz de Confusão](matriz_confusao.png)  
+*Figura 1: Distribuição das classificações corretas e incorretas*
+
+## 🔍 Análise Crítica
+
+### 📉 Desempenho Moderado
+- Acurácia de teste (57.25%) indica desempenho pouco acima do acaso para múltiplas classes
+- Sugere capacidade limitada de generalização do modelo
+
+### ⚖️ Overfitting Moderado
+- Diferença de 7.62% entre treino (64.87%) e teste (57.25%)
+- Dentro de limites aceitáveis, mas requer atenção:
+  ```python
+  # Exemplo de monitoramento
+  from sklearn.model_selection import learning_curve
+  train_sizes, train_scores, test_scores = learning_curve(knn, X, y)
 
 
 ## Resultados
