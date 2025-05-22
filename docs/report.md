@@ -1140,6 +1140,15 @@ com o fluxo de processamento.
 ### 📌 Metodologia
 O modelo K-Vizinhos Mais Próximos (KNN) foi implementado com as seguintes etapas:
 
+- Mnatendo a coluna Nível_salarial como target, o modelo foi trinando utilizando os seguintes atributos:
+- IDHM   
+- PIB_2021_OR                        
+- Faixa_Etaria                          
+- Nivel_de_Ensino
+- Nivel_Salarial                                                       
+- Tempo_de_experiencia_na_area_de_dados
+- E as colunas de cada UF
+  
 ### Relatório de Avaliação do Modelo KNN
 
 ### Metodologia
