@@ -640,6 +640,7 @@ Para investigar esta hipótese, selecionamos as seguintes variáveis:
 ### 3.2 Modelo Principal: Regressão Linear Múltipla (OLS)
 
 #### 3.2.1 Equação do Modelo
+
 $$\text{Salario\_Medio} = \beta_0 + \beta_1 \cdot \text{Nivel\_de\_Ensino} + \beta_2 \cdot \text{Experiencia} + \beta_3 \cdot \text{Setor} + \beta_4 \cdot \text{PIB\_2021\_OR} + \beta_5 \cdot \text{IDHM} + \epsilon$$
 
 #### 3.2.2 Base Teórica
@@ -689,14 +690,11 @@ O modelo segue a equação de Mincer (1974)[¹], amplamente utilizada em economi
 #### 4.2.1 Boxplot Salarial por Nível de Formação
 ![Figura 1: Boxplot salarial por nível de formação](docs/imagens/figura1_boxplot_salario_formacao.png)
 
-
 #### 4.2.2 Gráfico de Dispersão: Salário vs. Nível de Formação com Linha de Tendência
 ![Figura 2: Gráfico de dispersão com linha de tendência](docs/imagens/figura2_dispersao_tendencia.png)
 
-
 #### 4.2.3 QQ-plot e Histograma dos Resíduos
 ![Figura 3: QQ-plot e histograma dos resíduos](docs/imagens/figura3_qqplot_residuos.png)
-
 
 ## 5. Discussão e Interpretação
 
