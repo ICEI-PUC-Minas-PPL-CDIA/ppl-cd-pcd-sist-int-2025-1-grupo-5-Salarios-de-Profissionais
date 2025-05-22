@@ -1,0 +1,16 @@
+cff-version: 1.0.1
+message: Por favor, cite o repositório utilizando estes metadados.
+title: Repositório modelo para a disciplina de Projeto em Ciência de Dados I - Sistemas Inteligentes.
+authors:
+   - name-suffix: Professor
+    affiliation: PUC Minas
+    family-names: de Paula
+    given-names: Hugo
+keywords:
+  - Ciência de Dados
+  - Jupyter Notebooks
+  - Aprendizado de Máquina
+repository-code:
+license: CC-BY-4.0
+version: 1.0.0
+date-released: 2023-06-30
