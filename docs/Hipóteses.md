@@ -237,13 +237,13 @@ IDHM	Contínua	Índice de Desenvolvimento Humano Municipal (normalizado)
 ### 4.2 Visualizações
 
 #### 4.2.1 Boxplot Salarial por Nível de Formação
-![Figura 1: Boxplot salarial por nível de formação](docs/imagens/figura1_boxplot_salario_formacao.png)
+![Boxplot salarial por nível de formação](imagens/figura1_boxplot_salario_formacao.png)
 
 #### 4.2.2 Gráfico de Dispersão: Salário vs. Nível de Formação com Linha de Tendência
-![Figura 2: Gráfico de dispersão com linha de tendência](docs/imagens/figura2_dispersao_tendencia.png)
+![Gráfico de dispersão: Salário vs. Nível de Formação com Linha de Tendência](imagens/figura2_dispersao_tendencia.png)
 
 #### 4.2.3 QQ-plot e Histograma dos Resíduos
-![Figura 3: QQ-plot e histograma dos resíduos](docs/imagens/figura3_qqplot_residuos.png)
+![QQ-plot e Histograma dos Resíduos](imagens/figura3_qqplot_residuos.png)
 
 ## 5. Discussão e Interpretação
 
