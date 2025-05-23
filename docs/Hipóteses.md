@@ -368,14 +368,6 @@ Podendo levantar algumas conclusões:
 3. A linguagem Python é mais comum que R entre as faixas salariais;
 4. Há a presença de profisisonais que trabalham com ambas linguagens em todas as faixas, entretanto, não parece ser algo muito comum.
 
-A preparação dos dados consiste dos seguintes passos:
-
-> - Seleção dos atributos
-> - Tratamentos dos valores faltantes ou omissos: remoção, substituição, indução, etc.
-> - Tratamento dos valores inconsistentes: conversão, remoção de dados duplicados, remoção ou tratamento de ouliers.
-> - Conversão de dados: p. ex. numérico para categórico, categórico para binário, etc.
-
-
 ## Indução de modelos
 
 ### Modelo 1: Algoritmo
