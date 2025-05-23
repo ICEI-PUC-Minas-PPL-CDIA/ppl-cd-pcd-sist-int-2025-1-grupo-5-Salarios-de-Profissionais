@@ -1049,15 +1049,17 @@ Input -> Preenchimento de nulos -> Codificação (One-hot) -> Normalização (St
 
 ### Resultados obtidos com o modelo 1 (XGBoost)
 
-Acurácia: 69,9%
+Acurácia: 0.7164339419978518
+              
+              precision    recall  f1-score   support
 
-F1-Score:
+        Alta       0.75      0.78      0.76       259
+       Baixa       0.80      0.76      0.78       345
+       Média       0.61      0.62      0.62       327
 
-• Baixa: 76,1%
-
-• Média: 59,8%
-
-• Alta: 72,6%
+    accuracy                           0.72       931
+    macro avg       0.72      0.72     0.72       931
+    weighted avg    0.72      0.72     0.72       931
 
 ### Matriz de confusão: Apresenta classificação mais precisa nas classes “Alta” e “Baixa”, com maior erro na classe “Média”, como esperado.
 
@@ -1079,15 +1081,17 @@ O XGBoost constrói um modelo aditivo, onde cada nova árvore melhora o erro da 
 
 ### Resultados obtidos com o modelo 2 (Random Forest)
 
-Acurácia: 69,2%
+Acurácia: 0.69
+             
+	      precision    recall  f1-score   support
 
-F1-Score:
+        Alta       0.73      0.74      0.73       259
+       Baixa       0.79      0.74      0.76       345
+       Média       0.57      0.60      0.59       327
 
-• Baixa: 76,5%
-
-• Média: 58,7%
-
-• Alta: 73,2%
+    accuracy                           0.69       931
+    macro avg       0.70     0.69      0.69       931
+    weighted avg    0.70     0.69      0.69       931
 
 ### Interpretação do modelo 2
 
