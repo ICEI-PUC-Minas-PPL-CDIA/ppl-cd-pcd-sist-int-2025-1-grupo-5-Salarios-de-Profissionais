@@ -187,26 +187,25 @@ Para investigar esta hipótese, selecionamos as seguintes variáveis:
 - Método: Amostragem estratificada por nível de ensino para manter a distribuição original
 - Random state: 42 (para garantir reprodutibilidade)
 
-### 3.2 Modelo Principal: Regressão Linear Múltipla (OLS)
+3.2 Modelo Principal: Regressão Linear Múltipla (OLS)
 
-#### 3.2.1 Equação do Modelo
+3.2.1 Equação do Modelo
 
-$$\text{Salario\_Medio} = \beta_0 + \beta_1 \cdot \text{Nivel\_de\_Ensino} + \beta_2 \cdot \text{Experiencia} + \beta_3 \cdot \text{Setor} + \beta_4 \cdot \text{PIB\_2021\_OR} + \beta_5 \cdot \text{IDHM} + \epsilon$$
+$$Salario\_Medio = \beta_0 + \beta_1 \cdot Nivel\_de\_Ensino + \beta_2 \cdot Experiencia + \beta_3 \cdot Setor + \beta_4 \cdot PIB\_2021\_OR + \beta_5 \cdot IDHM + \epsilon$$
 
-#### 3.2.2 Base Teórica
+3.2.2 Base Teórica
+
 O modelo segue a equação de Mincer (1974)[¹], amplamente utilizada em economia do trabalho para estimar retornos da educação. A inclusão de variáveis regionais (PIB/IDHM) é respaldada por estudos que demonstram seu impacto moderador nos salários.
 
-#### 3.2.3 Variáveis do Modelo
+3.2.3 Variáveis do Modelo
 
-| Variável | Tipo | Descrição |
-|----------|------|-----------|
-| Salario_Medio | Dependente | Salário médio mensal em R$ |
-| Nivel_de_Ensino | Independente | Escala ordinal: 1-Graduação, 2-Pós-graduação, 3-Mestrado, 4-Doutorado |
-| Experiencia | Independente | Anos de experiência na área de dados |
-| Setor | Categórica | Setor de atuação (codificado via one-hot encoding) |
-| PIB_2021_OR | Contínua | PIB per capita do estado (normalizado) |
-| IDHM | Contínua | Índice de Desenvolvimento Humano Municipal (normalizado) |
-
+Variável	Tipo	Descrição
+Salario_Medio	Dependente	Salário médio mensal em R$
+Nivel_de_Ensino	Independente	Escala ordinal: 1-Graduação, 2-Pós-graduação, 3-Mestrado, 4-Doutorado
+Experiencia	Independente	Anos de experiência na área de dados
+Setor	Categórica	Setor de atuação (codificado via one-hot encoding)
+PIB_2021_OR	Contínua	PIB per capita do estado (normalizado)
+IDHM	Contínua	Índice de Desenvolvimento Humano Municipal (normalizado)
 #### 3.2.4 Coeficientes Estimados
 
 | Variável | Coeficiente (β) | Intervalo de Confiança (95%) | p-valor |
