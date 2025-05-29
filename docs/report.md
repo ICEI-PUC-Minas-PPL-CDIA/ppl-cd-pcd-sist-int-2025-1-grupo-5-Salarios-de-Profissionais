@@ -663,6 +663,76 @@ knn = KNeighborsClassifier(n_neighbors=15)
   from sklearn.model_selection import learning_curve
   train_sizes, train_scores, test_scores = learning_curve(knn, X, y)
 
+## Otimização dos modelos:
+
+## Análise Salarial por PIB e IDH Estaduais
+
+**Hipótese:**  
+Dado o PIB e o IDH dos estados, um profissional de dados tem maior probabilidade de ter um salário acima ou abaixo de uma determinada faixa salarial para a área?
+
+### Alterações Implementadas:
+
+- As faixas salariais foram reduzidas para 3 níveis:
+  - **BAIXO:** (R\$1.000 - R\$6.000)
+  - **MÉDIO:** (R\$6.001 - R\$12.000)
+  - **ALTO:** (R\$12.001 - R\$40.000 ou mais)
+
+- Tratamento de valores ausentes:
+  - Atribuído valor `0` para atributos binários
+  - Mantidos valores `NaN` nos demais atributos (para preservação de dados)
+
+### Observações:
+
+Após as alterações, observou-se melhoria nos modelos, com redução da diferença entre as acurácias de treino e teste.
+
+### Resultados dos Modelos Otimizados:
+
+#### Árvore de Decisão:
+
+- **Acurácia de treino:** 0.68  
+- **Acurácia de teste:** 0.65  
+
+**Matriz de Confusão:**
+
+![Matriz de confusão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/MATRIZ%20CONF%20arvore%20decis%C3%A3o%20OTIMIZADO.png)
+
+**Relatório de Classificação:**
+|          | Precision | Recall | F1-Score | Support |
+|----------|-----------|--------|----------|---------|
+| Classe 1 | 0.85      | 0.62   | 0.72     | 416     |
+| Classe 2 | 0.52      | 0.60   | 0.56     | 398     |
+| Classe 3 | 0.65      | 0.74   | 0.69     | 327     |
+| **Total** | **0.65** | **1141** |          |         |
+
+**Observações:**  
+A diferença de 3% entre as acurácias sugere que o modelo não apresenta overfitting significativo, generalizando bem para dados não vistos. A acurácia de 65% indica acerto em ~2/3 das previsões.
+
+#### Modelo KNN:
+
+- **Acurácia de treino:** 0.68  
+- **Acurácia de teste:** 0.61  
+
+**Matriz de Confusão:**
+
+|                 | Previsto Classe 1 | Previsto Classe 2 | Previsto Classe 3 |
+|-----------------|-------------------|-------------------|-------------------|
+| **Real Classe 1** |        221        |        102        |         19        |
+| **Real Classe 2** |         54        |        178        |         86        |
+| **Real Classe 3** |         10        |         81        |        162        |
+
+![Matriz de confusão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/MATRIZ%20CONF%20KNN%20OTIMIZADO.png)
+
+**Relatório de Classificação:**
+|          | Precision | Recall | F1-Score | Support |
+|----------|-----------|--------|----------|---------|
+| Classe 1 | 0.78      | 0.65   | 0.70     | 342     |
+| Classe 2 | 0.49      | 0.56   | 0.52     | 318     |
+| Classe 3 | 0.61      | 0.64   | 0.62     | 253     |
+| **Total** | **0.61** | **913** |          |         |
+
+**Observações:**  
+Diferença de 7% entre acurácias indica overfitting moderado. O modelo mantém taxa de acerto de 61% (~3/5 previsões corretas) em dados não vistos.
+
 
 ## Resultados
 
