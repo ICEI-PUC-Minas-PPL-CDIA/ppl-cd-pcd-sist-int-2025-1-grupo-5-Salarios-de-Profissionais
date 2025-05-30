@@ -734,6 +734,87 @@ A diferença de 3% entre as acurácias sugere que o modelo não apresenta overfi
 **Observações:**  
 Diferença de 7% entre acurácias indica overfitting moderado. O modelo mantém taxa de acerto de 61% (~3/5 previsões corretas) em dados não vistos.
 
+# 🎯 Análise Comparativa de Previsões: KNN vs. Árvore de Decisão
+
+Esta seção detalha exemplos concretos de previsões corretas (sucessos) e incorretas (falhas) para cada um dos modelos treinados, permitindo uma análise qualitativa de seus comportamentos.
+
+---
+
+## 🤖 Modelo 1: K-Nearest Neighbors (KNN)
+
+O KNN classifica um ponto de dados com base na classe majoritária de seus "vizinhos" mais próximos. Seus erros geralmente ocorrem em perfis ambíguos, onde os vizinhos pertencem a classes diferentes.
+
+### ✅ Exemplo de Sucesso (KNN)
+
+* **Resultado:** Previu **`3`**, e o valor Real era **`3`**.
+
+| Característica                        | Valor          |
+| ------------------------------------- | -------------- |
+| **Nivel_Salarial_Real** | **3.0** |
+| **Nivel_Salarial_Previsto** | **3.0** |
+| IDHM                                  | 0.774          |
+| PIB_2021_OR                           | 857.593        |
+| Nivel_de_Ensino                       | 3.0            |
+| Nível (Cargo)                         | 3.0            |
+| Tempo_de_experiencia_na_area_de_dados | 4.0            |
+| Localização (UF)                      | MG             |
+
+***Análise:*** *O modelo acertou pois o perfil é claro e consistente. Todas as características (IDHM, PIB, Nível de Ensino, Experiência) apontam para um nível salarial mais alto, tornando fácil para o KNN encontrar vizinhos da mesma classe.*
+
+### ❌ Exemplo de Falha (KNN)
+
+* **Resultado:** Previu **`1`**, mas o valor Real era **`2`**.
+
+| Característica                        | Valor          |
+| ------------------------------------- | -------------- |
+| **Nivel_Salarial_Real** | **2.0** |
+| **Nivel_Salarial_Previsto** | **1.0** |
+| IDHM                                  | 0.691          |
+| PIB_2021_OR                           | 352.618        |
+| Nivel_de_Ensino                       | 2.0            |
+| Nível (Cargo)                         | 3.0            |
+| Tempo_de_experiencia_na_area_de_dados | 2.0            |
+| Localização (UF)                      | BA             |
+
+***Análise:*** *O erro ocorreu em um perfil ambíguo. Embora o `Nível` do cargo fosse alto (3.0), outras características como baixa experiência, baixo IDHM e baixo nível de ensino "puxaram" a previsão para baixo. O modelo encontrou mais vizinhos com essas características na classe 1 e errou.*
+
+---
+
+## 🌳 Modelo 2: Árvore de Decisão
+
+A Árvore de Decisão cria um fluxo de regras (ex: "se `Tempo_de_experiencia` > 3, então..."). Seus erros podem ocorrer quando um caminho de decisão não generaliza bem ou quando uma regra dá peso excessivo a uma característica.
+
+### ✅ Exemplo de Sucesso (Árvore de Decisão)
+
+* **Resultado:** Previu **`1`**, e o valor Real era **`1`**.
+
+| Característica                        | Valor          |
+| ------------------------------------- | -------------- |
+| **Nivel_Salarial_Real** | **1.0** |
+| **Nivel_Salarial_Previsto** | **1.0** |
+| IDHM                                  | 0.680          |
+| Nivel_de_Ensino                       | 1.0            |
+| Nível (Cargo)                         | 1.0            |
+| Tempo_de_experiencia_na_area_de_dados | 0.0            |
+| Localização (UF)                      | PE             |
+
+***Análise:*** *A árvore seguiu um caminho claro e lógico. Com baixa experiência, baixo nível de ensino e cargo de entrada, as regras da árvore levaram diretamente à classe 1, resultando em um acerto fácil.*
+
+### ❌ Exemplo de Falha (Árvore de Decisão)
+
+* **Resultado:** Previu **`3`**, mas o valor Real era **`2`**.
+
+| Característica                        | Valor          |
+| ------------------------------------- | -------------- |
+| **Nivel_Salarial_Real** | **2.0** |
+| **Nivel_Salarial_Previsto** | **3.0** |
+| IDHM                                  | 0.790          |
+| Nivel_de_Ensino                       | 3.0            |
+| Nível (Cargo)                         | 3.0            |
+| Tempo_de_experiencia_na_area_de_dados | 1.0            |
+| Localização (UF)                      | SP             |
+
+***Análise:*** *Aqui, a árvore provavelmente se confundiu. As regras podem ter dado um peso muito grande ao `Nivel_de_Ensino` e ao `Nível` do cargo (ambos 3.0), seguindo um caminho que leva à previsão da classe 3. No entanto, ela não considerou adequadamente o baixo `Tempo_de_experiencia` (1.0), que era a característica que diferenciava este perfil para a classe real 2.*
 
 ## Resultados
 
