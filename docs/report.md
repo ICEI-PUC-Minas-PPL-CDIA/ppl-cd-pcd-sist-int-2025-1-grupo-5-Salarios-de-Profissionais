@@ -524,8 +524,12 @@ Acurácia: 0.7164339419978518
     accuracy                           0.72       931
     macro avg       0.72      0.72     0.72       931
     weighted avg    0.72      0.72     0.72       931
+    
+![Matriz de Confusão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Matriz%20de%20Confus%C3%A3o%20XGB.png)
 
 ### Matriz de confusão: Apresenta classificação mais precisa nas classes “Alta” e “Baixa”, com maior erro na classe “Média”, como esperado.
+
+![Importância das Variáveis](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Import%C3%A2ncia%20das%20Vari%C3%A1veis%20(XGBoost).png)
 
 Interpretação do modelo 1
 
@@ -555,8 +559,12 @@ Acurácia: 0.7121374865735768
     accuracy                           0.71       931
     macro avg       0.72      0.72     0.72       931
     weighted avg    0.72      0.71     0.71       931
+    
+![Matriz de Confusão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Matriz%20de%20Confus%C3%A3o%20RF.png)
 
 ### Interpretação do modelo 2
+
+![Importância das Variáveis](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Import%C3%A2ncia%20das%20Vari%C3%A1veis%20(Random%20Forest).png)
 
 Feature Importance:
 
