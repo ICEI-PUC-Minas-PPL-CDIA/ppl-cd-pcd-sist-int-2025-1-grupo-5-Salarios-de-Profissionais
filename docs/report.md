@@ -494,9 +494,11 @@ Assim como no XGBoost, utilizou-se divisão de 80/20 entre treino e teste. A ava
 
 Parâmetros utilizados:
 
-random_state = 42 (para reprodutibilidade)
+random_state = 42 
+max_depth=10
+n_estimators=100  
 
-Os demais parâmetros foram mantidos como padrão
+Esses parâmetros foram utilizados pois o modelo sofria de overfitting
 
 Trechos do código:
 
@@ -543,17 +545,16 @@ O XGBoost constrói um modelo aditivo, onde cada nova árvore melhora o erro da 
 
 ### Resultados obtidos com o modelo 2 (Random Forest)
 
-Acurácia: 0.69
-             
-	      precision    recall  f1-score   support
+Acurácia: 0.7121374865735768
+              precision    recall  f1-score   support
 
-        Alta       0.73      0.74      0.73       259
-       Baixa       0.79      0.74      0.76       345
-       Média       0.57      0.60      0.59       327
+        Alta       0.73      0.80      0.76       259
+       Baixa       0.80      0.72      0.76       345
+       Média       0.62      0.63      0.62       327
 
-    accuracy                           0.69       931
-    macro avg       0.70     0.69      0.69       931
-    weighted avg    0.70     0.69      0.69       931
+    accuracy                           0.71       931
+    macro avg       0.72      0.72     0.72       931
+    weighted avg    0.72      0.71     0.71       931
 
 ### Interpretação do modelo 2
 
