@@ -236,6 +236,28 @@ Tabela IDHM 2021
 
 A base de dados **State of Data Brazil 2023** retrata o perfil dos profissionais de dados no Brasil, abordando aspectos como formação acadêmica, experiência profissional, faixa salarial, ferramentas utilizadas e desafios enfrentados no setor.
 
+### Faixa Salarial
+
+![Faixa_salarial](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Distribui%C3%A7%C3%A3o%20Faixa%20Salarial.png)
+####Obs.: Para fins de visualização, a Coluna salário médio foi criada.
+### Salário Médio (Coluna calculada baseada na coluna faixa salarial da tabela original)
+
+- **Número de observações não nulas**: 4.651  
+- **Média**: R$ 10.028,67  
+- **Desvio padrão**: R$ 6.969,22  
+- **Valor mínimo**: R$ 1.050,50  
+- **Primeiro quartil (25%)**: R$ 5.000,50  
+- **Mediana (50%)**: R$ 10.000,50  
+- **Terceiro quartil (75%)**: R$ 14.000,50  
+- **Valor máximo**: R$ 35.000,50
+  
+![Distribuição media salarial](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Distribui%C3%A7%C3%A3o%20cont%C3%ADnua%20dos%20sal%C3%A1rios.png)
+![Boxplot](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Distribui%C3%A7%C3%A3o%20dos%20sal%C3%A1rios%20boxplot.png)
+
+### Média salárial por UF
+
+![Média salárial por UF](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/M%C3%A9dia%20salarial%20por%20UF.png)
+
  ### Idade
 - **Número de observações não nulas**: 5.293  
 - **Média**: 32,0 anos  
@@ -246,7 +268,7 @@ A base de dados **State of Data Brazil 2023** retrata o perfil dos profissionais
 - **Terceiro quartil (75%)**: 36 anos  
 - **Valor máximo**: 73 anos
   
-![Histograma faixa de idade](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/HISTOGRAMA%20FAIXA%20DE%20IDADE.png)
+![Idade](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/HISTOGRAMA%20FAIXA%20DE%20IDADE.png)
 
 ### Sexo ou Gênero
 - **Masculino**: 75,1% (3.975 respostas)  
@@ -254,7 +276,7 @@ A base de dados **State of Data Brazil 2023** retrata o perfil dos profissionais
 - **Prefiro não informar**: 0,3% (16 respostas)  
 - **Outros**: 0,2% (9 respostas)
   
-![Sem título](https://github.com/user-attachments/assets/42765e67-ec3d-46bd-95c5-6108579e8faa)
+![Sexo ou Gênero](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Distribui%C3%A7%C3%A3o%20por%20Genero.png)
 
 ### Raça ou Etnia
 - **Branca**: 64,5% (3.414 respostas)  
@@ -263,7 +285,7 @@ A base de dados **State of Data Brazil 2023** retrata o perfil dos profissionais
 - **Prefiro não informar**: 0,6% (34 respostas)  
 - **Outra**: 0,3% (18 respostas)
   
-![Sem título](https://github.com/user-attachments/assets/1d02b7b3-a7ef-412b-9be3-cf38ece5488c)
+![Raça ou Etnia](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Distribui%C3%A7%C3%A3o%20Racial%20Etnica%20dos%20Profissionais%20de%20Dados.png)
 
 ### Nível de Ensino
 - **Doutorado ou PhD**: 34,3% (1.818 respostas)  
@@ -274,50 +296,33 @@ A base de dados **State of Data Brazil 2023** retrata o perfil dos profissionais
 - **Não tenho graduação formal**: 2,0% (105 respostas)  
 - **Prefiro não informar**: 0,2% (8 respostas)
 
-![Sem título](https://github.com/user-attachments/assets/63bd145b-c4e2-45af-a3fe-1fb70e2e4949)
-
-### Salário Médio (Coluna calculada baseada na coluna faixa salarial da tabela original)
-- **Número de observações não nulas**: 4.651  
-- **Média**: R$ 10.028,67  
-- **Desvio padrão**: R$ 6.969,22  
-- **Valor mínimo**: R$ 1.050,50  
-- **Primeiro quartil (25%)**: R$ 5.000,50  
-- **Mediana (50%)**: R$ 10.000,50  
-- **Terceiro quartil (75%)**: R$ 14.000,50  
-- **Valor máximo**: R$ 35.000,50
-  
-![Sem título](https://github.com/user-attachments/assets/a1b52b65-d3d3-4f4e-a372-addd16887aa5)
-![Sem título](https://github.com/user-attachments/assets/1826221e-d0c8-44c2-b7c1-cf097f8fa643)
-
-### Média salárial por UF
-
-![Sem título](https://github.com/user-attachments/assets/8786e8f9-3dae-4018-b9f4-dd9f8921c4dc)
+![Nível de Ensino](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Distribui%C3%A7%C3%A3o%20por%20n%C3%ADvel%20de%20ensino.png)
 
 ### UF
 - **Indica os estados brasileiros onde os profissionais de dados estão localizados**.
   
-![Sem título](https://github.com/user-attachments/assets/438cf623-b33b-4fcf-83d9-632f83df219f)
+![UF](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Distribui%C3%A7%C3%A3o%20Geografica%20dos%20profissionais%20de%20Dados%20por%20UF.png)
 
 ### Quantidade de profissionais de Dados relacionando Gêneros por Uf
 
-![Sem título](https://github.com/user-attachments/assets/b8dd40cf-106e-4794-9ac6-83cbf69b3c25)
+![Quantidade gerno uf](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Quantidade%20de%20profissionais%20de%20dados%20por%20g%C3%AAnero%20em%20cada%20UF.png)
 
 ### Distribuição da média salarial por gênero por UF
 
-![Sem título](https://github.com/user-attachments/assets/0b9b425f-9101-4f39-a9ec-fe1325ba6722)
+![Distribuição da média salarial por gênero por UF](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/M%C3%A9dia%20salarial%20por%20g%C3%AAnero%20em%20cada%20UF.png)
 
 ### Média salarial por Gênero 
 
-![Sem título-1](https://github.com/user-attachments/assets/50c21a62-6dfd-4f25-8876-4bcf7f461a7e)
+![Média salarial por Gênero](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Compara%C3%A7%C3%A3o%20Salarial%20entre%20g%C3%AAneros.png)
 
 ### Média salarial por Cor/Raça/Etnia
 
-![Sem título](https://github.com/user-attachments/assets/ad063eca-2509-4604-8506-a3e4caf86e35)
+![Média salarial por Cor/Raça/Etnia](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Sal%C3%A1rio%20m%C3%A9dia%20por%20ra%C3%A7a%20etnia.png)
 
 ### Cargo Atual
 - **Informa os cargos que os profissionais de dados ocupam**.
   
-![Sem título](https://github.com/user-attachments/assets/34f83471-e977-411e-a923-b9ff712442c1)
+![Cargo Atual](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Distribui%C3%A7%C3%A3o%20de%20Cargos%20na%20Area%20de%20dados.png)
 
 ### Média salarial por Cargo na área de Ciência de Dados
 
