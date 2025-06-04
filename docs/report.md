@@ -555,7 +555,8 @@ O XGBoost constrói um modelo aditivo, onde cada nova árvore melhora o erro da 
 ### Resultados obtidos com o modelo 2 (Random Forest)
 
 Acurácia: 0.7121374865735768
-              precision    recall  f1-score   support
+              
+	      precision    recall  f1-score   support
 
         Alta       0.73      0.80      0.76       259
        Baixa       0.80      0.72      0.76       345
