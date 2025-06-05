@@ -326,39 +326,39 @@ A base de dados **State of Data Brazil 2023** retrata o perfil dos profissionais
 
 ### Média salarial por Cargo na área de Ciência de Dados
 
-![Sem título](https://github.com/user-attachments/assets/71ba09b9-8706-4682-88de-da97c7285b9f)
+![Média salarial por Cargo na área de Ciência de Dados](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/M%C3%A9dia%20salarial%20por%20cargo%20em%20ciencia%20de%20dados.png)
 
 ### Média salarial por Ferramenta/Plataforma Utilizada
 
-![Sem título-1](https://github.com/user-attachments/assets/57f89d64-5b80-48c8-bc6d-cb4ed6f1acdc)
+![Média salarial por Ferramenta/Plataforma Utilizada](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/M%C3%A9dia%20salarial%20por%20ferramenta%20plataforma%20utilizada.png)
 
 ### Média salarail por linguagem de programação Utilizada
 
-![Sem título](https://github.com/user-attachments/assets/db4b8de2-8225-4d16-bf9d-b1ab139f40e8)
+![Média salarail por linguagem de programação Utilizada](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/M%C3%A9dia%20salarial%20por%20linguagem%20de%20programa%C3%A7%C3%A3o%20utilizada.png)
 
 ### Média salarial por setores de Atuação
 
-![Sem título](https://github.com/user-attachments/assets/c7978035-d11d-42dd-835a-17237c14f722)
+![Média salarial por setores de Atuação](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/M%C3%A9dia%20salarial%20por%20setor%20de%20atua%C3%A7%C3%A3o.png)
 
 
 ### Número de funcionários da empresa que trabalha
 - **Demonstra o número de funcionários da empresa onde o profissional de dados atua**.
   
-![Sem título](https://github.com/user-attachments/assets/a9c8751f-393d-47ba-a8e0-b32d5fe5389d)
+![Número de funcionários da empresa que trabalha](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Distribui%C3%A7%C3%A3o%20do%20tamanho%20das%20empresas.png)
 
 ### Nível
 - **Mostra os níveis de experiência dos profissionais de dados (Júnior, Pleno, Sênior)**.
   
-![Sem título](https://github.com/user-attachments/assets/9cd60832-fe0d-4961-bcd7-9a2cd861f1a0)
+![Nível](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Distribui%C3%A7%C3%A3o%20por%20n%C3%ADvel%20de%20experiencia.png)
 
 ### Média salarial por Nivel de experiência.
 
-![Sem título-1](https://github.com/user-attachments/assets/99323f5e-4e60-4888-b215-aa8fde7265b7)
+![Média salarial por Nivel de experiência](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/M%C3%A9dia%20salarial%20por%20N%C3%ADvel%20de%20experiencia.png)
 
 ### Tempo de experiência na área de dados
 - **Apresenta o tempo de experiência dos profissionais agrupado por faixas**.
   
-![Sem título](https://github.com/user-attachments/assets/2173cdf5-36fd-4f66-9df0-861434c69d06)
+![Tempo de experiência na área de dados](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Distribui%C3%A7%C3%A3o%20de%20tempo%20de%20experi%C3%AAncia%20em%20dados.png)
 
 
 ## Base Auxiliares
@@ -366,7 +366,7 @@ A base de dados **State of Data Brazil 2023** retrata o perfil dos profissionais
 ### IDH 2021 por UF
 - **O grafico mostra o Indice de Desenvolvimento Humano dividido por Estado**.
   
-![Sem título](https://github.com/user-attachments/assets/1bee4993-ce88-4ee6-8f8f-5f038be325e8)
+![IDH 2021](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/IDH%20por%20Unidade%20Federativa.png)
 
 - **Número de observações não nulas: 27** 
 - **Média: 0.730148**
@@ -380,7 +380,7 @@ A base de dados **State of Data Brazil 2023** retrata o perfil dos profissionais
 
 ### PIB 2021 por UF
 
-![Sem título](https://github.com/user-attachments/assets/e5ab4bdf-ecfd-4ace-b67a-565ebb32e875)
+![PIB 2021](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Distribui%C3%A7%C3%A3o%20do%20PIB%20por%20estado.png)
 
 - **Número de observações não nulas: 27** 
 - **Média: 333.783.100.000,00**
