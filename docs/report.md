@@ -503,11 +503,11 @@ random_state = 42
 max_depth=10
 n_estimators=100  
 
-Esses parâmetros foram utilizados pois o modelo sofria de overfitting
+Esses parâmetros foram utilizados pois o modelo sofria de overfitting com depth e estimadores configurados no padrão.
 
 Trechos do código:
 
-rf = RandomForestClassifier(random_state=42)
+rf = RandomForestClassifier(random_state = 42)
 rf.fit(X_train, y_train)
 
 Fluxo Gráfico:
@@ -518,23 +518,23 @@ Input -> Preenchimento de nulos -> Codificação (One-hot) -> Normalização (St
 
 ### Resultados obtidos com o modelo 1 (XGBoost)
 
-Acurácia: 0.7164339419978518
+Acurácia: 0.8012889366272825
               
-              precision    recall  f1-score   support
+	      precision    recall  f1-score   support
 
-        Alta       0.75      0.78      0.76       259
-       Baixa       0.80      0.76      0.78       345
-       Média       0.61      0.62      0.62       327
+        Alta       0.76      0.78      0.77    259
+       Média       0.82      0.86      0.84    559
+       Baixa       0.80      0.56      0.66    113
 
-    accuracy                           0.72       931
-    macro avg       0.72      0.72     0.72       931
-    weighted avg    0.72      0.72     0.72       931
+    accuracy                           0.80    931
+    macro avg      0.79      0.73      0.76    931
+    weighted avg   0.80      0.80      0.80    931
     
-![Matriz de Confusão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Matriz%20de%20Confus%C3%A3o%20XGB.png)
+![Matriz de Confusão]()
 
-### Matriz de confusão: Apresenta classificação mais precisa nas classes “Alta” e “Baixa”, com maior erro na classe “Média”, como esperado.
+### Matriz de confusão: Apresenta Recall mais baixo na classe "Baixa" pois há pouca representatividade dela na base de dados. Houve o uso de SMOTE (Técnica de Sobreamostragem de Minoria Sintética) para reduzir a subrepresentatividade da classe "Baixa"
 
-![Importância das Variáveis](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Import%C3%A2ncia%20das%20Vari%C3%A1veis%20(XGBoost).png)
+![Importância das Variáveis]()
 
 Interpretação do modelo 1
 
@@ -554,23 +554,25 @@ O XGBoost constrói um modelo aditivo, onde cada nova árvore melhora o erro da 
 
 ### Resultados obtidos com o modelo 2 (Random Forest)
 
-Acurácia: 0.7121374865735768
-              
-	      precision    recall  f1-score   support
+Acurácia: 0.7851772287862513
 
-        Alta       0.73      0.80      0.76       259
-       Baixa       0.80      0.72      0.76       345
-       Média       0.62      0.63      0.62       327
+              precision    recall  f1-score   support
 
-    accuracy                           0.71       931
-    macro avg       0.72      0.72     0.72       931
-    weighted avg    0.72      0.71     0.71       931
+        Alta       0.76      0.73      0.74       259
+       Média       0.79      0.87      0.83       559
+       Baixa       0.81      0.50      0.62       113
+
+    accuracy                           0.79       931
+    macro avg      0.79      0.70      0.73       931
+    weighted avg   0.79      0.79      0.78       931
     
-![Matriz de Confusão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Matriz%20de%20Confus%C3%A3o%20RF.png)
+![Matriz de Confusão]()
+
+### Matriz de confusão: Apresenta Recall mais baixo na classe "Baixa" pois há pouca representatividade dela na base de dados. Houve o uso de SMOTE (Técnica de Sobreamostragem de Minoria Sintética) para reduzir a subrepresentatividade da classe "Baixa"
 
 ### Interpretação do modelo 2
 
-![Importância das Variáveis](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Import%C3%A2ncia%20das%20Vari%C3%A1veis%20(Random%20Forest).png)
+![Importância das Variáveis]()
 
 Feature Importance:
 
@@ -586,23 +588,12 @@ As decisões da floresta são baseadas na média das previsões de várias árvo
 
 ### Análise comparativa dos modelos
 
-Ambos os modelos apresentaram desempenho semelhante.
-
-XGBoost mostrou ligeira vantagem na classe "Média", que é a mais difícil de separar.
-
-Random Forest é mais rápido de treinar e mais interpretável.
-
-O XGBoost, embora mais lento, tende a ser melhor quando ajustado corretamente.
 
 ### Conclusão
 
 Desenvolvemos dois modelos preditivos para classificação da faixa salarial usando atributos demográficos e profissionais.
 
-O uso de quantis do Salario_Medio para agrupar os rótulos garantiu um balanceamento justo entre as classes.
 
-Os modelos obtiveram acurácia em torno de 70%, com bom desempenho na classificação de perfis salariais extremos (baixa/alta renda).
-
-O sistema pode ser utilizado para fins analíticos, de recomendação salarial, ou orientação profissional.
 
 
 Substitua o título pelo nome do algoritmo que será utilizado. P. ex. árvore de decisão, rede neural, SVM, etc.
