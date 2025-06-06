@@ -520,15 +520,15 @@ Input -> Preenchimento de nulos -> Codificação (One-hot) -> Normalização (St
 
 Acurácia: 0.8012889366272825
               
-	      precision    recall  f1-score   support
+	      precision       recall   f1-score support
 
-        Alta       0.76      0.78      0.77    259
-       Média       0.82      0.86      0.84    559
-       Baixa       0.80      0.56      0.66    113
+        Alta       0.76    0.78      0.77    259
+       Média       0.82    0.86      0.84    559
+       Baixa       0.80    0.56      0.66    113
 
-    accuracy                           0.80    931
-    macro avg      0.79      0.73      0.76    931
-    weighted avg   0.80      0.80      0.80    931
+    accuracy                         0.80    931
+    macro avg      0.79    0.73      0.76    931
+    weighted avg   0.80    0.80      0.80    931
     
 ![Matriz de Confusão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Matriz%20de%20Confus%C3%A3o%20(XGBoost).png)
 
