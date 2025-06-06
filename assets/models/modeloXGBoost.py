@@ -1,39 +1,63 @@
+# Importar bibliotecas
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, LabelEncoder
-from sklearn.ensemble import RandomForestClassifier
 from xgboost import XGBClassifier
-from sklearn.metrics import accuracy_score, classification_report, ConfusionMatrixDisplay
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, ConfusionMatrixDisplay, cohen_kappa_score
 import matplotlib.pyplot as plt
 import seaborn as sns
+from imblearn.over_sampling import SMOTE
 
 # 1. Carregar os dados
 df = pd.read_csv("uniao_das_bases.csv")
 df = df[df["Salario_Medio"].notnull() & df["Faixa_Salarial"].notnull()].copy()
 
-# 2. Agrupar faixa salarial com base em quantis
-quantis = df["Salario_Medio"].quantile([0.33, 0.66])
-lim_baixa, lim_media = quantis[0.33], quantis[0.66]
+# 2. Agrupar faixa salarial com base semântica real
 
-def faixa_quantis(s):
-    if s <= lim_baixa:
-        return "Baixa"
-    elif s <= lim_media:
-        return "Média"
+def agrupa_faixas(s):
+    if s in [
+        'Menos de R$ 1.000/mês',
+        'de R$ 101/mês a R$ 2.000/mês',
+        'de R$ 1.001/mês a R$ 2.000/mês',
+        'de R$ 2.001/mês a R$ 3.000/mês'
+    ]:
+        return 'Baixa'
+    elif s in [
+        'de R$ 3.001/mês a R$ 4.000/mês',
+        'de R$ 4.001/mês a R$ 6.000/mês',
+        'de R$ 6.001/mês a R$ 8.000/mês',
+        'de R$ 8.001/mês a R$ 12.000/mês'
+    ]:
+        return 'Média'
     else:
-        return "Alta"
+        return 'Alta'
 
-df["Faixa_Salarial_Quantis"] = df["Salario_Medio"].apply(faixa_quantis)
+# Aplicar agrupamento
+df["Faixa_Salarial_Quantis"] = df["Faixa_Salarial"].apply(agrupa_faixas)
 
 # 3. Selecionar colunas
 cols = [
-    "Idade", "Num_func_empresa_que_trabalha", "Setor", "Cargo_Atual", "Nivel_de_Ensino", "Nível",
-    "Tempo_de_experiencia_na_area_de_dados", "Uf", "Genero", "Cor/Raça/Etnia",
-    "Atual_forma_de_trabalho", "Situacao_atual_de_trabalho"
+    "Idade", 
+    "Num_func_empresa_que_trabalha", 
+    "Setor", 
+    "Cargo_Atual", 
+    "Nivel_de_Ensino", 
+    "Nível",
+    "Tempo_de_experiencia_na_area_de_dados", 
+    "Uf", 
+    "Genero", 
+    "Cor/Raça/Etnia",
+    "Atual_forma_de_trabalho", 
+    "Situacao_atual_de_trabalho",
+    "Python",
+    "SQL",
+    "R"
 ]
 X = df[cols].copy()
 y = df["Faixa_Salarial_Quantis"]
+
+X[["Python", "SQL", "R"]] = X[["Python", "SQL", "R"]].fillna(0) 
 
 for col in X.select_dtypes(include="object").columns:
     X[col] = X[col].fillna("Desconhecido")
@@ -49,11 +73,11 @@ y_encoded = le.fit_transform(y)
 # Treino/teste
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y_encoded, test_size=0.2, random_state=42)
 
-# 4. Treinar Random Forest
-rf = RandomForestClassifier(random_state=42)
-rf.fit(X_train, y_train)
+# Aplicar SMOTE
+smote = SMOTE(random_state=42)
+X_train_res, y_train_res = smote.fit_resample(X_train, y_train)
 
-# 5. Treinar XGBoost com hiperparâmetros otimizados
+# Treinar XGBoost com hiperparâmetros otimizados
 xgb = XGBClassifier(
     learning_rate=0.1,
     max_depth=5,
@@ -63,15 +87,24 @@ xgb = XGBClassifier(
     eval_metric="mlogloss",
     random_state=42
 )
-xgb.fit(X_train, y_train)
+xgb.fit(X_train_res, y_train_res)
 
-# 6. Avaliar XGBoost
+# Avaliar XGBoost
 y_pred = xgb.predict(X_test)
 print("Acurácia:", accuracy_score(y_test, y_pred))
 print(classification_report(y_test, y_pred, target_names=le.classes_))
-ConfusionMatrixDisplay.from_predictions(le.inverse_transform(y_test), le.inverse_transform(y_pred), cmap="Oranges").plot()
+print("Cohen's Quadratic Kappa:", cohen_kappa_score(y_test, y_pred, weights='quadratic'))
 
-# 7. Gráfico das 15 variáveis mais importantes do XGBoost
+# Matriz de confusão com ordem ordinal
+ordem_desejada = ['Alta', 'Média', 'Baixa']
+labels_ordinais = le.transform(ordem_desejada)
+cm = confusion_matrix(y_test, y_pred, labels=labels_ordinais)
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=ordem_desejada)
+disp.plot(cmap="Oranges")
+plt.title("Matriz de Confusão (Ordem Ordinal)")
+plt.show()
+
+# Gráfico das 15 variáveis mais importantes do XGBoost
 importances = xgb.feature_importances_
 indices = np.argsort(importances)[::-1][:15]
 features = X.columns[indices]
@@ -81,5 +114,22 @@ sns.barplot(x=importances[indices], y=features)
 plt.title("Top 15 Variáveis Mais Importantes - XGBoost")
 plt.xlabel("Importância")
 plt.ylabel("Variável")
+plt.tight_layout()
+plt.show()
+
+# Comparação de performance no treino e teste (XGBoost)
+acc_xgb_train = xgb.score(X_train_res, y_train_res)
+acc_xgb_test = xgb.score(X_test, y_test)
+
+results_xgb = pd.DataFrame({
+    "Conjunto": ["Treino", "Teste"],
+    "Acurácia": [acc_xgb_train, acc_xgb_test]
+})
+
+plt.figure(figsize=(6, 4))
+sns.barplot(data=results_xgb, x="Conjunto", y="Acurácia", palette="Oranges")
+plt.ylim(0, 1)
+plt.title("Acurácia XGBoost - Treino vs Teste")
+plt.ylabel("Acurácia")
 plt.tight_layout()
 plt.show()
