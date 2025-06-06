@@ -1,76 +1,99 @@
+# Importar bibliotecas
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, classification_report, ConfusionMatrixDisplay
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix, ConfusionMatrixDisplay
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.metrics import cohen_kappa_score
+from imblearn.over_sampling import SMOTE  # ADICIONADO
 
-# 1. Carregar e filtrar dados
+# 1. Carregamento e limpeza do dataset
 df = pd.read_csv("uniao_das_bases.csv")
+
+# Remover registros sem salario ou faixa salarial
 df = df[df["Salario_Medio"].notnull() & df["Faixa_Salarial"].notnull()].copy()
 
-# 2. Agrupar faixa salarial usando quantis
-quantis = df["Salario_Medio"].quantile([0.33, 0.66])
-lim_baixa, lim_media = quantis[0.33], quantis[0.66]
-
-def faixa_quantis(salario):
-    if salario <= lim_baixa:
-        return "Baixa"
-    elif salario <= lim_media:
-        return "Média"
+# 2. Agrupamento de faixas salariais com base na semântica real da base
+def agrupa_faixas(s):
+    if s in [
+        'Menos de R$ 1.000/mês',
+        'de R$ 101/mês a R$ 2.000/mês',
+        'de R$ 1.001/mês a R$ 2.000/mês',
+        'de R$ 2.001/mês a R$ 3.000/mês'
+    ]:
+        return 'Baixa'
+    elif s in [
+        'de R$ 3.001/mês a R$ 4.000/mês',
+        'de R$ 4.001/mês a R$ 6.000/mês',
+        'de R$ 6.001/mês a R$ 8.000/mês',
+        'de R$ 8.001/mês a R$ 12.000/mês'
+    ]:
+        return 'Média'
     else:
-        return "Alta"
+        return 'Alta'
 
-df["Faixa_Salarial_Quantis"] = df["Salario_Medio"].apply(faixa_quantis)
+# Aplicar função personalizada
+df["Faixa_Salarial_Agrupada"] = df["Faixa_Salarial"].apply(agrupa_faixas)
 
-# 3. Selecionar colunas de entrada
+# 3. Seleção de colunas de entrada e target
 cols = [
-    "Idade", 
-    "Num_func_empresa_que_trabalha", 
-    "Setor", 
-    "Cargo_Atual", 
-    "Nivel_de_Ensino", 
-    "Nível",
-    "Tempo_de_experiencia_na_area_de_dados", 
-    "Uf", 
-    "Genero", 
-    "Cor/Raça/Etnia",
-    "Atual_forma_de_trabalho", 
-    "Situacao_atual_de_trabalho"
+    "Idade", "Num_func_empresa_que_trabalha", "Setor", "Cargo_Atual",
+    "Nivel_de_Ensino", "Nível", "Tempo_de_experiencia_na_area_de_dados",
+    "Uf", "Genero", "Cor/Raça/Etnia", "Atual_forma_de_trabalho", "Situacao_atual_de_trabalho", "Python", "R", "SQL"
 ]
 X = df[cols].copy()
-y = df["Faixa_Salarial_Quantis"]
+y = df["Faixa_Salarial_Agrupada"].copy()
 
-# 4. Preencher valores nulos
+X[["Python", "SQL", "R"]] = X[["Python", "SQL", "R"]].fillna(0)
+
+# 4. Preencher valores nulos com "Desconhecido" para categorias
 for col in X.select_dtypes(include="object").columns:
     X[col].fillna("Desconhecido", inplace=True)
 
-# 5. Codificação e normalização
+# 5. Codificação de variáveis categóricas (one-hot encoding) e padronização
 X_encoded = pd.get_dummies(X, drop_first=True)
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X_encoded)
 
-# 6. Codificação da variável target
+# 6. Codificar a variável alvo com LabelEncoder para simular ordinalidade
 le = LabelEncoder()
-y_encoded = le.fit_transform(y)
+y_encoded = le.fit_transform(y)  # Baixa = 0, Média = 1, Alta = 2
 
-# 7. Separar dados em treino/teste
+# 7. Separação em treino e teste
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y_encoded, test_size=0.2, random_state=42)
 
-# 8. Treinar modelo Random Forest
-rf = RandomForestClassifier(random_state=42)
-rf.fit(X_train, y_train)
+# 8. Aplicar SMOTE para balancear as classes no conjunto de treino
+smote = SMOTE(random_state=42)
+X_train_res, y_train_res = smote.fit_resample(X_train, y_train)
 
-# 9. Avaliação
+# 9. Treinar modelo Random Forest com dados balanceados
+rf = RandomForestClassifier(random_state=42)
+rf.fit(X_train_res, y_train_res)
+
+# 10. Previsão e avaliação
 y_pred = rf.predict(X_test)
+
+# Relatórios de performance
 print("Acurácia:", accuracy_score(y_test, y_pred))
 print(classification_report(y_test, y_pred, target_names=le.classes_))
 
-ConfusionMatrixDisplay.from_predictions(le.inverse_transform(y_test), le.inverse_transform(y_pred), cmap="Greens").plot()
+# Matriz de confusão
+ordem_desejada = ['Alta', 'Média', 'Baixa']
+labels_ordinais = le.transform(ordem_desejada)
+cm = confusion_matrix(y_test, y_pred, labels=labels_ordinais)
+disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=ordem_desejada)
+disp.plot(cmap="Oranges")
+plt.title("Matriz de Confusão (Ordem Ordinal)")
+plt.show()
 
-# 10. Gráfico das 15 variáveis mais importantes
+# 11. Métrica adicional: Kappa Ponderado (Quadrático)
+kappa_quadratico = cohen_kappa_score(y_test, y_pred, weights='quadratic')
+print("Cohen's Quadratic Kappa:", kappa_quadratico)
+
+# 12. Gráfico das 15 variáveis mais importantes
 importances = rf.feature_importances_
 indices = np.argsort(importances)[::-1][:15]
 features = X_encoded.columns[indices]
