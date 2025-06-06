@@ -239,8 +239,9 @@ A base de dados **State of Data Brazil 2023** retrata o perfil dos profissionais
 ### Faixa Salarial
 
 ![Faixa_salarial](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Distribui%C3%A7%C3%A3o%20Faixa%20Salarial.png)
-####Obs.: Para fins de visualização, a Coluna salário médio foi criada.
+
 ### Salário Médio (Coluna calculada baseada na coluna faixa salarial da tabela original)
+#### Obs.: Para fins de visualização, a Coluna salário médio foi criada.
 
 - **Número de observações não nulas**: 4.651  
 - **Média**: R$ 10.028,67  
@@ -710,10 +711,14 @@ Após as alterações, observou-se melhoria nos modelos, com redução da difere
 | Classe 3 | 0.65      | 0.74   | 0.69     | 327     |
 | **Total** | **0.65** | **1141** |          |         |
 
+### Feature importance
+
+![Feature imposrtance arvore de decisão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Feature%20importance%20arvore%20de%20decis%C3%A3o.png)
+
 **Observações:**  
 A diferença de 3% entre as acurácias sugere que o modelo não apresenta overfitting significativo, generalizando bem para dados não vistos. A acurácia de 65% indica acerto em ~2/3 das previsões.
 
-#### Modelo KNN:
+### Modelo KNN:
 
 - **Acurácia de treino:** 0.68  
 - **Acurácia de teste:** 0.61  
@@ -735,6 +740,10 @@ A diferença de 3% entre as acurácias sugere que o modelo não apresenta overfi
 | Classe 2 | 0.49      | 0.56   | 0.52     | 318     |
 | Classe 3 | 0.61      | 0.64   | 0.62     | 253     |
 | **Total** | **0.61** | **913** |          |         |
+
+### Feature importance
+
+![Feature imposrtance knn](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Feature%20importance%20knn.png)
 
 **Observações:**  
 Diferença de 7% entre acurácias indica overfitting moderado. O modelo mantém taxa de acerto de 61% (~3/5 previsões corretas) em dados não vistos.
