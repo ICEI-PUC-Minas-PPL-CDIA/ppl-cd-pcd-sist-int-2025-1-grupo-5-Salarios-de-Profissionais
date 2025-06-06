@@ -530,11 +530,11 @@ Acurácia: 0.8012889366272825
     macro avg      0.79      0.73      0.76    931
     weighted avg   0.80      0.80      0.80    931
     
-![Matriz de Confusão]()
+![Matriz de Confusão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Matriz%20de%20Confus%C3%A3o%20(XGBoost).png)
 
 ### Matriz de confusão: Apresenta Recall mais baixo na classe "Baixa" pois há pouca representatividade dela na base de dados. Houve o uso de SMOTE (Técnica de Sobreamostragem de Minoria Sintética) para reduzir a subrepresentatividade da classe "Baixa"
 
-![Importância das Variáveis]()
+![Importância das Variáveis](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Import%C3%A2ncia%20das%20Vari%C3%A1veis%20(XGBoost).png)
 
 Interpretação do modelo 1
 
@@ -566,13 +566,13 @@ Acurácia: 0.7851772287862513
     macro avg      0.79      0.70      0.73       931
     weighted avg   0.79      0.79      0.78       931
     
-![Matriz de Confusão]()
+![Matriz de Confusão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Matriz%20de%20Confus%C3%A3o%20(Random%20Forest).png)
 
 ### Matriz de confusão: Apresenta Recall mais baixo na classe "Baixa" pois há pouca representatividade dela na base de dados. Houve o uso de SMOTE (Técnica de Sobreamostragem de Minoria Sintética) para reduzir a subrepresentatividade da classe "Baixa"
 
 ### Interpretação do modelo 2
 
-![Importância das Variáveis]()
+![Importância das Variáveis](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Import%C3%A2ncia%20das%20Vari%C3%A1veis%20(Random%20Forest).png)
 
 Feature Importance:
 
