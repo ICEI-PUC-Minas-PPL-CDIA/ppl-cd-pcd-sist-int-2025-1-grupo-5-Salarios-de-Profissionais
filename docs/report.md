@@ -392,7 +392,7 @@ A base de dados **State of Data Brazil 2023** retrata o perfil dos profissionais
 - **Terceiro quartil (75% dos dados estão abaixo deste valor): 319.781.000.000,00**
 - **Valor máximo: R$ 2.719.751.000.000,00**
 
-## Preparação dos dados
+# Preparação dos dados
 
 ### State of Data Brazil 2023
 
@@ -453,6 +453,8 @@ Na Tabela IDH 2021 serão utilizados os seguintes atributos:
 #### As três tabelas foram unidas pela coluna Uf, coluna que é comum nas 3 bases de dados. 
 #### As colunas foram renomeadas para melhor entendimento.
 #### A nova tabela resultante da união e seleção de atributos possui 93 colunas e 5293 linhas
+
+# Indução de modelos
 
 ## Modelos Preditivos XGBoost e Random Forest 
 ### Modelo 1: XGBoost (Extreme Gradient Boosting)
