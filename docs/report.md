@@ -675,17 +675,17 @@ Trecho de Código
 
 O KNN foi escolhido como um segundo modelo para comparação por suas características distintas:
 
-    Simplicidade: É um algoritmo conceitualmente simples, servindo como um excelente modelo de baseline para avaliar a performance de outros algoritmos mais complexos.
-    Não-paramétrico: O modelo não faz suposições sobre a distribuição dos dados, o que o torna flexível a diferentes tipos de distribuições.
-    Análise de Similaridade: Por ser baseado em distância, é eficaz em encontrar padrões locais, classificando um novo dado com base na "vizinhança" mais similar a ele nos dados de treino.
+- **Simplicidade**: É um algoritmo conceitualmente simples, servindo como um excelente modelo de baseline para avaliar a performance de outros algoritmos mais complexos.
+- **Não-paramétrico**: O modelo não faz suposições sobre a distribuição dos dados, o que o torna flexível a diferentes tipos de distribuições.
+- **Análise de Similaridade**: Por ser baseado em distância, é eficaz em encontrar padrões locais, classificando um novo dado com base na "vizinhança" mais similar a ele nos dados de treino.
 
 Uma etapa crucial para o KNN foi a padronização dos dados com o StandardScaler, garantindo que todas as variáveis tivessem a mesma escala e contribuíssem de forma equilibrada para o cálculo das distâncias.
 Amostragem e Particionamento dos Dados
 
 Para este modelo, também foi utilizado o método Hold-Out, mas com uma divisão diferente para testar outra abordagem:
 
-    80% para o conjunto de Treinamento.
-    20% para o conjunto de Teste.
+- **80%** para o conjunto de Treinamento.
+- **20%** para o conjunto de Teste.
 
 O random_state=42 foi mantido. Adicionalmente, na análise da performance do modelo, foi empregada a Validação Cruzada (Cross-Validation) com 5 partições (cv=5) na geração das curvas de aprendizado, para uma avaliação mais robusta.
 Parâmetros do Modelo
