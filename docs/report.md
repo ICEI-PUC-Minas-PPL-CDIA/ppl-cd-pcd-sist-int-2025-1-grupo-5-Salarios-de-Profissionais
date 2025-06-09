@@ -692,7 +692,7 @@ Parâmetros do Modelo
 
 O modelo (KNeighborsClassifier) foi configurado com o seguinte hiperparâmetro:
 
-    n_neighbors=20: Define que o modelo irá consultar os 20 vizinhos mais próximos de um novo dado para decidir a qual classe ele pertence, com base na classe majoritária entre esses vizinhos.
+- n_neighbors=20: Define que o modelo irá consultar os 20 vizinhos mais próximos de um novo dado para decidir a qual classe ele pertence, com base na classe majoritária entre esses vizinhos.
 
 Trecho de Código
 
