@@ -535,7 +535,7 @@ Para enriquecer a análise e testar a hipótese sobre a influência de indicador
 # Indução de modelos 🧠
 ---
 
-## Modelo 1
+# Modelo 1
 ---
 ## Hipótese 1 - É possível prever a faixa salarial de um profissional com base nos indicadores socioeconômicos (PIB e IDH) do estado onde ele trabalha?
 ## Árvore de Decisão 🌳  
@@ -666,7 +666,7 @@ Trecho de Código
 (incluir diagrama)
 
 ---
-## Modelo 2 
+# Modelo 2 
 ---
 ## Hipótese 1 - É possível prever a faixa salarial de um profissional com base nos indicadores socioeconômicos (PIB e IDH) do estado onde ele trabalha?
 ## K-Vizinhos Mais Próximos (KNN) ⚙️
