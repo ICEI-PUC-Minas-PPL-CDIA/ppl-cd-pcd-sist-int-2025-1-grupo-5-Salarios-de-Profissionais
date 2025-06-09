@@ -402,13 +402,13 @@ Considerando que o problema central deste projeto é entender quais característ
 
 **Hipótese 3:** A diversidade de linguagens de programação utilizadas e o domínio de tecnologias específicas como cloud e ferramentas de BI estão associados a salários mais altos?
 
-**Hipótese 4:** Existe uma disparidade salarial significativa entre homens e mulheres entre os profissionais de dados, mesmo quando controlamos por fatores como experiência, nível de escolaridade e cargo?
+**Hipótese 4:** Nível de formação acadêmica: Profissionais com pós-graduação, mestrado ou doutorado tendem a receber salários mais altos do que aqueles com apenas graduação?
 
-**Hipótese 5:** Nível de formação acadêmica: Profissionais com pós-graduação, mestrado ou doutorado tendem a receber salários mais altos do que aqueles com apenas graduação.
+## 🔧 Preparação dos dados para **Hipótese 1:**
 
 A etapa de preparação dos dados foi fundamental para garantir a qualidade e a adequação das informações para a modelagem. O processo envolveu a limpeza, transformação e engenharia de novos atributos a partir do dataset *State of Data Brazil 2023*, *IDH 2021* e *PIB 2021*, com o objetivo de criar uma base de treino robusta para os algoritmos de classificação (*Árvore de Decisão* e *k-NN*). A preparação consistiu nos seguintes passos:
 
-### 1. Seleção dos Atributos
+### 1. Seleção dos Atributos **Hipótese 1:**
 
 Após um processo de limpeza e engenharia de features, foram selecionados os seguintes atributos para compor a base de dados final utilizada no treinamento dos modelos. A variável `Salario_target` foi definida como a variável alvo (target).
 
@@ -422,7 +422,7 @@ Após um processo de limpeza e engenharia de features, foram selecionados os seg
 * **`Microsoft PowerBI`**: Atributo binário indicando se o profissional utiliza (1) ou não (0) esta ferramenta.
 * **`Salario_target` (Alvo)**: Faixa salarial do profissional, discretizada em três categorias ordinais (1: Baixo, 2: Médio, 3: Alto).
 
-### 2. Tratamento dos Valores Faltantes ou Omissos (NaN)
+### 2. Tratamento dos Valores Faltantes ou Omissos (NaN) **Hipótese 1:**
 
 O tratamento de valores ausentes foi realizado de duas maneiras principais:
 
@@ -432,7 +432,7 @@ Para garantir a qualidade e a integridade da análise, as linhas que continham v
 ### Substituição por Zero
 Para as colunas binárias que representam o uso de tecnologias específicas (como `Python`, `SQL`, `Azure (Microsoft)`, `Google Cloud (GCP)` e `Microsoft PowerBI`), os valores `NaN` foram substituídos por `0`, para evitar perda de dados. A premissa adotada foi que a ausência de resposta nestes campos indicava a não utilização da respectiva tecnologia pelo profissional.
 
-### 3. Tratamento dos Valores Inconsistentes
+### 3. Tratamento dos Valores Inconsistentes **Hipótese 1:**
 
 Para garantir a consistência e a relevância dos dados, foram aplicados os seguintes tratamentos:
 
@@ -446,7 +446,7 @@ No atributo `Tempo_de_experiencia_na_area_de_dados`, a categoria "de 5 a 6 anos"
 ### Agrupamento de Categorias Raras
 Para o atributo `Setor`, as categorias com frequência inferior a 100 ocorrências foram agrupadas em uma única classe chamada "Outros_Setores". Esta técnica reduz a dimensionalidade e evita que os modelos sejam influenciados por categorias com pouca representatividade.
 
-### 4. Conversão de Dados e Engenharia de Atributos
+### 4. Conversão de Dados e Engenharia de Atributos **Hipótese 1:**
 
 A transformação dos dados foi a etapa mais extensa, envolvendo a conversão de tipos e a criação de novos atributos (engenharia de features):
 
@@ -484,6 +484,53 @@ Para enriquecer a análise e testar a hipótese sobre a influência de indicador
 - **Fonte**: [IPEA DATA](http://www.ipeadata.gov.br/Default.aspx).
 - **Justificativa do Ano**: Utilizou-se a base de 2021 por ser a mais recente com dados consolidados por estado disponíveis na plataforma no momento da coleta.
 
+## 🔧 Preparação dos dados para **Hipótese 2:**
+### 1. Seleção dos Atributos **Hipótese 2:**
+### 2. Tratamento dos Valores Faltantes ou Omissos (NaN) **Hipótese 2:**
+### Remoção de Linhas (se for o caso)
+### Substituição por Zero
+### 3. Tratamento dos Valores Inconsistentes **Hipótese 2:**
+### Remoção de Categorias Irrelevantes (se for o caso)
+### Unificação de Categorias (se for o caso)
+### Agrupamento de Categorias Raras (se for o caso)
+### 4. Conversão de Dados e Engenharia de Atributos **Hipótese 2:**
+### Codificação Ordinal (se for o caso)
+### Engenharia de Features de Habilidades (se for o caso)
+### Discretização de Variável Numérica (se for o caso)
+### Conversão para Formato Binário (One-Hot Encoding) (se for o caso)
+### Observação (se for o caso)
+
+## 🔧 Preparação dos dados para **Hipótese 3:**
+### 1. Seleção dos Atributos **Hipótese 3:**
+### 2. Tratamento dos Valores Faltantes ou Omissos (NaN) **Hipótese 3:**
+### Remoção de Linhas (se for o caso)
+### Substituição por Zero
+### 3. Tratamento dos Valores Inconsistentes **Hipótese 3:**
+### Remoção de Categorias Irrelevantes (se for o caso)
+### Unificação de Categorias (se for o caso)
+### Agrupamento de Categorias Raras (se for o caso)
+### 4. Conversão de Dados e Engenharia de Atributos **Hipótese 3:**
+### Codificação Ordinal (se for o caso)
+### Engenharia de Features de Habilidades (se for o caso)
+### Discretização de Variável Numérica (se for o caso)
+### Conversão para Formato Binário (One-Hot Encoding) (se for o caso)
+### Observação (se for o caso)
+
+## 🔧 Preparação dos dados para **Hipótese 4:**
+### 1. Seleção dos Atributos **Hipótese 4:**
+### 2. Tratamento dos Valores Faltantes ou Omissos (NaN) **Hipótese 4:**
+### Remoção de Linhas (se for o caso)
+### Substituição por Zero
+### 3. Tratamento dos Valores Inconsistentes **Hipótese 4:**
+### Remoção de Categorias Irrelevantes (se for o caso)
+### Unificação de Categorias (se for o caso)
+### Agrupamento de Categorias Raras (se for o caso)
+### 4. Conversão de Dados e Engenharia de Atributos **Hipótese 4:**
+### Codificação Ordinal (se for o caso)
+### Engenharia de Features de Habilidades (se for o caso)
+### Discretização de Variável Numérica (se for o caso)
+### Conversão para Formato Binário (One-Hot Encoding) (se for o caso)
+### Observação (se for o caso)
 
 # Indução de modelos
 
