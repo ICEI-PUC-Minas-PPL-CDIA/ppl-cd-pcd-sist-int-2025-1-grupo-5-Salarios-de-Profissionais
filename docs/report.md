@@ -532,6 +532,293 @@ Para enriquecer a análise e testar a hipótese sobre a influência de indicador
 ### Conversão para Formato Binário (One-Hot Encoding) (se for o caso)
 ### Observação (se for o caso)
 
+# Indução de modelos 🧠
+---
+
+## Modelo 1
+---
+## Hipótese 1 - É possível prever a faixa salarial de um profissional com base nos indicadores socioeconômicos (PIB e IDH) do estado onde ele trabalha?
+## Árvore de Decisão 🌳  
+
+### Justificativa da Escolha  
+
+A Árvore de Decisão foi selecionada por três motivos principais:  
+
+- **Interpretabilidade**: O modelo gera um conjunto de regras visuais que são fáceis de entender, permitindo extrair insights diretos sobre como o modelo toma suas decisões para classificar os salários.  
+- **Importância de Atributos**: O algoritmo calcula nativamente a importância de cada variável (`feature_importance_`), o que ajuda a identificar quais características são mais determinantes para prever a faixa salarial.  
+- **Flexibilidade**: Lida bem com relações não-lineares entre as variáveis e não exige que os dados de entrada sejam escalonados (normalizados).  
+
+### Amostragem e Particionamento dos Dados  
+
+Foi utilizado o método de particionamento simples (*Hold-Out*). O conjunto de dados foi dividido da seguinte forma, utilizando `random_state=42` para garantir a reprodutibilidade:  
+
+- **75%** para o conjunto de **Treinamento**.  
+- **25%** para o conjunto de **Teste**.  
+
+### Parâmetros do Modelo  
+
+O modelo (`DecisionTreeClassifier`) foi configurado com os seguintes hiperparâmetros:  
+
+- `criterion='gini'`: Métrica utilizada para medir a qualidade de uma divisão, buscando criar os nós mais puros possíveis a cada ramificação da árvore.  
+- `max_depth=5`: Define a profundidade máxima da árvore. Este parâmetro foi usado para controlar a complexidade e evitar que o modelo se ajustasse demais aos dados de treino (*overfitting*).  
+
+# Importação das bibliotecas necessárias
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+
+# 1. Particionamento dos dados em treino (75%) e teste (25%)
+X_treino, X_teste, y_treino, y_teste = train_test_split(
+    base_treino.drop(columns=['Salario_target']), 
+    base_treino['Salario_target'], 
+    test_size=0.25, 
+    random_state=42
+)
+
+# 2. Instanciação do modelo com os parâmetros definidos
+modelo_arvore = DecisionTreeClassifier(criterion='gini', max_depth=5, random_state=42)
+
+# 3. Treinamento do modelo utilizando os dados de treino
+modelo_arvore.fit(X_treino, y_treino)
+
+Trecho de Código
+
+# Importação das bibliotecas necessárias
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+
+# 1. Particionamento dos dados em treino (75%) e teste (25%)
+X_treino, X_teste, y_treino, y_teste = train_test_split(
+    base_treino.drop(columns=['Salario_target']), 
+    base_treino['Salario_target'], 
+    test_size=0.25, 
+    random_state=42
+)
+
+# 2. Instanciação do modelo com os parâmetros definidos
+modelo_arvore = DecisionTreeClassifier(criterion='gini', max_depth=5, random_state=42)
+
+# 3. Treinamento do modelo utilizando os dados de treino
+modelo_arvore.fit(X_treino, y_treino)
+
+
+## Fluxo de Processamento
+
+O processo para treinar e avaliar o modelo de Árvore de Decisão seguiu um fluxo linear com as seguintes etapas:
+
+1. **Seleção de Dados**:  
+   O processo inicia com o dataset `base_treino`, já limpo e com as _features_ selecionadas.
+
+2. **Separação de Variáveis**:  
+   O dataset é dividido em:
+   - `X` (matriz de _features_)
+   - `y` (vetor alvo, `Salario_target`)
+
+3. **Particionamento (Hold-Out)**:  
+   Os conjuntos `X` e `y` são divididos em:
+   - **75%** para treinamento
+   - **25%** para teste
+
+4. **Instanciação e Treinamento**:  
+   O modelo `DecisionTreeClassifier` é:
+   - Instanciado com os parâmetros definidos (`max_depth=5`, `criterion='gini'`)
+   - Treinado com os dados de treinamento (`X_treino`, `y_treino`)
+
+5. **Predição e Avaliação**:  
+   O modelo treinado é utilizado para:
+   - Fazer previsões no conjunto de teste (`X_teste`)
+   - Comparar resultados com os valores reais (`y_teste`) para calcular métricas de performance (ex: acurácia)
+
+![Arvore de decisão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Arvore%20de%20Decis%C3%A3o%20Classifica%C3%A7%C3%A3o%20salarial.png)
+
+
+---
+## Hipótese 2 - 
+## (NOME DO MODELO)  
+
+### Justificativa da Escolha  
+
+### Amostragem e Particionamento dos Dados  
+
+### Parâmetros do Modelo  
+
+Trecho de Código
+
+## Fluxo de Processamento
+
+(incluir diagrama)
+
+
+---
+## Hipótese 3 - 
+## (NOME DO MODELO)  
+
+### Justificativa da Escolha  
+
+### Amostragem e Particionamento dos Dados  
+
+### Parâmetros do Modelo  
+
+Trecho de Código
+
+## Fluxo de Processamento
+
+(incluir diagrama)
+
+
+---
+## Hipótese 4 - 
+## (NOME DO MODELO)  
+
+### Justificativa da Escolha  
+
+### Amostragem e Particionamento dos Dados  
+
+### Parâmetros do Modelo  
+
+Trecho de Código
+
+## Fluxo de Processamento
+
+(incluir diagrama)
+
+---
+## Modelo 2 
+---
+## Hipótese 1 - É possível prever a faixa salarial de um profissional com base nos indicadores socioeconômicos (PIB e IDH) do estado onde ele trabalha?
+## K-Vizinhos Mais Próximos (KNN) ⚙️
+
+### Justificativa da Escolha
+
+O KNN foi escolhido como um segundo modelo para comparação por suas características distintas:
+
+    Simplicidade: É um algoritmo conceitualmente simples, servindo como um excelente modelo de baseline para avaliar a performance de outros algoritmos mais complexos.
+    Não-paramétrico: O modelo não faz suposições sobre a distribuição dos dados, o que o torna flexível a diferentes tipos de distribuições.
+    Análise de Similaridade: Por ser baseado em distância, é eficaz em encontrar padrões locais, classificando um novo dado com base na "vizinhança" mais similar a ele nos dados de treino.
+
+Uma etapa crucial para o KNN foi a padronização dos dados com o StandardScaler, garantindo que todas as variáveis tivessem a mesma escala e contribuíssem de forma equilibrada para o cálculo das distâncias.
+Amostragem e Particionamento dos Dados
+
+Para este modelo, também foi utilizado o método Hold-Out, mas com uma divisão diferente para testar outra abordagem:
+
+    80% para o conjunto de Treinamento.
+    20% para o conjunto de Teste.
+
+O random_state=42 foi mantido. Adicionalmente, na análise da performance do modelo, foi empregada a Validação Cruzada (Cross-Validation) com 5 partições (cv=5) na geração das curvas de aprendizado, para uma avaliação mais robusta.
+Parâmetros do Modelo
+
+O modelo (KNeighborsClassifier) foi configurado com o seguinte hiperparâmetro:
+
+    n_neighbors=20: Define que o modelo irá consultar os 20 vizinhos mais próximos de um novo dado para decidir a qual classe ele pertence, com base na classe majoritária entre esses vizinhos.
+
+Trecho de Código
+
+# Importação das bibliotecas necessárias
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
+
+# 1. Particionamento dos dados em treino (80%) e teste (20%)
+X_train, X_test, y_train, y_test = train_test_split(
+    base_treino.drop('Salario_target', axis=1), 
+    base_treino['Salario_target'], 
+    test_size=0.2, 
+    random_state=42
+)
+
+# 2. Padronização (scaling) dos dados, essencial para o KNN
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# 3. Instanciação do modelo com o parâmetro definido
+knn = KNeighborsClassifier(n_neighbors=20)
+
+# 4. Treinamento do modelo utilizando os dados de treino já padronizados
+knn.fit(X_train_scaled, y_train)
+
+## Fluxo de Processamento
+
+O fluxo para o modelo KNN incluiu uma etapa de pré-processamento adicional, crucial para algoritmos baseados em distância:
+
+1. **Seleção de Dados**:  
+   O processo inicia com o mesmo dataset `base_treino`.
+2. **Separação de Variáveis**:  
+   O dataset é dividido em:
+   - `X` (_features_)
+   - `y` (alvo)
+3. **Particionamento (Hold-Out)**:  
+   Os dados são divididos em:
+   - **80%** para treinamento
+   - **20%** para teste
+4. **Padronização (Scaling)**:  
+   - O `StandardScaler` é ajustado apenas com os dados de treinamento (`X_train`)
+   - Usado para transformar tanto o conjunto de treino quanto o de teste  
+   *Garante que todas as features tenham a mesma escala, sem vazamento de informação do conjunto de teste*
+5. **Instanciação e Treinamento**:  
+   - Modelo `KNeighborsClassifier` (`n_neighbors=20`) é treinado
+   - Utiliza dados de treinamento já padronizados (`X_train_scaled`, `y_train`)
+6. **Predição e Avaliação**:  
+   - Modelo faz previsões no conjunto de teste padronizado (`X_test_scaled`)
+   - Resultados são avaliados em comparação com valores reais (`y_test`)
+
+![Froteira de decisão do modelo knn](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Fronteiras%20de%20Decis%C3%A3o%20do%20Modelo%20KNN%20(k%3D20).png)
+
+---
+## Hipótese 2 - 
+## (NOME DO MODELO)  
+
+### Justificativa da Escolha  
+
+### Amostragem e Particionamento dos Dados  
+
+### Parâmetros do Modelo  
+
+Trecho de Código
+
+## Fluxo de Processamento
+
+(incluir diagrama)
+
+
+---
+## Hipótese 3 - 
+## (NOME DO MODELO)  
+
+### Justificativa da Escolha  
+
+### Amostragem e Particionamento dos Dados  
+
+### Parâmetros do Modelo  
+
+Trecho de Código
+
+## Fluxo de Processamento
+
+(incluir diagrama)
+
+---
+## Hipótese 4 - 
+## (NOME DO MODELO)  
+
+### Justificativa da Escolha  
+
+### Amostragem e Particionamento dos Dados  
+
+### Parâmetros do Modelo  
+
+Trecho de Código
+
+## Fluxo de Processamento
+
+(incluir diagrama)
+
+
+
+
+
+
+
+
 # Indução de modelos
 
 ## Modelos Preditivos XGBoost e Random Forest 
