@@ -1099,10 +1099,143 @@ código
 #### Importância das Features
  
 
+# Análise Comparativa dos Modelos
 
+--
+## Hipótese 1
+--
+## 🌳 Árvore de Decisão (Modelo 1)
+
+### Forças
+
+- **Interpretabilidade (Ponto Mais Forte):** A maior vantagem deste modelo é ser uma "caixa-branca". As regras de decisão são explícitas e podem ser facilmente comunicadas a stakeholders não-técnicos (como gestores de RH). É possível responder com clareza por que um profissional foi classificado em uma determinada faixa salarial (ex: "profissionais com `Nivel_Experiencia_Ordinal > 3` e que usam Microsoft PowerBI tendem a ter um salário na faixa 3").
+- **Rapidez na Predição:** Uma vez que a árvore está construída, classificar um novo profissional é extremamente rápido, pois consiste apenas em percorrer um caminho de regras if/else.
+- **Não Requer Escalonamento de Dados:** O modelo lida nativamente com variáveis em diferentes escalas, simplificando o pipeline de pré-processamento.
+
+### Fragilidades
+
+- **Propensão a Overfitting:** Mesmo com a profundidade limitada (`max_depth=5`), árvores de decisão podem criar regras muito específicas para os dados de treinamento, o que pode não generalizar bem para novos dados. Uma pequena mudança nos dados de entrada pode gerar uma árvore completamente diferente.
+- **Fronteiras de Decisão "Em Caixa":** As decisões da árvore são sempre perpendiculares aos eixos das variáveis (ex: `PIB <= X`). Ela não consegue criar fronteiras de decisão suaves ou diagonais, o que pode ser uma limitação se a relação real entre as variáveis for mais complexa.
+
+## ⚙️ K-Vizinhos Mais Próximos (KNN) (Modelo 2)
+
+### Forças
+
+- **Simplicidade e Intuição:** O conceito de "diga-me com quem andas e te direi quem és" é muito fácil de entender. O modelo classifica um profissional com base na faixa salarial de seus "vizinhos" mais próximos.
+- **Flexibilidade nas Fronteiras de Decisão:** Por ser um algoritmo não-paramétrico, o KNN pode criar fronteiras de decisão altamente complexas e não-lineares, adaptando-se a "nichos" e padrões nos dados que uma árvore com regras rígidas poderia não capturar.
+- **Treinamento "Instantâneo":** Não há uma fase de treinamento propriamente dita; o algoritmo simplesmente armazena os dados de treino. Todo o trabalho computacional ocorre no momento da predição.
+
+### Fragilidades
+
+- **Falta de Interpretabilidade (Ponto Mais Fraco):** O KNN é um modelo "caixa-preta". Ele pode prever com precisão, mas não consegue explicar o porquê daquela previsão em termos de regras de negócio. A sua lógica é baseada puramente em similaridade matemática.
+- **Lento em Produção:** Fazer uma previsão é computacionalmente caro, pois o modelo precisa calcular a distância do novo ponto a todos os pontos do conjunto de treinamento. Isso o torna inviável para aplicações que exigem baixa latência com grandes volumes de dados.
+- **Necessidade Crítica de Escalonamento:** Se as variáveis não forem padronizadas, uma feature com uma escala grande (como o PIB) irá dominar completamente o cálculo da distância, tornando outras variáveis (como o nível de experiência) praticamente irrelevantes.
+
+## Cenários de Uso: Qual Modelo se Sairia Melhor?
+
+Imaginando cenários práticos, podemos extrapolar onde cada modelo brilharia:
+
+### A Árvore de Decisão seria superior para...
+
+1. **Uma Ferramenta de Análise para o RH:**  
+   Imagine um painel onde um gestor de RH quer entender os principais fatores que influenciam os salários na empresa para criar um plano de cargos e salários mais justo. As regras claras da árvore (ex: "Doutorado é um forte indicador de salário alto, mas apenas se combinado com mais de 7 anos de experiência") seriam perfeitas para gerar insights acionáveis.
+
+2. **Um Simulador de Salário em um Site de Carreiras:**  
+   Um sistema que precisa dar uma estimativa salarial instantânea para milhares de usuários por dia. A velocidade de predição da árvore seria essencial para garantir uma boa experiência do usuário.
+
+### O KNN seria superior para...
+
+1. **Identificar Perfis de "Unicórnio":**  
+   Suponha que existam pequenos grupos de profissionais com combinações muito atípicas de habilidades que resultam em salários altíssimos (ex: pouca experiência formal, mas domínio de tecnologias de nicho como Julia e Rust em um setor financeiro). A fronteira de decisão flexível do KNN seria mais apta a identificar esses "bolsões" de alta renda que as regras gerais de uma árvore poderiam ignorar.
+
+2. **Uma Análise Exploratória Rápida:**  
+   Se o objetivo fosse apenas ter uma primeira estimativa (baseline) da dificuldade do problema de classificação sem se aprofundar em regras, o KNN seria um ótimo ponto de partida pela sua simplicidade de implementação.
  
+--
+# Análise Comparativa dos Modelos
+--
+## Hipótese 2
+--
+## (Nome do modelo) (Modelo 1)
+
+### Forças
 
 
+### Fragilidades
+
+
+## (Nome do modelo) (Modelo 2)
+
+### Forças
+
+
+### Fragilidades
+
+
+## Cenários de Uso: Qual Modelo se Sairia Melhor?
+
+
+### O (nome modelo 1) seria superior para...
+
+
+### O (nome do modelo 2) seria superior para...
+
+# Análise Comparativa dos Modelos
+--
+## Hipótese 3
+--
+## (Nome do modelo) (Modelo 1)
+
+### Forças
+
+
+### Fragilidades
+
+
+## (Nome do modelo) (Modelo 2)
+
+### Forças
+
+
+### Fragilidades
+
+
+## Cenários de Uso: Qual Modelo se Sairia Melhor?
+
+
+### O (nome modelo 1) seria superior para...
+
+
+### O (nome do modelo 2) seria superior para...
+
+--
+# Análise Comparativa dos Modelos
+--
+## Hipótese 4
+--
+## (Nome do modelo) (Modelo 1)
+
+### Forças
+
+
+### Fragilidades
+
+
+## (Nome do modelo) (Modelo 2)
+
+### Forças
+
+
+### Fragilidades
+
+
+## Cenários de Uso: Qual Modelo se Sairia Melhor?
+
+
+### O (nome modelo 1) seria superior para...
+
+
+### O (nome do modelo 2) seria superior para...
 
 
 
