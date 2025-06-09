@@ -1098,12 +1098,12 @@ código
 
 #### Importância das Features
  
-
+---
 # Análise Comparativa dos Modelos
 
---
+
 ## Hipótese 1
---
+
 
 ## 🌳 Árvore de Decisão (Modelo 1)
 
@@ -1155,9 +1155,9 @@ Imaginando cenários práticos, podemos extrapolar onde cada modelo brilharia:
 --
 # Análise Comparativa dos Modelos
 
---
+
 ## Hipótese 2
---
+
 
 ## (Nome do modelo) (Modelo 1)
 
@@ -1183,11 +1183,12 @@ Imaginando cenários práticos, podemos extrapolar onde cada modelo brilharia:
 
 ### O (nome do modelo 2) seria superior para...
 
+---
 # Análise Comparativa dos Modelos
 
---
+
 ## Hipótese 3
---
+
 
 ## (Nome do modelo) (Modelo 1)
 
@@ -1216,9 +1217,9 @@ Imaginando cenários práticos, podemos extrapolar onde cada modelo brilharia:
 --
 # Análise Comparativa dos Modelos
 
---
+
 ## Hipótese 4
---
+
 
 ## (Nome do modelo) (Modelo 1)
 
