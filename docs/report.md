@@ -533,8 +533,8 @@ Para enriquecer a análise e testar a hipótese sobre a influência de indicador
 ### Observação (se for o caso)
 
 # Indução de modelos 🧠
----
 
+---
 # Modelo 1
 ---
 ## Hipótese 1 - É possível prever a faixa salarial de um profissional com base nos indicadores socioeconômicos (PIB e IDH) do estado onde ele trabalha?
@@ -613,57 +613,6 @@ O processo para treinar e avaliar o modelo de Árvore de Decisão seguiu um flux
    - Comparar resultados com os valores reais (`y_teste`) para calcular métricas de performance (ex: acurácia)
 
 ![Arvore de decisão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Arvore%20de%20Decis%C3%A3o%20Classifica%C3%A7%C3%A3o%20salarial.png)
-
-
----
-## Hipótese 2 - 
-## (NOME DO MODELO)  
-
-### Justificativa da Escolha  
-
-### Amostragem e Particionamento dos Dados  
-
-### Parâmetros do Modelo  
-
-Trecho de Código
-
-## Fluxo de Processamento
-
-(incluir diagrama)
-
-
----
-## Hipótese 3 - 
-## (NOME DO MODELO)  
-
-### Justificativa da Escolha  
-
-### Amostragem e Particionamento dos Dados  
-
-### Parâmetros do Modelo  
-
-Trecho de Código
-
-## Fluxo de Processamento
-
-(incluir diagrama)
-
-
----
-## Hipótese 4 - 
-## (NOME DO MODELO)  
-
-### Justificativa da Escolha  
-
-### Amostragem e Particionamento dos Dados  
-
-### Parâmetros do Modelo  
-
-Trecho de Código
-
-## Fluxo de Processamento
-
-(incluir diagrama)
 
 ---
 # Modelo 2 
@@ -750,6 +699,8 @@ O fluxo para o modelo KNN incluiu uma etapa de pré-processamento adicional, cru
 ![Froteira de decisão do modelo knn](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Fronteiras%20de%20Decis%C3%A3o%20do%20Modelo%20KNN%20(k%3D20).png)
 
 ---
+# Modelo 1 
+---
 ## Hipótese 2 - 
 ## (NOME DO MODELO)  
 
@@ -765,7 +716,26 @@ Trecho de Código
 
 (incluir diagrama)
 
+---
+# Modelo 2 
+---
+## Hipótese 2 - 
+## (NOME DO MODELO)  
 
+### Justificativa da Escolha  
+
+### Amostragem e Particionamento dos Dados  
+
+### Parâmetros do Modelo  
+
+Trecho de Código
+
+## Fluxo de Processamento
+
+(incluir diagrama)
+
+---
+# Modelo 1 
 ---
 ## Hipótese 3 - 
 ## (NOME DO MODELO)  
@@ -783,6 +753,44 @@ Trecho de Código
 (incluir diagrama)
 
 ---
+# Modelo 2 
+---
+## Hipótese 3 - 
+## (NOME DO MODELO)  
+
+### Justificativa da Escolha  
+
+### Amostragem e Particionamento dos Dados  
+
+### Parâmetros do Modelo  
+
+Trecho de Código
+
+## Fluxo de Processamento
+
+(incluir diagrama)
+
+---
+# Modelo 1 
+---
+## Hipótese 4 - 
+## (NOME DO MODELO)  
+
+### Justificativa da Escolha  
+
+### Amostragem e Particionamento dos Dados  
+
+### Parâmetros do Modelo  
+
+Trecho de Código
+
+## Fluxo de Processamento
+
+(incluir diagrama)
+
+---
+# Modelo 2 
+---
 ## Hipótese 4 - 
 ## (NOME DO MODELO)  
 
@@ -799,12 +807,117 @@ Trecho de Código
 (incluir diagrama)
 
 
+# Resultado 🎯
+
+## Hipótese 1
+
+### Resultados obtidos com o Modelo 1: Árvore de Decisão
+
+O modelo de Árvore de Decisão foi treinado e avaliado utilizando uma partição de 75% dos dados para treino e 25% para teste. As métricas de performance foram calculadas sobre o conjunto de teste, que o modelo nunca havia visto antes.
+
+O modelo alcançou uma acurácia de **0.69 no treino e 0.67 no teste**. Para uma análise mais detalhada, os seguintes resultados foram gerados:
+
+#### Matriz de Confusão
+A matriz de confusão abaixo ilustra a performance do modelo para cada classe. A diagonal principal (em vermelho mais escuro) mostra a quantidade de previsões corretas para cada faixa salarial (1: Baixo, 2: Médio, 3: Alto). As outras células indicam onde ocorreram os erros de classificação.
+
+![Matriz de Confusão Árvore de Decisão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/MATRIZ%20DE%20CONFUS%C3%83O%20ARVORE%20ULTIMA.png)
+
+#### Métricas de Performance (Precisão, Revocação e F-Measure)
+O relatório de classificação detalha a performance do modelo para cada classe individualmente:
+
+- **Precisão (Precision):** Das vezes que o modelo previu uma classe, quantas ele acertou?  
+- **Revocação (Recall):** De todos os exemplos de uma classe, quantos o modelo conseguiu encontrar?  
+- **F1-Score:** Média harmônica entre precisão e revocação, oferecendo um balanço entre as duas.    
+
+```python
+Relatório de Classificação:
+              precision    recall  f1-score   support
+
+           1       0.77      0.71      0.74       384
+           2       0.58      0.56      0.57       433
+           3       0.66      0.76      0.71       325
+
+    accuracy                           0.67      1142
+   macro avg       0.67      0.68      0.67      1142
+weighted avg       0.67      0.67      0.67      1142
+````
+
+### Interpretação do Modelo 1: Árvore de Decisão
+
+#### Parâmetros do Modelo Obtido
+O modelo foi construído com os seguintes hiperparâmetros para controlar sua complexidade:
+- `criterion='gini'`: Métrica usada para medir a qualidade das divisões nos nós.  
+- `max_depth=5`: Profundidade máxima da árvore, limitada a 5 níveis para evitar superajuste.  
+
+#### Regras de "Raciocínio" do Modelo
+A grande vantagem da Árvore de Decisão é que seu processo de "raciocínio" é totalmente transparente. As regras de decisão podem ser visualizadas diretamente na estrutura da árvore abaixo. Cada nó representa uma pergunta sobre uma variável (ex: "O `Nivel_Experiencia_Ordinal` é menor ou igual a 2.5?"), e cada ramo representa a resposta ("sim" ou "não"), guiando até uma classificação final em uma das folhas.
+
+
+#### Importância das Features
+O modelo nos permite ver quais atributos foram mais influentes para a tomada de decisão. A importância é medida pela capacidade de cada feature em reduzir a impureza (critério Gini) nos nós da árvore. Conforme o gráfico abaixo, as variáveis mais decisivas para prever a faixa salarial foram...
+
+![Feature Importance arvore de decisão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/FEATURE%20IMPORTANTE%20ARVORE%20ULTIMA.png)
+
+---
+
+## Resultados obtidos com o Modelo 2: K-Vizinhos Mais Próximos (KNN)
+
+O modelo KNN foi treinado com 80% dos dados e avaliado nos 20% restantes. Uma etapa crucial de pré-processamento foi a padronização (*scaling*) dos dados, garantindo que todas as features tivessem a mesma escala de valor.
+
+A acurácia obtida pelo modelo no conjunto de teste foi de ** 0.71 no treino e 0.67 no teste**.
+
+#### Matriz de Confusão
+A matriz abaixo demonstra a performance do KNN. Assim como no modelo anterior, a diagonal principal representa os acertos.
+
+![Matriz de Confusão KNN](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/MATRIZ%20DE%20CONFUS%C3%83O%20KNN%20ULTIMA.png)
+
+#### Métricas de Performance (Precisão, Revocação e F-Measure)
+O relatório de classificação para o KNN é apresentado abaixo.
+
+*(Copie e cole aqui a tabela do `classification_report` gerada pelo seu código)*
+
+```python
+Relatório de Classificação:
+              precision    recall  f1-score   support
+
+           1       0.78      0.72      0.75       310
+           2       0.58      0.58      0.58       348
+           3       0.66      0.72      0.69       255
+
+    accuracy                           0.67       913
+   macro avg       0.67      0.67      0.67       913
+weighted avg       0.67      0.67      0.67       913
+
+```
+
+### Interpretação do Modelo 2: K-Vizinhos Mais Próximos (KNN)
+
+#### Parâmetros do Modelo Obtido
+O principal hiperparâmetro que define o comportamento do modelo é:
+- `n_neighbors=20`: Indica que, para classificar um novo profissional, o algoritmo irá se basear na classe majoritária entre os seus 20 vizinhos mais próximos no conjunto de treino.
+
+#### Regras de "Raciocínio" do Modelo
+Diferente da Árvore de Decisão, o KNN é um algoritmo não-paramétrico e não gera um conjunto de regras explícitas. Seu "raciocínio" é baseado em similaridade por distância. Para classificar um novo profissional, o modelo:
+1. Calcula a "distância" (similaridade) entre este novo ponto e todos os outros pontos no conjunto de treino.  
+2. Identifica os 20 vizinhos mais próximos.  
+3. Realiza uma "votação" e atribui a faixa salarial que for majoritária entre esses vizinhos.  
+
+O diagrama de **Fronteiras de Decisão** é a melhor forma de visualizar o resultado desse processo de votação, mostrando os "territórios" que o modelo definiu para cada classe.
+
+![Fronteiras de Decisão do KNN](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Fronteiras%20de%20Decis%C3%A3o%20do%20Modelo%20KNN%20(k%3D20).png)
+
+#### Importância das Features
+O KNN não possui um método direto para calcular a importância das features. Por isso, foi utilizada a técnica de **Permutation Importance**. Este método mede a importância de uma variável ao calcular o quanto a performance do modelo cai quando os valores dessa variável são embaralhados aleatoriamente. Uma queda maior na acurácia significa que o modelo depende mais daquela feature. As variáveis mais importantes segundo esta técnica foram...
+
+![Permutation Importance KNN](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/FEATURE%20IMPORTANTE%20KNN%20ULTIMA.png)
+ 
 
 
 
 
-
-
+---
+# ALTERAÇÕES ATÉ AQUI 
+---
 # Indução de modelos
 
 ## Modelos Preditivos XGBoost e Random Forest 
