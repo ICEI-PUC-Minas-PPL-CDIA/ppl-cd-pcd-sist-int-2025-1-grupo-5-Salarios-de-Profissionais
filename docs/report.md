@@ -562,26 +562,9 @@ O modelo (`DecisionTreeClassifier`) foi configurado com os seguintes hiperparâm
 - `criterion='gini'`: Métrica utilizada para medir a qualidade de uma divisão, buscando criar os nós mais puros possíveis a cada ramificação da árvore.  
 - `max_depth=5`: Define a profundidade máxima da árvore. Este parâmetro foi usado para controlar a complexidade e evitar que o modelo se ajustasse demais aos dados de treino (*overfitting*).  
 
-# Importação das bibliotecas necessárias
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
-
-# 1. Particionamento dos dados em treino (75%) e teste (25%)
-X_treino, X_teste, y_treino, y_teste = train_test_split(
-    base_treino.drop(columns=['Salario_target']), 
-    base_treino['Salario_target'], 
-    test_size=0.25, 
-    random_state=42
-)
-
-# 2. Instanciação do modelo com os parâmetros definidos
-modelo_arvore = DecisionTreeClassifier(criterion='gini', max_depth=5, random_state=42)
-
-# 3. Treinamento do modelo utilizando os dados de treino
-modelo_arvore.fit(X_treino, y_treino)
-
 Trecho de Código
 
+```python
 # Importação das bibliotecas necessárias
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
@@ -600,6 +583,7 @@ modelo_arvore = DecisionTreeClassifier(criterion='gini', max_depth=5, random_sta
 # 3. Treinamento do modelo utilizando os dados de treino
 modelo_arvore.fit(X_treino, y_treino)
 
+```
 
 ## Fluxo de Processamento
 
@@ -712,6 +696,7 @@ O modelo (KNeighborsClassifier) foi configurado com o seguinte hiperparâmetro:
 
 Trecho de Código
 
+```python
 # Importação das bibliotecas necessárias
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -735,6 +720,7 @@ knn = KNeighborsClassifier(n_neighbors=20)
 
 # 4. Treinamento do modelo utilizando os dados de treino já padronizados
 knn.fit(X_train_scaled, y_train)
+```
 
 ## Fluxo de Processamento
 
