@@ -392,67 +392,98 @@ A base de dados **State of Data Brazil 2023** retrata o perfil dos profissionais
 - **Terceiro quartil (75% dos dados estão abaixo deste valor): 319.781.000.000,00**
 - **Valor máximo: R$ 2.719.751.000.000,00**
 
-# Preparação dos dados
+# 🧪 Preparação dos dados
 
-### State of Data Brazil 2023
+Considerando que o problema central deste projeto é entender quais características dos profissionais de dados no Brasil afetam de forma mais significativa seus salários, foram levantados algumas hipóteses que serão trabalhadas nesse projeto.
 
-Considerando que o problema central deste projeto é entender quais características dos profissionais de dados no Brasil afetam de forma mais significativa seus salários, foram levantados algumas hipóteses que serão trabalhadas nesse projeto. As hipóteses levantadas são as seguintes:
+**Hipótese 1:** É possível prever a faixa salarial de um profissional com base nos indicadores socioeconômicos (PIB e IDH) do estado onde ele trabalha?
 
-#### Hipótese 1: Existe uma correlação entra o valor do salário com o PIB e o IHD do estado que o profissional trabalha?
-#### Hipótese 2: O setor de atuação e o tamanho da empresa (Número de funcionários) influenciam o salário? Com setores como finanças e grandes empresas oferecendo melhores remunerações?
-#### Hipótese 3: A diversidade de linguagens de programação utilizadas e o domínio de tecnologias específicas como cloud e ferramentas de BI estão associados a salários mais altos?
-#### Hipótese 4: Existe uma disparidade salarial significativa entre homens e mulheres entre os profissionais de dados, mesmo quando controlamos por fatores como experiência, nível de escolaridade e cargo?
-#### Hipótese 5: Nível de formação acadêmica: Profissionais com pós-graduação, mestrado ou doutorado tendem a receber salários mais altos do que aqueles com apenas graduação.
+**Hipótese 2:** O setor de atuação e o tamanho da empresa (Número de funcionários) influenciam o salário? Com setores como finanças e grandes empresas oferecendo melhores remunerações?
 
-Na tabela State of Data Brazil 2023 foram selecionados os atributos de acordo com o problema e as hipóteses que foram levantada.
-Como o problema gira em torno do salário dos profissionais de dados, foram criadas as colunas Salario_minino, Salario_maximo e Salario médio, de acordo com a coluna Faixa Salarial, que já existia na base de dados original.
+**Hipótese 3:** A diversidade de linguagens de programação utilizadas e o domínio de tecnologias específicas como cloud e ferramentas de BI estão associados a salários mais altos?
 
-| Dado | Tipo de dado | Descrição |
-|------|--------------|-----------|
-| Faixa_Salarial | Qualitativo ordinal | Intervalos salariais em categorias |
-| Salario_Minimo | Quantitativo contínuo | Valor mínimo da faixa salarial em R$ |
-| Salario_Maximo | Quantitativo contínuo | Valor máximo da faixa salarial em R$ |
-| Salario_Medio | Quantitativo contínuo | Valor médio da faixa salarial em R$ |
+**Hipótese 4:** Existe uma disparidade salarial significativa entre homens e mulheres entre os profissionais de dados, mesmo quando controlamos por fatores como experiência, nível de escolaridade e cargo?
 
-Para enriquecimento do trabalho e para tentar responder a primeira hipótese (Existe uma correlação entra o valor do salário com o PIB e o IHD do estado que o profissional trabalha?
-) foi incluída a base de dados do PIB 2021 (Contas regionais de 2021). Disponível em: https://www.ibge.gov.br/estatisticas/economicas/contas-nacionais/9054-contas-regionais-do-brasil.html?edicao=38346. Os dados são de 2021, pois as informações das contas regionais de 2023 não estão disponíveis. Conforme comunicado no site do IBGE, as informações não foram disponibilizadas, pois está sendo feita a mudança de ano base do Sistema de Contas que passará de 2010 para 2021, conforme divulgado no site do IBGE (https://www.ibge.gov.br/novo-portal-destaques/37997-divulgacao-do-informativo-das-contas-nacionais-anuais.html#:~:text=O%20ano%20base%20do%20Sistema%20de%20Contas,de%20Insumo%2DProduto%20e%20Conta%20Sat%C3%A9lite%20de%20Sa%C3%BAde.). 
+**Hipótese 5:** Nível de formação acadêmica: Profissionais com pós-graduação, mestrado ou doutorado tendem a receber salários mais altos do que aqueles com apenas graduação.
 
-Na tabela Pib 2021 serão utilizados os seguintes atributos:
+A etapa de preparação dos dados foi fundamental para garantir a qualidade e a adequação das informações para a modelagem. O processo envolveu a limpeza, transformação e engenharia de novos atributos a partir do dataset *State of Data Brazil 2023*, *IDH 2021* e *PIB 2021*, com o objetivo de criar uma base de treino robusta para os algoritmos de classificação (*Árvore de Decisão* e *k-NN*). A preparação consistiu nos seguintes passos:
 
-| Dado | Tipo de Dado | Descrição |
-|:-----|:------------|:----------|
-| UF | Qualitativo Nominal | Sigla da Unidade da Federação (estados brasileiros e Distrito Federal) - dados não numéricos sem ordem intrínseca |
-| PIB_2021_OR | Quantitativo Contínuo | Valor do Produto Interno Bruto em 2021, em milhões de reais (admite valores intermediários, apesar de estar representado como inteiro) |
-| Partic_Pib_Brasil | Quantitativo Contínuo | Participação percentual do estado no PIB nacional (valores decimais entre 0 e 1) |
+### 1. Seleção dos Atributos
 
-Será utilizada os valores do PIB pela ótica da renda. O IBGE usa esta metodologia para calcular o PIB, incluindo remunerações de empregados, rendimento misto, excedente operacional bruto e impostos sobre a produção e importação, líquidos de subsídios.
+Após um processo de limpeza e engenharia de features, foram selecionados os seguintes atributos para compor a base de dados final utilizada no treinamento dos modelos. A variável `Salario_target` foi definida como a variável alvo (target).
 
-Outra base de dados que será utilizada é a base de dados sobre O IDH que foi extraída do site do IPEA DATA. Disponíel em: http://www.ipeadata.gov.br/Default.aspx. Os dados são de 2021, pois é a única base de dados de IDH por estado.
+* **`IDHM`**: Índice de Desenvolvimento Humano Municipal do estado.
+* **`PIB_2021_OR`**: Produto Interno Bruto do estado em 2021.
+* **`Nível_1.0`, `Nível_2.0`, `Nível_3.0`**: Representação binária (One-Hot Encoding) do nível profissional (Júnior, Pleno, Sênior).
+* **`Nivel_de_Ensino`**: Nível de escolaridade codificado numericamente de forma ordinal.
+* **`Grupo_Ferramentas_Ordinal`**: Categoria ordinal que representa a quantidade de ferramentas de BI/Dados que o profissional utiliza (engenharia de features).
+* **`Grupo_Linguagens_Ordinal`**: Categoria ordinal que representa a quantidade de linguagens de programação que o profissional utiliza (engenharia de features).
+* **`Nivel_Experiencia_Ordinal`**: Nível de experiência na área de dados, codificado numericamente de forma ordinal.
+* **`Microsoft PowerBI`**: Atributo binário indicando se o profissional utiliza (1) ou não (0) esta ferramenta.
+* **`Salario_target` (Alvo)**: Faixa salarial do profissional, discretizada em três categorias ordinais (1: Baixo, 2: Médio, 3: Alto).
 
-Na Tabela IDH 2021 serão utilizados os seguintes atributos: 
+### 2. Tratamento dos Valores Faltantes ou Omissos (NaN)
 
-| Dado | Tipo de Dado | Descrição |
-|:-----|:------------|:----------|
-| Ano | Quantitativo Discreto | Ano de referência dos dados (valores inteiros específicos) |
-| Uf | Qualitativo Nominal | Sigla da Unidade da Federação (categorias sem ordem intrínseca) |
-| Nome_Estado | Qualitativo Nominal | Nome completo do estado brasileiro ou DF |
-| IDHM | Quantitativo Contínuo | Índice de Desenvolvimento Humano Municipal (escala 0-1) |
-| IDHM_L | Quantitativo Contínuo | Dimensão Longevidade do IDHM (escala 0-1) |
-| IDHM_E | Quantitativo Contínuo | Dimensão Educação do IDHM (escala 0-1) |
-| IDHM_R | Quantitativo Contínuo | Dimensão Renda do IDHM (escala 0-1) |
-| IDHMAD | Quantitativo Contínuo | IDHM Ajustado à Desigualdade (escala 0-1) |
-| IDHMAD_L | Quantitativo Contínuo | Dimensão Longevidade do IDHMAD (escala 0-1) |
-| IDHMAD_E | Quantitativo Contínuo | Dimensão Educação do IDHMAD (escala 0-1) |
-| IDHMAD_R | Quantitativo Contínuo | Dimensão Renda do IDHMAD (escala 0-1) |
-| RDPC | Quantitativo Contínuo | Renda Domiciliar per Capita (em R$) |
-| GINI | Quantitativo Contínuo | Índice de Gini (medida de desigualdade 0-1) |
-| THEIL | Quantitativo Contínuo | Índice de Theil (medida de desigualdade ≥0) |
+O tratamento de valores ausentes foi realizado de duas maneiras principais:
 
-### Seleção dos atributos
+### Remoção de Linhas
+Para garantir a qualidade e a integridade da análise, as linhas que continham valores nulos na coluna alvo inicial (`Faixa_Salarial`) e na coluna de identificação geográfica (`Uf`) foram completamente removidas do dataset, pois eram essenciais para a modelagem. Este procedimento resultou na exclusão de um número reduzido de registros. Considerando o volume total de dados, a remoção representou uma fração mínima do conjunto, assegurando que a base de dados final mantivesse sua robustez e representatividade estatística sem prejuízo significativo para a análise.
 
-#### As três tabelas foram unidas pela coluna Uf, coluna que é comum nas 3 bases de dados. 
-#### As colunas foram renomeadas para melhor entendimento.
-#### A nova tabela resultante da união e seleção de atributos possui 93 colunas e 5293 linhas
+### Substituição por Zero
+Para as colunas binárias que representam o uso de tecnologias específicas (como `Python`, `SQL`, `Azure (Microsoft)`, `Google Cloud (GCP)` e `Microsoft PowerBI`), os valores `NaN` foram substituídos por `0`, para evitar perda de dados. A premissa adotada foi que a ausência de resposta nestes campos indicava a não utilização da respectiva tecnologia pelo profissional.
+
+### 3. Tratamento dos Valores Inconsistentes
+
+Para garantir a consistência e a relevância dos dados, foram aplicados os seguintes tratamentos:
+
+### Remoção de Categorias Irrelevantes
+* Na variável `Faixa_Salarial`, a categoria "de R$ 101/mês a R$ 2.000/mês" foi removida para focar em faixas salariais mais representativas do mercado de dados.
+* No atributo `Nivel_de_Ensino`, as respostas "Não tenho graduação formal" e "Prefiro não informar" foram excluídas por não agregarem valor à análise ordinal de escolaridade.
+
+### Unificação de Categorias
+No atributo `Tempo_de_experiencia_na_area_de_dados`, a categoria "de 5 a 6 anos" foi unificada com "de 4 a 6 anos" para resolver sobreposições e padronizar as faixas de experiência.
+
+### Agrupamento de Categorias Raras
+Para o atributo `Setor`, as categorias com frequência inferior a 100 ocorrências foram agrupadas em uma única classe chamada "Outros_Setores". Esta técnica reduz a dimensionalidade e evita que os modelos sejam influenciados por categorias com pouca representatividade.
+
+### 4. Conversão de Dados e Engenharia de Atributos
+
+A transformação dos dados foi a etapa mais extensa, envolvendo a conversão de tipos e a criação de novos atributos (engenharia de features):
+
+### Criação da Variável Alvo (`Salario_target`)
+* As categorias textuais da `Faixa_Salarial` foram convertidas em um valor numérico contínuo (`Salario_medio`), utilizando o ponto médio de cada faixa.
+* Em seguida, a coluna `Salario_medio` foi discretizada em três categorias ordinais (`1`, `2`, `3`) de igual frequência, utilizando a função `pd.qcut` (tercis). O resultado foi a variável alvo final, `Salario_target`.
+
+### Codificação Ordinal
+Atributos categóricos com uma ordem lógica intrínseca foram convertidos para valores numéricos sequenciais:
+* `Nivel_de_Ensino`: Mapeado para uma escala de 1 (Estudante) a 4 (Mestrado/Doutorado).
+* `Tempo_de_experiencia_na_area_de_dados`: Convertido para `Nivel_Experiencia_Ordinal` em uma escala de 1 (Iniciante) a 4 (Especialista).
+
+### Engenharia de Features de Habilidades
+* Foram criadas as colunas `total_linguagens` e `total_ferramentas`, que somam a quantidade de tecnologias que cada profissional declarou usar.
+* Essas contagens foram então agrupadas em categorias textuais (`Grupo_Linguagens` e `Grupo_Ferramentas`), como "Nenhuma", "1", "2", "3 ou mais".
+* Finalmente, essas novas categorias foram codificadas ordinalmente (`Grupo_Linguagens_Ordinal` e `Grupo_Ferramentas_Ordinal`).
+
+### Discretização de Variável Numérica
+* A coluna contínua `Idade` foi transformada em um atributo categórico ordinal (`Idade_Quartil`) com quatro grupos de tamanhos similares, utilizando `pd.qcut`.
+
+### Conversão para Formato Binário (One-Hot Encoding)
+* O atributo nominal `Nível` (Júnior, Pleno, Sênior) foi transformado em três colunas binárias (`Nível_1.0`, `Nível_2.0`, `Nível_3.0`), permitindo que o modelo trate cada nível como uma característica independente.
+* O mesmo processo foi aplicado à coluna `Setor_Agrupado`, gerando múltiplas colunas binárias (`Setor_Tecnologia`, `Setor_Finanças ou Bancos`, etc.).
+
+### Observação dados IDH e PIB 
+
+Para enriquecer a análise e testar a hipótese sobre a influência de indicadores socioeconômicos nos salários, o estudo foi complementado com as seguintes fontes de dados externas, ambas referentes ao ano de 2021.
+
+### Produto Interno Bruto (PIB)
+- **Fonte**: [Contas Regionais de 2021 - IBGE](https://www.ibge.gov.br/estatisticas/economicas/contas-nacionais/9054-contas-regionais-do-brasil.html?edicao=38346).
+- **Metodologia**: Foram utilizados os valores do PIB calculados pela **ótica da renda**, que considera remunerações, rendimentos e impostos.
+- **Justificativa do Ano**: O uso de dados de 2021 foi necessário por serem os mais recentes disponíveis, visto que o IBGE está realizando a [atualização do ano-base do Sistema de Contas Nacionais](https://www.ibge.gov.br/novo-portal-destaques/37997-divulgacao-do-informativo-das-contas-nacionais-anuais.html), o que impactou o cronograma de novas divulgações.
+
+### Índice de Desenvolvimento Humano (IDH)
+- **Fonte**: [IPEA DATA](http://www.ipeadata.gov.br/Default.aspx).
+- **Justificativa do Ano**: Utilizou-se a base de 2021 por ser a mais recente com dados consolidados por estado disponíveis na plataforma no momento da coleta.
+
 
 # Indução de modelos
 
