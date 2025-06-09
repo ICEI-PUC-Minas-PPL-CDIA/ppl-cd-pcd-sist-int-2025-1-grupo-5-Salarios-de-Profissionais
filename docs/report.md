@@ -911,6 +911,197 @@ O KNN não possui um método direto para calcular a importância das features. P
 
 ![Permutation Importance KNN](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/FEATURE%20IMPORTANTE%20KNN%20ULTIMA.png)
  
+# Resultado 
+---
+## Hipótese 2
+---
+### Resultados obtidos com o Modelo 1: (Nome do modelo)
+
+#### Matriz de Confusão
+
+#### Métricas de Performance (Precisão, Revocação e F-Measure)
+
+código
+```python
+
+````
+
+### Interpretação do Modelo 1: (Nome do modelo)
+
+#### Parâmetros do Modelo Obtido
+
+#### Regras de "Raciocínio" do Modelo
+
+
+#### Importância das Features
+
+---
+
+## Resultados obtidos com o Modelo 2: (Nome do modelo)
+
+
+#### Matriz de Confusão
+
+#### Métricas de Performance (Precisão, Revocação e F-Measure)
+
+código
+```python
+
+```
+
+### Interpretação do Modelo 2: (Nome do modelo)
+
+#### Parâmetros do Modelo Obtido
+
+#### Regras de "Raciocínio" do Modelo
+
+#### Importância das Features
+ 
+
+# Resultado 
+---
+## Hipótese 3
+---
+### Resultados obtidos com o Modelo 1: (Nome do modelo)
+
+#### Matriz de Confusão
+
+#### Métricas de Performance (Precisão, Revocação e F-Measure)
+
+código
+```python
+
+````
+
+### Interpretação do Modelo 1: (Nome do modelo)
+
+#### Parâmetros do Modelo Obtido
+
+#### Regras de "Raciocínio" do Modelo
+
+
+#### Importância das Features
+
+---
+
+## Resultados obtidos com o Modelo 2: (Nome do modelo)
+
+
+#### Matriz de Confusão
+
+#### Métricas de Performance (Precisão, Revocação e F-Measure)
+
+código
+```python
+
+```
+
+### Interpretação do Modelo 2: (Nome do modelo)
+
+#### Parâmetros do Modelo Obtido
+
+#### Regras de "Raciocínio" do Modelo
+
+#### Importância das Features
+ 
+
+# Resultado 
+---
+## Hipótese 3
+---
+### Resultados obtidos com o Modelo 1: (Nome do modelo)
+
+#### Matriz de Confusão
+
+#### Métricas de Performance (Precisão, Revocação e F-Measure)
+
+código
+```python
+
+````
+
+### Interpretação do Modelo 1: (Nome do modelo)
+
+#### Parâmetros do Modelo Obtido
+
+#### Regras de "Raciocínio" do Modelo
+
+
+#### Importância das Features
+
+---
+
+## Resultados obtidos com o Modelo 2: (Nome do modelo)
+
+
+#### Matriz de Confusão
+
+#### Métricas de Performance (Precisão, Revocação e F-Measure)
+
+código
+```python
+
+```
+
+### Interpretação do Modelo 2: (Nome do modelo)
+
+#### Parâmetros do Modelo Obtido
+
+#### Regras de "Raciocínio" do Modelo
+
+#### Importância das Features
+ 
+
+# Resultado 
+---
+## Hipótese 4
+---
+### Resultados obtidos com o Modelo 1: (Nome do modelo)
+
+#### Matriz de Confusão
+
+#### Métricas de Performance (Precisão, Revocação e F-Measure)
+
+código
+```python
+
+````
+
+### Interpretação do Modelo 1: (Nome do modelo)
+
+#### Parâmetros do Modelo Obtido
+
+#### Regras de "Raciocínio" do Modelo
+
+
+#### Importância das Features
+
+---
+
+## Resultados obtidos com o Modelo 2: (Nome do modelo)
+
+
+#### Matriz de Confusão
+
+#### Métricas de Performance (Precisão, Revocação e F-Measure)
+
+código
+```python
+
+```
+
+### Interpretação do Modelo 2: (Nome do modelo)
+
+#### Parâmetros do Modelo Obtido
+
+#### Regras de "Raciocínio" do Modelo
+
+#### Importância das Features
+ 
+
+
+ 
+
 
 
 
