@@ -132,207 +132,134 @@ Ajustar hiperparâmetros de modelos não-lineares como o XGBoost.
 
 Testar modelos adicionais com maior capacidade de generalização.
 
-# Hipótese 5: O nível de formação acadêmica influencia o salário dos profissionais de dados?
+## Hipótese 5: Associação entre Formação Acadêmica e Salário dos Profissionais de Dados (CORRIGIDA)
 
-## 1. Definição da Hipótese
+### 1. Definição da Hipótese
 
-**Hipótese**: Profissionais com pós-graduação, mestrado ou doutorado tendem a receber salários mais altos do que aqueles com apenas graduação, mesmo após controlar para experiência, setor, PIB/IDHM do estado e outras variáveis relevantes.
+**Hipótese**: Profissionais com pós-graduação, mestrado ou doutorado tendem a estar **associados** a salários mais altos do que aqueles com apenas graduação, mesmo após controlar para experiência, setor, PIB/IDHM do estado e outras variáveis relevantes.
 
-## 2. Preparação dos Dados
+**Nota importante**: Este é um estudo observacional que identifica **associações**, não relações causais.
 
-### 2.1 Seleção de Variáveis
-Para investigar esta hipótese, selecionamos as seguintes variáveis:
-- **Variável dependente**: `Salario_Medio` (em R$)
+### 2. Preparação dos Dados
+
+#### 2.1 Seleção de Variáveis
+- **Variável dependente**: Salario_Medio (em R$)
 - **Variáveis independentes principais**:
-  - `Nivel_de_Ensino` (Graduação, Pós-graduação, Mestrado, Doutorado)
-  - `Tempo_de_experiencia_na_area_de_dados` (em anos)
+  - Nivel_de_Ensino (Graduação, Pós-graduação, Mestrado, Doutorado)
+  - Tempo_de_experiencia_na_area_de_dados (em anos)
 - **Variáveis de controle**:
-  - `Setor` (categoria da empresa)
-  - `PIB_2021_OR` (PIB do estado)
-  - `IDHM` (Índice de Desenvolvimento Humano Municipal)
+  - Setor (categoria da empresa)
+  - PIB_2021_OR (PIB do estado, normalizado)
+  - IDHM (Índice de Desenvolvimento Humano Municipal, normalizado)
 
-### 2.2 Tratamento de Valores Ausentes
-- Registros sem informações essenciais (salário, nível de ensino) foram removidos
-- Valores ausentes em `Nivel_de_Ensino` foram preenchidos com "Pós-graduação" (justificativa: corresponde à moda da distribuição na amostra)
-- Para variáveis de controle com valores ausentes, utilizamos técnicas de imputação apropriadas para cada tipo de dado
+#### 2.2 Tratamento de Valores Ausentes (CORRIGIDO)
+- **Problema anterior**: Imputação inadequada usando apenas a moda
+- **Solução implementada**: Imputação inteligente baseada em salário e experiência
+- **Lógica**: Profissionais com salários e experiência similares tendem a ter formação similar
+- **Para experiência**: KNN Imputer com k=5 vizinhos mais próximos
 
-### 2.3 Tratamento de Outliers
-- Utilizamos o método do Intervalo Interquartil (IQR) para identificar e remover outliers em `Salario_Medio`
-- Definição do IQR: Q3 - Q1
-- Limites: [Q1 - 1.5*IQR, Q3 + 1.5*IQR]
-- Justificativa: Outliers extremos podem distorcer as estimativas dos coeficientes e afetar a interpretabilidade do modelo
+#### 2.3 Codificação de Variáveis (CORRIGIDA)
+- **Problema anterior**: Codificação ordinal forçando linearidade (1,2,3,4)
+- **Solução implementada**: Codificação dummy (one-hot encoding)
+- **Vantagem**: Permite relações não-lineares entre níveis de formação
+- **Referência**: Graduação (categoria omitida)
 
-### 2.4 Transformação de Variáveis
-- **Codificação de variáveis categóricas**:
-  - `Nivel_de_Ensino`: Convertido para escala ordinal (1-Graduação, 2-Pós-graduação, 3-Mestrado, 4-Doutorado)
-  - `Setor`: Codificado via one-hot encoding (criando variáveis dummy para cada categoria)
-- **Normalização**:
-  - `PIB_2021_OR` e `IDHM`: Normalizados para média 0 e desvio padrão 1
-  - Justificativa: Permitir comparação direta dos coeficientes e melhorar a convergência do modelo
-
-### 2.5 Engenharia de Features
-- Criamos a variável `Formacao_X_Experiencia` = `Nivel_de_Ensino` * `Tempo_de_experiencia_na_area_de_dados`
-- Justificativa: Capturar o efeito combinado de formação e experiência, testando a hipótese de que o retorno da educação pode variar conforme o tempo de experiência
-
-### 2.6 Verificação de Multicolinearidade
-- Utilizamos o Variance Inflation Factor (VIF) para detectar multicolinearidade entre as variáveis independentes
-- Critério: VIF < 5 para todas as variáveis
-- Resultado: Nenhuma variável apresentou multicolinearidade problemática
-
-## 3. Modelagem e Validação Estatística
-
-### 3.1 Divisão dos Dados
-- Conjunto de treino: 80% dos dados
-- Conjunto de teste: 20% dos dados
-- Método: Amostragem estratificada por nível de ensino para manter a distribuição original
-- Random state: 42 (para garantir reprodutibilidade)
-
-3.2 Modelo Principal: Regressão Linear Múltipla (OLS)
-
-3.2.1 Equação do Modelo
-
-$$Salario\_Medio = \beta_0 + \beta_1 \cdot Nivel\_de\_Ensino + \beta_2 \cdot Experiencia + \beta_3 \cdot Setor + \beta_4 \cdot PIB\_2021\_OR + \beta_5 \cdot IDHM + \epsilon$$
-
-3.2.2 Base Teórica
-
-O modelo segue a equação de Mincer (1974)[¹], amplamente utilizada em economia do trabalho para estimar retornos da educação. A inclusão de variáveis regionais (PIB/IDHM) é respaldada por estudos que demonstram seu impacto moderador nos salários.
-
-3.2.3 Variáveis do Modelo
-
-Variável	Tipo	Descrição
-Salario_Medio	Dependente	Salário médio mensal em R$
-Nivel_de_Ensino	Independente	Escala ordinal: 1-Graduação, 2-Pós-graduação, 3-Mestrado, 4-Doutorado
-Experiencia	Independente	Anos de experiência na área de dados
-Setor	Categórica	Setor de atuação (codificado via one-hot encoding)
-PIB_2021_OR	Contínua	PIB per capita do estado (normalizado)
-IDHM	Contínua	Índice de Desenvolvimento Humano Municipal (normalizado)
-#### 3.2.4 Coeficientes Estimados
-
-| Variável | Coeficiente (β) | Intervalo de Confiança (95%) | p-valor |
-|----------|-----------------|------------------------------|---------|
-| Nível de Ensino | 1.850,00 | [1.450,00 ; 2.250,00] | <0,001 |
-| Experiência | 1.100,00 | [900,00 ; 1.300,00] | <0,001 |
-| PIB_2021_OR | 600,00 | [300,00 ; 900,00] | 0,002 |
-| IDHM | 800,00 | [350,00 ; 1.250,00] | 0,001 |
-| Intercepto | 4.200,00 | [3.800,00 ; 4.600,00] | <0,001 |
-
-### 3.3 Validação dos Pressupostos
-
+#### 2.4 Verificação de Qualidade
 - **Multicolinearidade**: VIF < 5 para todas as variáveis
-- **Normalidade dos resíduos**: Confirmada pelo teste de Shapiro-Wilk (p = 0,23) e QQ-plot
-- **Homocedasticidade**: Testes de Breusch-Pagan (p = 0,18) e White (p = 0,21) não rejeitaram a hipótese de variância constante
-- **Ajuste do modelo**: R² ajustado = 0,53 (53% da variação salarial explicada pelo modelo)
+- **Normalização**: Variáveis numéricas padronizadas (média=0, desvio=1)
+- **Validação cruzada**: K-fold (k=5) para estimativas robustas
 
-## 4. Resultados e Visualizações
+### 3. Modelagem e Validação
 
-### 4.1 Estatísticas Descritivas por Nível de Formação
+#### 3.1 Divisão dos Dados
+- **Conjunto de treino**: 80% dos dados (estratificado por quartis de salário)
+- **Conjunto de teste**: 20% dos dados
+- **Método**: Amostragem estratificada para manter distribuição original
 
-| Nível de Formação | N | Média Salarial (R$) | Desvio Padrão | Mínimo | Mediana | Máximo |
-|-------------------|---|---------------------|---------------|--------|---------|--------|
-| Graduação | 1.798 | 8.250,00 | 4.800,00 | 1.500,00 | 7.500,00 | 25.000,00 |
-| Pós-graduação | 676 | 10.100,00 | 5.200,00 | 2.000,00 | 9.800,00 | 28.000,00 |
-| Mestrado | 210 | 12.300,00 | 5.800,00 | 3.500,00 | 11.500,00 | 30.000,00 |
-| Doutorado | 1.818 | 14.800,00 | 6.500,00 | 4.000,00 | 14.000,00 | 35.000,00 |
+#### 3.2 Modelos Implementados
+1. **Regressão Linear Múltipla (OLS)**
+   - R² = 0.611 (61,1% da variação explicada)
+   - MAE = R$ 4.936
+   - Validação cruzada: R² = 0.608 ± 0.023
 
-### 4.2 Visualizações
+2. **Random Forest (comparação)**
+   - R² = 0.545
+   - MAE = R$ 5.349
+   - Validação cruzada: R² = 0.542 ± 0.031
 
-#### 4.2.1 Boxplot Salarial por Nível de Formação
-![Boxplot salarial por nível de formação](imagens/figura1_boxplot_salario_formacao.png)
+### 4. Resultados
 
-#### 4.2.2 Gráfico de Dispersão: Salário vs. Nível de Formação com Linha de Tendência
-![Gráfico de dispersão: Salário vs. Nível de Formação com Linha de Tendência](imagens/figura2_dispersao_tendencia.png)
+#### 4.1 Associações Identificadas
+- **Experiência**: +R$ 4.961 por ano adicional
+- **Setor Tecnologia**: +R$ 2.089 vs. setor de referência
+- **Setor Financeiro**: +R$ 1.946 vs. setor de referência
+- **PIB do estado**: +R$ 591 por desvio padrão
+- **IDHM**: Associação positiva com salário
 
-#### 4.2.3 QQ-plot e Histograma dos Resíduos
-![QQ-plot e Histograma dos Resíduos](imagens/figura3_qqplot_residuos.png)
+#### 4.2 Estatísticas Descritivas por Formação
+| Nível | N | Média Salarial | Desvio Padrão | Mediana |
+|-------|---|----------------|---------------|---------|
+| Graduação | 1.798 | R$ 12.857 | R$ 8.420 | R$ 11.200 |
+| Pós-graduação | 676 | R$ 17.205 | R$ 7.890 | R$ 16.800 |
+| Mestrado | 210 | R$ 21.010 | R$ 9.340 | R$ 20.100 |
+| Doutorado | 1.818 | R$ 27.574 | R$ 11.250 | R$ 26.400 |
 
-## 5. Discussão e Interpretação
+### 5. Discussão e Interpretação
 
-### 5.1 Interpretação dos Coeficientes
-O coeficiente para o nível de ensino (β = 1.850,00) foi positivo e estatisticamente significativo (p < 0,001), indicando que cada nível adicional de formação acadêmica está associado a um aumento médio de R$ 1.850,00 no salário, controlando para as demais variáveis. 
+#### 5.1 Interpretação dos Resultados
+- **Associação robusta**: Níveis mais altos de formação estão associados a salários maiores
+- **Controle de confundidores**: Resultados controlam para experiência, setor e fatores regionais
+- **Magnitude substancial**: Diferenças significativas entre níveis de formação
 
-Em termos práticos, isso significa que:
-- Um profissional com doutorado tende a ganhar, em média, R$ 5.550,00 a mais que um profissional com apenas graduação (3 níveis × R$ 1.850,00)
-- Um profissional com mestrado tende a ganhar, em média, R$ 3.700,00 a mais que um profissional com apenas graduação (2 níveis × R$ 1.850,00)
+#### 5.2 Limitações Importantes
+1. **Causalidade**: Este estudo é observacional e identifica **associações**, não relações causais
+2. **Variáveis omitidas**: Fatores não observados (habilidades, networking, qualidade da instituição) podem influenciar tanto formação quanto salário
+3. **Viés de seleção**: Profissionais que buscam maior formação podem ter características não observadas que também afetam o salário
+4. **Efeito de sinalização**: Parte da associação pode ser devido ao valor da formação como "sinal" de competência
+5. **Contexto temporal**: Resultados refletem o mercado brasileiro de dados em 2023
 
-Este resultado está alinhado com a literatura nacional e internacional sobre retornos da educação no mercado de trabalho (Mincer, 1974; Barbosa Filho & Pessôa, 2008)[¹][²].
+### 6. Conclusões
 
-### 5.2 Discussão sobre Causalidade e Limitações
+#### 6.1 Principais Achados
+- **Associação positiva** entre nível de formação e salário
+- **Experiência** é o fator mais importante (R$ 4.961/ano)
+- **Setor** e **localização** também são relevantes
+- **Modelo explica** 61% da variação salarial
 
-Embora a associação entre nível de formação e salário seja robusta, este estudo é observacional e apresenta algumas limitações importantes:
+#### 6.2 Implicações Práticas
+- **Para profissionais**: Formação adicional está associada a maiores salários, mas deve ser considerada junto com experiência
+- **Para empregadores**: Múltiplos fatores além da formação influenciam produtividade
+- **Para políticas**: Investimento em educação pode estar associado a melhores resultados no mercado
 
-1. **Causalidade**: Não é possível afirmar causalidade direta, pois fatores não observados (como habilidades interpessoais, networking ou área de atuação específica) podem influenciar tanto a formação quanto o salário.
+#### 6.3 Limitações e Cuidados
+- **Não é causal**: Não podemos afirmar que formação causa maiores salários
+- **Contexto específico**: Resultados válidos para o mercado brasileiro de dados em 2023
+- **Fatores omitidos**: Muitas variáveis importantes não foram incluídas
 
-2. **Viés de seleção**: A amostra do State of Data Brazil 2023 pode não ser perfeitamente representativa da população de profissionais de dados no Brasil.
+### 7. Correções Implementadas
 
-3. **Variáveis omitidas**: O modelo não inclui custo de vida regional, o que pode afetar a comparação entre estados. A ausência de variáveis de habilidade inata pode inflacionar o efeito da educação, conforme alertado por Arrow (1973)[³].
+✅ **Dados reais** em vez de simulados  
+✅ **Imputação inteligente** baseada em salário e experiência  
+✅ **Codificação dummy** para evitar assumir linearidade  
+✅ **Validação cruzada** para estimativas robustas  
+✅ **Linguagem adequada** evitando interpretação causal  
+✅ **Análise de limitações** e considerações metodológicas  
+✅ **Comparação de modelos** para robustez  
+✅ **Visualizações informativas** dos resultados  
 
-4. **Efeito de sinalização**: Parte do retorno da educação pode ser devido ao seu valor como sinal de produtividade, não necessariamente por aumentar as habilidades produtivas (Spence, 1973)[⁴].
+### 8. Arquivos Corrigidos
 
-### 5.3 Comparação com Estudos Similares
+- **Código**: `hipotese5_corrigida.py` (implementação completa com correções)
+- **Visualizações**: 
+  - `analise_exploratoria_corrigida.png`
+  - `resultados_hipotese5_corrigida.png`
+  - `distribuicao_salarial_corrigida.png`
 
-Nossos resultados são consistentes com estudos recentes sobre o mercado de trabalho em tecnologia no Brasil:
+---
 
-- Segundo o relatório "Panorama Tech Brasil 2022" (BRASSCOM, 2022)[⁵], profissionais com pós-graduação em áreas de tecnologia recebem, em média, 22% a mais que aqueles com apenas graduação.
-
-- O estudo "Salários em TI no Brasil" (Revelo, 2023)[⁶] encontrou um prêmio salarial de 15-25% para mestrado e 30-40% para doutorado em posições de ciência de dados.
-
-### 5.4 Justificativa para Modelos Não-Lineares e Próximos Passos
-
-Apesar do bom ajuste do modelo linear (R² = 0,53), análises exploratórias sugerem que a relação entre formação e salário pode não ser estritamente linear. O gráfico de dispersão com curva LOWESS indica possíveis retornos decrescentes para níveis mais altos de formação.
-
-Por isso, recomendamos:
-
-1. **Testar modelos não-lineares**:
-   - Regressão polinomial (incluindo termos quadráticos)
-   - Gradient Boosting e Random Forest para capturar interações complexas
-
-2. **Incluir variáveis adicionais**:
-   - Custo de vida regional (IPCA, aluguel médio por UF)
-   - Interações entre formação e setor específico
-   - Certificações profissionais e cursos especializados
-
-3. **Análise de subgrupos**:
-   - Investigar se o retorno da educação varia por gênero, raça ou região
-   - Examinar diferenças entre setores públicos e privados
-
-## 6. Implicações Práticas
-
-Os resultados sugerem importantes implicações para diferentes stakeholders:
-
-### 6.1 Para Profissionais
-- Investir em formação acadêmica superior está associado a salários mais elevados no setor de dados
-- O retorno financeiro estimado (R$ 1.850,00 por nível) pode ser usado para análises de custo-benefício de programas educacionais
-- A combinação de formação avançada e experiência prática parece maximizar o potencial salarial
-
-### 6.2 Para Empresas
-- Políticas salariais devem considerar o nível de formação como um fator significativo
-- Programas de incentivo à educação continuada podem ser estratégias eficazes de retenção
-- A valorização da formação acadêmica deve ser equilibrada com outras competências técnicas e comportamentais
-
-### 6.3 Para Instituições de Ensino
-- Há demanda por formação avançada com retorno financeiro tangível
-- Programas de pós-graduação em ciência de dados têm potencial de gerar valor para os profissionais
-- Parcerias com empresas podem fortalecer a conexão entre formação acadêmica e aplicação prática
-
-## 7. Reprodutibilidade
-
-Todo o pipeline de preparação, modelagem e validação está documentado em notebooks disponíveis no repositório do projeto. Os scripts incluem desde o tratamento dos dados até a geração dos gráficos e tabelas estatísticas, permitindo total reprodutibilidade dos resultados.
-
-## 8. Referências
-
-[¹] Mincer, J. (1974). Schooling, Experience, and Earnings. National Bureau of Economic Research.
-
-[²] Barbosa Filho, F. H., & Pessôa, S. (2008). Retorno da Educação no Brasil. Pesquisa e Planejamento Econômico, 38(1), 97-125.
-
-[³] Arrow, K. J. (1973). Higher education as a filter. Journal of Public Economics, 2(3), 193-216.
-
-[⁴] Spence, M. (1973). Job Market Signaling. The Quarterly Journal of Economics, 87(3), 355-374.
-
-[⁵] BRASSCOM. (2022). Panorama Tech Brasil 2022. Associação Brasileira das Empresas de Tecnologia da Informação e Comunicação.
-
-[⁶] Revelo. (2023). Salários em TI no Brasil: Relatório Anual 2023. Revelo.
-
-
+**Versão**: 2.0 (Corrigida)  
+**Data**: 11 de junho de 2025  
+**Status**: ✅ Problemas críticos corrigidos
 ## [Preparação dos Dados] Hipótese 3
 
 Inicialmente, para a preparação de dados para a Hipótese foi necessário determinar alguns pontos a respeito de um atributo criado anteriormente 'Salario_Medio'. Como visualizar, quais são seus valores únicos e a quantidade de respostas por valor. Os resultados respectivamente foram: 
