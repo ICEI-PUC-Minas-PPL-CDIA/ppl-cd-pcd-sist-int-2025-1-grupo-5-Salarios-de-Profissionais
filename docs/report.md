@@ -842,6 +842,22 @@ Relatório de Classificação:
 weighted avg       0.67      0.67      0.67      1142
 ````
 
+| ✅ EXEMPLO DE SUCESSO         | ❌ EXEMPLO DE FALHA          |
+|-------------------------------|-------------------------------|
+| **Métrica** \| **Valor**      | **Métrica** \| **Valor**      |
+| IDHM \| 0.806                 | IDHM \| 0.806                 |
+| PIB_2021_OR \| 2719751.000    | PIB_2021_OR \| 2719751.000    |
+| Nível_1.0 \| 0.000            | Nível_1.0 \| 0.000            |
+| Nível_2.0 \| 0.000            | Nível_2.0 \| 1.000            |
+| Nível_3.0 \| 1.000            | Nível_3.0 \| 0.000            |
+| Nivel_de_Ensino \| 3.000      | Nivel_de_Ensino \| 3.000      |
+| Grupo_Ferramentas_Ordinal \| 4.000 | Grupo_Ferramentas_Ordinal \| 4.000 |
+| Grupo_Linguagens_Ordinal \| 3.000 | Grupo_Linguagens_Ordinal \| 2.000 |
+| Nivel_Experiencia_Ordinal \| 3.000 | Nivel_Experiencia_Ordinal \| 3.000 |
+| Microsoft PowerBI \| 1.000    | Microsoft PowerBI \| 1.000    |
+| Nivel_Salarial_Real \| 2.000  | Nivel_Salarial_Real \| 1.000  |
+| Nivel_Salarial_Previsto \| 2.000 | Nivel_Salarial_Previsto \| 2.000 |
+
 ### Interpretação do Modelo 1: Árvore de Decisão
 
 #### Parâmetros do Modelo Obtido
@@ -858,21 +874,6 @@ O modelo nos permite ver quais atributos foram mais influentes para a tomada de 
 
 ![Feature Importance arvore de decisão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/FEATURE%20IMPORTANTE%20ARVORE%20ULTIMA.png)
 
-| ✅ EXEMPLO DE SUCESSO         | ❌ EXEMPLO DE FALHA          |
-|-------------------------------|-------------------------------|
-| **Métrica** \| **Valor**      | **Métrica** \| **Valor**      |
-| IDHM \| 0.806                 | IDHM \| 0.806                 |
-| PIB_2021_OR \| 2719751.000    | PIB_2021_OR \| 2719751.000    |
-| Nível_1.0 \| 0.000            | Nível_1.0 \| 0.000            |
-| Nível_2.0 \| 0.000            | Nível_2.0 \| 1.000            |
-| Nível_3.0 \| 1.000            | Nível_3.0 \| 0.000            |
-| Nivel_de_Ensino \| 3.000      | Nivel_de_Ensino \| 3.000      |
-| Grupo_Ferramentas_Ordinal \| 4.000 | Grupo_Ferramentas_Ordinal \| 4.000 |
-| Grupo_Linguagens_Ordinal \| 3.000 | Grupo_Linguagens_Ordinal \| 2.000 |
-| Nivel_Experiencia_Ordinal \| 3.000 | Nivel_Experiencia_Ordinal \| 3.000 |
-| Microsoft PowerBI \| 1.000    | Microsoft PowerBI \| 1.000    |
-| Nivel_Salarial_Real \| 2.000  | Nivel_Salarial_Real \| 1.000  |
-| Nivel_Salarial_Previsto \| 2.000 | Nivel_Salarial_Previsto \| 2.000 |
 ---
 
 ## Resultados obtidos com o Modelo 2: K-Vizinhos Mais Próximos (KNN)
@@ -889,7 +890,6 @@ A matriz abaixo demonstra a performance do KNN. Assim como no modelo anterior, a
 #### Métricas de Performance (Precisão, Revocação e F-Measure)
 O relatório de classificação para o KNN é apresentado abaixo.
 
-*(Copie e cole aqui a tabela do `classification_report` gerada pelo seu código)*
 
 ```python
 Relatório de Classificação:
@@ -904,6 +904,21 @@ Relatório de Classificação:
 weighted avg       0.67      0.67      0.67       913
 
 ```
+| ✅ EXEMPLO DE SUCESSO         | ❌ EXEMPLO DE FALHA          |
+|-------------------------------|-------------------------------|
+| **Métrica** \| **Valor**      | **Métrica** \| **Valor**      |
+| IDHM \| 0.806                 | IDHM \| 0.806                 |
+| PIB_2021_OR \| 2719751.000    | PIB_2021_OR \| 2719751.000    |
+| Nível_1.0 \| 0.000            | Nível_1.0 \| 0.000            |
+| Nível_2.0 \| 0.000            | Nível_2.0 \| 1.000            |
+| Nível_3.0 \| 1.000            | Nível_3.0 \| 0.000            |
+| Nivel_de_Ensino \| 3.000      | Nivel_de_Ensino \| 3.000      |
+| Grupo_Ferramentas_Ordinal \| 4.000 | Grupo_Ferramentas_Ordinal \| 4.000 |
+| Grupo_Linguagens_Ordinal \| 3.000 | Grupo_Linguagens_Ordinal \| 2.000 |
+| Nivel_Experiencia_Ordinal \| 3.000 | Nivel_Experiencia_Ordinal \| 3.000 |
+| Microsoft PowerBI \| 1.000    | Microsoft PowerBI \| 1.000    |
+| Nivel_Salarial_Real \| 2.000  | Nivel_Salarial_Real \| 1.000  |
+| Nivel_Salarial_Previsto \| 2.000 | Nivel_Salarial_Previsto \| 2.000 |
 
 ### Interpretação do Modelo 2: K-Vizinhos Mais Próximos (KNN)
 
@@ -926,21 +941,6 @@ O KNN não possui um método direto para calcular a importância das features. P
 
 ![Permutation Importance KNN](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/FEATURE%20IMPORTANTE%20KNN%20ULTIMA.png)
 
-| ✅ EXEMPLO DE SUCESSO         | ❌ EXEMPLO DE FALHA          |
-|-------------------------------|-------------------------------|
-| **Métrica** \| **Valor**      | **Métrica** \| **Valor**      |
-| IDHM \| 0.806                 | IDHM \| 0.806                 |
-| PIB_2021_OR \| 2719751.000    | PIB_2021_OR \| 2719751.000    |
-| Nível_1.0 \| 0.000            | Nível_1.0 \| 0.000            |
-| Nível_2.0 \| 0.000            | Nível_2.0 \| 1.000            |
-| Nível_3.0 \| 1.000            | Nível_3.0 \| 0.000            |
-| Nivel_de_Ensino \| 3.000      | Nivel_de_Ensino \| 3.000      |
-| Grupo_Ferramentas_Ordinal \| 4.000 | Grupo_Ferramentas_Ordinal \| 4.000 |
-| Grupo_Linguagens_Ordinal \| 3.000 | Grupo_Linguagens_Ordinal \| 2.000 |
-| Nivel_Experiencia_Ordinal \| 3.000 | Nivel_Experiencia_Ordinal \| 3.000 |
-| Microsoft PowerBI \| 1.000    | Microsoft PowerBI \| 1.000    |
-| Nivel_Salarial_Real \| 2.000  | Nivel_Salarial_Real \| 1.000  |
-| Nivel_Salarial_Previsto \| 2.000 | Nivel_Salarial_Previsto \| 2.000 |
 
 # Resultado 
 ---
