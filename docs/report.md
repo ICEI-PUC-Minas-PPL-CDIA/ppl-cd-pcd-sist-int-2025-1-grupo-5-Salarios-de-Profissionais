@@ -857,7 +857,48 @@ A grande vantagem da Árvore de Decisão é que seu processo de "raciocínio" é
 O modelo nos permite ver quais atributos foram mais influentes para a tomada de decisão. A importância é medida pela capacidade de cada feature em reduzir a impureza (critério Gini) nos nós da árvore. Conforme o gráfico abaixo, as variáveis mais decisivas para prever a faixa salarial foram...
 
 ![Feature Importance arvore de decisão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/FEATURE%20IMPORTANTE%20ARVORE%20ULTIMA.png)
+<div style="display: flex; justify-content: space-between;">
+<div>
 
+✅ **EXEMPLO DE SUCESSO**
+
+| Métrica                        | Valor         |
+|--------------------------------|---------------|
+| IDHM                           | 0.806         |
+| PIB_2021_OR                   | 2719751.000   |
+| Nível_1.0                     | 0.000         |
+| Nível_2.0                     | 0.000         |
+| Nível_3.0                     | 1.000         |
+| Nivel_de_Ensino               | 3.000         |
+| Grupo_Ferramentas_Ordinal     | 4.000         |
+| Grupo_Linguagens_Ordinal      | 3.000         |
+| Nivel_Experiencia_Ordinal     | 3.000         |
+| Microsoft PowerBI             | 1.000         |
+| Nivel_Salarial_Real           | 2.000         |
+| Nivel_Salarial_Previsto       | 2.000         |
+
+</div>
+<div>
+
+❌ **EXEMPLO DE FALHA**
+
+| Métrica                        | Valor         |
+|--------------------------------|---------------|
+| IDHM                           | 0.806         |
+| PIB_2021_OR                   | 2719751.000   |
+| Nível_1.0                     | 0.000         |
+| Nível_2.0                     | 1.000         |
+| Nível_3.0                     | 0.000         |
+| Nivel_de_Ensino               | 3.000         |
+| Grupo_Ferramentas_Ordinal     | 4.000         |
+| Grupo_Linguagens_Ordinal      | 2.000         |
+| Nivel_Experiencia_Ordinal     | 3.000         |
+| Microsoft PowerBI             | 1.000         |
+| Nivel_Salarial_Real           | 1.000         |
+| Nivel_Salarial_Previsto       | 2.000         |
+
+</div>
+</div>
 ---
 
 ## Resultados obtidos com o Modelo 2: K-Vizinhos Mais Próximos (KNN)
@@ -910,7 +951,52 @@ O diagrama de **Fronteiras de Decisão** é a melhor forma de visualizar o resul
 O KNN não possui um método direto para calcular a importância das features. Por isso, foi utilizada a técnica de **Permutation Importance**. Este método mede a importância de uma variável ao calcular o quanto a performance do modelo cai quando os valores dessa variável são embaralhados aleatoriamente. Uma queda maior na acurácia significa que o modelo depende mais daquela feature. As variáveis mais importantes segundo esta técnica foram...
 
 ![Permutation Importance KNN](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/FEATURE%20IMPORTANTE%20KNN%20ULTIMA.png)
- 
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+
+<div>
+
+### ✅ EXEMPLO DE SUCESSO
+
+| Métrica                     | Valor       |
+|-----------------------------|-------------|
+| IDHM                        | 0.806       |
+| PIB_2021_OR                 | 2719751.000 |
+| Nível_1.0                   | 0.000       |
+| Nível_2.0                   | 0.000       |
+| Nível_3.0                   | 1.000       |
+| Nivel_de_Ensino             | 3.000       |
+| Grupo_Ferramentas_Ordinal   | 4.000       |
+| Grupo_Linguagens_Ordinal    | 3.000       |
+| Nivel_Experiencia_Ordinal   | 3.000       |
+| Microsoft PowerBI           | 1.000       |
+| Nivel_Salarial_Real         | 2.000       |
+| Nivel_Salarial_Previsto     | 2.000       |
+
+</div>
+
+<div>
+
+### ❌ EXEMPLO DE FALHA
+
+| Métrica                     | Valor       |
+|-----------------------------|-------------|
+| IDHM                        | 0.806       |
+| PIB_2021_OR                 | 2719751.000 |
+| Nível_1.0                   | 0.000       |
+| Nível_2.0                   | 1.000       |
+| Nível_3.0                   | 0.000       |
+| Nivel_de_Ensino             | 3.000       |
+| Grupo_Ferramentas_Ordinal   | 4.000       |
+| Grupo_Linguagens_Ordinal    | 2.000       |
+| Nivel_Experiencia_Ordinal   | 3.000       |
+| Microsoft PowerBI           | 1.000       |
+| Nivel_Salarial_Real         | 1.000       |
+| Nivel_Salarial_Previsto     | 2.000       |
+
+</div>
+</div>
+
 # Resultado 
 ---
 ## Hipótese 2
