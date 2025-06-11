@@ -260,6 +260,7 @@ Testar modelos adicionais com maior capacidade de generalização.
 **Versão**: 2.0 (Corrigida)  
 **Data**: 11 de junho de 2025  
 **Status**: ✅ Problemas críticos corrigidos
+
 ## [Preparação dos Dados] Hipótese 3
 
 Inicialmente, para a preparação de dados para a Hipótese foi necessário determinar alguns pontos a respeito de um atributo criado anteriormente 'Salario_Medio'. Como visualizar, quais são seus valores únicos e a quantidade de respostas por valor. Os resultados respectivamente foram: 
