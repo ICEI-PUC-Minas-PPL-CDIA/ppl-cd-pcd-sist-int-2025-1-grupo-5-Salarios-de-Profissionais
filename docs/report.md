@@ -1276,6 +1276,128 @@ Imaginando cenários práticos, podemos extrapolar onde cada modelo brilharia:
 
 ### O (nome do modelo 2) seria superior para...
 
+---
+# Conclusão 💡
+---
+
+# Observações Pessoais DIEGO
+
+Este trabalho desenvolveu um sistema inteligente para analisar os fatores que influenciam os salários dos profissionais de dados no Brasil. Utilizando técnicas de aprendizado de máquina e análise estatística, o sistema processou dados como:
+
+- Escolaridade
+- Experiência
+- Porte da empresa
+- Localização
+- Conhecimentos técnicos
+- Indicadores socioeconômicos (IDH e PIB dos estados brasileiros)
+
+A solução automatizou a coleta, o tratamento e a modelagem dos dados, apresentando os resultados por meio de relatórios interativos e visualizações para facilitar a interpretação.
+
+## Principais Resultados
+
+O sistema identificou que:
+- **Experiência profissional**
+- **Domínio de tecnologias em alta demanda**
+
+São os principais determinantes da remuneração na área de dados.
+
+## Vantagens do Sistema
+
+✔ **Tomada de decisão informada**  
+Auxilia profissionais na negociação salarial e empresas na definição de faixas competitivas.
+
+✔ **Transparência de mercado**  
+Torna as práticas salariais do setor mais claras.
+
+✔ **Escalabilidade**  
+Pode incorporar novos dados para se manter atualizado.
+
+## Limitações
+
+✖ **Viés dos dados**  
+A qualidade da análise depende da representatividade dos dados, podendo reforçar distorções existentes.
+
+✖ **Simplificação da realidade**  
+Fatores subjetivos (como soft skills e cultura organizacional) podem não ser totalmente capturados.
+
+## Melhorias Propostas
+
+1. **Ampliação das fontes de dados**  
+   Incluir informações de plataformas como LinkedIn, portais de emprego e pesquisas salariais.
+
+2. **Inclusão de novas variáveis**  
+   Incorporar fatores como:
+   - Certificações
+   - Idiomas
+   - Soft skills
+
+3. **Ferramenta de predição personalizada**  
+   Desenvolver um sistema interativo para estimativa salarial baseada nos dados do usuário.
+
+4. **Análise temporal**  
+   Implementar monitoramento da evolução salarial e demanda por tecnologias.
+
+## Observações Finais
+
+O sistema oferece insights valiosos, mas sua eficácia depende:
+- Da qualidade dos dados
+- Da consideração de aspectos não quantificáveis
+
+Embora o modelo atual tenha limitações, as melhorias propostas podem aumentar sua precisão e utilidade para profissionais e empresas do setor.
+
+---
+# Conclusão 💡
+---
+
+# Observações Pessoais (Nome)
+
+(Breve resumo)
+
+## Principais Resultados
+
+## Vantagens do Sistema
+
+## Limitações
+
+## Melhorias Propostas
+
+## Observações finais
+
+---
+# Conclusão 💡
+---
+
+# Observações Pessoais (Nome)
+
+(Breve resumo)
+
+## Principais Resultados
+
+## Vantagens do Sistema
+
+## Limitações
+
+## Melhorias Propostas
+
+## Observações finais
+
+---
+# Conclusão 💡
+---
+
+# Observações Pessoais (Nome)
+
+(Breve resumo)
+
+## Principais Resultados
+
+## Vantagens do Sistema
+
+## Limitações
+
+## Melhorias Propostas
+
+## Observações finais
 
 
 ---
