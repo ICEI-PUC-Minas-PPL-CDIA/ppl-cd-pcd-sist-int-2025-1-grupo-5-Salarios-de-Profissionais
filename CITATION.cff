@@ -1,16 +1,49 @@
-cff-version: 1.0.1
-message: Por favor, cite o repositório utilizando estes metadados.
-title: Repositório modelo para a disciplina de Projeto em Ciência de Dados I - Sistemas Inteligentes.
+cff-version: 1.2.0
+title: >-
+  Os fatores que influenciam os salários dos profissionais
+  de dados no Brasil.
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
 authors:
-   - name-suffix: Professor
-    affiliation: PUC Minas
-    family-names: de Paula
-    given-names: Hugo
-keywords:
-  - Ciência de Dados
-  - Jupyter Notebooks
-  - Aprendizado de Máquina
-repository-code:
-license: CC-BY-4.0
-version: 1.0.0
-date-released: 2023-06-30
+  - given-names: Antonio Augusto Vieira Lopes Filho
+    email: aavlfilho@sga.pucminas.br
+  - given-names: Diego Rodrigo Marinho Silva
+    email: diego.marinho@sga.pucminas.br
+  - given-names: Ryan Junio de Oliveira
+    email: ryan.junio@sga.pucminas.br
+  - given-names: Vinicius Bigonha Cancela Moraes de Melo Filho
+    email: vbcmmfilho@sga.pucminas.br
+  - name: >-
+      Instituto de Informática e Ciências Exatas –
+      Pontifícia Universidade de Minas Gerais
+    city: Belo Horizonte
+    country: BR
+    post-code: 30140-100
+    address: 'R. Cláudio Manoel, 1162 - Savassi, Belo Horizonte - MG'
+  - given-names: Hugo Bastos de Paula
+  - given-names: Hayala Nepomuceno Curto
+identifiers:
+  - type: url
+    value: >-
+      https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais
+abstract: >-
+  O projeto desenvolve um sistema inteligente para analisar
+  os fatores que influenciam os salários dos profissionais
+  de dados no Brasil. A solução utiliza técnicas de
+  aprendizado de máquina e análise estatística para
+  processar informações relacionadas ao nível de formação,
+  experiência, porte da empresa, localização geográfica e
+  conhecimento em tecnologias específicas. Com base nesses
+  dados, o sistema identifica padrões e relações entre essas
+  variáveis, permitindo uma avaliação precisa do impacto de
+  cada fator na remuneração dos profissionais. A aplicação
+  integra múltiplas fontes de dados, realizando a coleta,
+  processamento e modelagem de forma automatizada. O sistema
+  apresenta insights visuais e relatórios interativos,
+  facilitando a compreensão dos resultados por diferentes
+  perfis de usuários. Além disso, ele é projetado para ser
+  escalável e adaptável a novas bases de dados, permitindo
+  atualizações contínuas conforme o mercado de trabalho
+  evolui.
