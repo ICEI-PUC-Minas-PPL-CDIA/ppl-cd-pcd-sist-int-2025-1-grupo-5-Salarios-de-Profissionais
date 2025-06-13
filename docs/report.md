@@ -202,6 +202,8 @@ Ferramentas de BI (Binários)
 | Fazemos todas as análises em planilhas | Qualitativo - Nominal (Binário)     |
 | Não utilizo nenhuma ferramenta de BI   | Qualitativo - Nominal (Binário)     |
 
+Para enriquecer a análise e testar a hipótese sobre a influência de indicadores socioeconômicos nos salários, o estudo foi complementado com as seguintes fontes de dados externas, ambas referentes ao ano de 2021.
+
 Tabela PIB 2021
 
 | Variável          | Tipo de Dado                | Descrição                                                         |
@@ -460,7 +462,7 @@ Atributos categóricos com uma ordem lógica intrínseca foram convertidos para 
 * `Tempo_de_experiencia_na_area_de_dados`: Convertido para `Nivel_Experiencia_Ordinal` em uma escala de 1 (Iniciante) a 4 (Especialista).
 
 ### Engenharia de Features de Habilidades
-* Foram criadas as colunas `total_linguagens` e `total_ferramentas`, que somam a quantidade de tecnologias que cada profissional declarou usar.
+* Foram criadas as colunas `total_linguagens` e `total_ferramentas`, que somam a quantidade de linguegens e ferramentas, respectivamente, que cada profissional declarou usar.
 * Essas contagens foram então agrupadas em categorias textuais (`Grupo_Linguagens` e `Grupo_Ferramentas`), como "Nenhuma", "1", "2", "3 ou mais".
 * Finalmente, essas novas categorias foram codificadas ordinalmente (`Grupo_Linguagens_Ordinal` e `Grupo_Ferramentas_Ordinal`).
 
@@ -473,7 +475,7 @@ Atributos categóricos com uma ordem lógica intrínseca foram convertidos para 
 
 ### Observação dados IDH e PIB 
 
-Para enriquecer a análise e testar a hipótese sobre a influência de indicadores socioeconômicos nos salários, o estudo foi complementado com as seguintes fontes de dados externas, ambas referentes ao ano de 2021.
+Para enriquecer a análise e testar a hipótese sobre a influência de indicadores socioeconômicos nos salários, o estudo foi complementado com as seguintes fontes de dados externas, ambas referentes ao ano de 2021. Os dados referentes a Pib e IDH foram unidos a base de daos principal atravez da Coluna UF.
 
 ### Produto Interno Bruto (PIB)
 - **Fonte**: [Contas Regionais de 2021 - IBGE](https://www.ibge.gov.br/estatisticas/economicas/contas-nacionais/9054-contas-regionais-do-brasil.html?edicao=38346).
