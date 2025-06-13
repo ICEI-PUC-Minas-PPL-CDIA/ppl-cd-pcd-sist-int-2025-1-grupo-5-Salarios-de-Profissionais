@@ -1217,70 +1217,165 @@ Imaginando cenários práticos, podemos extrapolar onde cada modelo brilharia:
 ### O (nome do modelo 2) seria superior para...
 
 ---
-# Análise Comparativa dos Modelos
+# Resultados
 
+## Hipótese
 
-## Hipótese 3
-
-
-## (Nome do modelo) (Modelo 1)
-
-### Forças
-
-
-### Fragilidades
-
-
-## (Nome do modelo) (Modelo 2)
-
-### Forças
-
-
-### Fragilidades
-
-
-## Cenários de Uso: Qual Modelo se Sairia Melhor?
-
-
-### O (nome modelo 1) seria superior para...
-
-
-### O (nome do modelo 2) seria superior para...
-
---
-# Análise Comparativa dos Modelos
-
-
-## Hipótese 4
-
-
-## (Nome do modelo) (Modelo 1)
-
-### Forças
-
-
-### Fragilidades
-
-
-## (Nome do modelo) (Modelo 2)
-
-### Forças
-
-
-### Fragilidades
-
-
-## Cenários de Uso: Qual Modelo se Sairia Melhor?
-
-
-### O (nome modelo 1) seria superior para...
-
-
-### O (nome do modelo 2) seria superior para...
+A hipótese deste trabalho é que características demográficas e profissionais dos indivíduos (como idade, forma de trabalho, cargo atual, entre outras) influenciam significativamente a faixa salarial a que pertencem. Parte-se do pressuposto de que, ao treinar modelos supervisionados, será possível prever com acurácia satisfatória a categoria salarial de um indivíduo com base nesses atributos.
 
 ---
-# Conclusão 💡
+
+## Resultados obtidos com o modelo 1: XGBoost
+
+O modelo XGBoost foi treinado com divisão de amostra 80% para treino e 20% para teste, utilizando validação cruzada (3 folds) e ajuste de hiperparâmetros com GridSearchCV.
+
+### Matriz de confusão
+
+*A matriz de confusão não foi fornecida no relatório original, mas pode ser inserida aqui em formato de tabela ou imagem, se disponível.*
+
+### Medidas de performance
+
+| Classe | Precisão | Revocação (Recall) | F1-Score | Suporte |
+|--------|----------|--------------------|----------|---------|
+| Alta   | 0.76     | 0.78               | 0.77     | 259     |
+| Média  | 0.82     | 0.86               | 0.84     | 559     |
+| Baixa  | 0.80     | 0.56               | 0.66     | 113     |
+| **Acurácia geral** | - | - | **0.8012** | **931** |
+
+### Interpretação do modelo 1
+
+O modelo XGBoost apresentou desempenho robusto, com **acurácia de 80,12%**. Demonstrou bom desempenho nas classes "Alta" e "Média", mas enfrentou dificuldades na identificação da classe "Baixa", mesmo após o uso de técnicas de balanceamento (SMOTE). Isso revela a sensibilidade do modelo à distribuição original dos dados.
+
+### Parâmetros do modelo obtido
+
+- `learning_rate`: 0.1  
+- `max_depth`: 5  
+- `n_estimators`: 100  
+- `subsample`: 1.0  
+- `eval_metric`: mlogloss  
+- `random_state`: 42  
+
+### Atributos mais relevantes (Feature Importances)
+
+- Idade  
+- Cargo Atual  
+- Tempo de Experiência na Área  
+- Forma de Trabalho  
+- Gênero  
+- Unidade Federativa (UF)
+
+O raciocínio do XGBoost é construído por meio de árvores iterativas (boosting), com divisões (splits) baseadas nos atributos acima. Embora o `max_depth = 5` torne as árvores mais interpretáveis, o uso do ensemble compromete a transparência global do modelo.
+
 ---
+
+## Resultados obtidos com o modelo 2: Random Forest
+
+O modelo Random Forest utilizou a mesma divisão de dados (80/20), sem validação cruzada. Os parâmetros foram definidos manualmente.
+
+### Matriz de confusão
+
+*A matriz de confusão não foi fornecida no relatório original, mas pode ser inserida aqui.*
+
+### Medidas de performance
+
+| Classe | Precisão | Revocação (Recall) | F1-Score | Suporte |
+|--------|----------|--------------------|----------|---------|
+| Alta   | 0.76     | 0.73               | 0.74     | 259     |
+| Média  | 0.79     | 0.87               | 0.83     | 559     |
+| Baixa  | 0.81     | 0.50               | 0.62     | 113     |
+| **Acurácia geral** | - | - | **0.7851** | **931** |
+
+### Interpretação do modelo 2
+
+Com **acurácia de 78,51%**, o modelo Random Forest apresentou desempenho similar ao XGBoost, com leve melhora na precisão da classe "Baixa", mas revocação inferior. Sua vantagem reside na interpretabilidade e rapidez no treinamento, tornando-o mais indicado em ambientes que exigem explicabilidade.
+
+### Parâmetros do modelo obtido
+
+- `random_state`: 42  
+- `max_depth`: 10  
+- `n_estimators`: 100  
+
+### Atributos mais relevantes (Feature Importances)
+
+- Idade  
+- Cargo Atual  
+- Forma de Trabalho  
+- Nível Hierárquico (Pleno, Sênior)
+
+O raciocínio da Random Forest é baseado em múltiplas árvores que votam entre si. O `max_depth = 10` permite detalhamento sem perder generalização.
+
+---
+
+## Análise comparativa dos modelos
+
+| Critério               | XGBoost   | Random Forest |
+|------------------------|-----------|----------------|
+| Acurácia               | 80,12%    | 78,51%         |
+| Precisão (Classe Baixa)| 0.80      | 0.81           |
+| Revocação (Classe Baixa)| 0.56     | 0.50           |
+| Interpretação          | Moderada  | Alta           |
+| Velocidade de Treinamento | Média | Alta           |
+| Robustez ao Ruído      | Alta      | Alta           |
+
+### Forças e fragilidades
+
+**XGBoost**: Mais eficaz em dados desbalanceados, porém de menor interpretabilidade. Ideal para cenários de alta performance.
+
+**Random Forest**: Mais simples de entender e configurar, com boa explicabilidade e desempenho satisfatório.
+
+### Exemplos de cenários ideais
+
+- **XGBoost**: Aplicações com grandes volumes de dados e foco em desempenho (ex: análise de crédito, detecção de fraude).  
+- **Random Forest**: Ambientes onde a clareza do processo de decisão é prioritária (ex: triagem médica, RH).
+
+---
+
+# Conclusão
+
+## Observações Diego
+
+*Espaço reservado para observações pessoais do integrante Diego.*
+
+## Discussão dos resultados obtidos no trabalho
+
+Ambos os modelos alcançaram acurácia superior a 78%, mostrando eficácia geral na tarefa de classificação salarial. No entanto, o desempenho mais fraco na classe "Baixa" indica que o desbalanceamento da base impacta negativamente a capacidade preditiva dos modelos.
+
+## O que foi desenvolvido
+
+- Pipeline de pré-processamento (imputação, codificação e normalização)  
+- Implementação dos algoritmos XGBoost e Random Forest  
+- Avaliação quantitativa por métricas de performance  
+- Análise qualitativa por feature importance  
+- Comparação interpretativa dos modelos
+
+## Apresentação geral dos resultados com vantagens e desvantagens
+
+### Vantagens
+
+- Alta acurácia geral  
+- Flexibilidade e capacidade de generalização  
+- Aplicação prática em contextos reais (recrutamento, planejamento salarial, etc.)
+
+### Desvantagens
+
+- Baixo desempenho em classes minoritárias  
+- Dependência de técnicas de balanceamento  
+- Redução da interpretabilidade em modelos mais complexos
+
+## Limitações e possibilidades de melhoria
+
+### Limitações
+
+- Desequilíbrio nas classes da base  
+- Sub-representação da classe "Baixa"  
+- Ausência de variáveis socioeconômicas mais robustas
+
+### Possibilidades de melhoria
+
+- Técnicas mais avançadas de balanceamento (ex: ADASYN)  
+- Inclusão de atributos mais representativos  
+- Uso de métodos de explicação como LIME ou SHAP para decodificar decisões dos modelos
+
 
 # Observações Pessoais DIEGO
 
@@ -1405,147 +1500,6 @@ Embora o modelo atual tenha limitações, as melhorias propostas podem aumentar 
 ---
 # ALTERAÇÕES ATÉ AQUI 
 ---
-# Indução de modelos
-
-## Modelos Preditivos XGBoost e Random Forest 
-### Modelo 1: XGBoost (Extreme Gradient Boosting)
-
-Justificativa da escolha:
-O XGBoost é um dos algoritmos mais eficazes para tarefas de classificação com dados tabulares. Ele combina a simplicidade das árvores de decisão com o poder do boosting, uma técnica que treina modelos sequencialmente, corrigindo os erros cometidos pelas iterações anteriores. Isso resulta em um classificador robusto, preciso e eficiente.
-
-Processo de amostragem:
-Foi utilizado o particionamento simples dos dados com 80% para treino e 20% para teste, garantindo que a avaliação seja feita sobre dados não vistos. Além disso, aplicou-se validação cruzada (cross-validation) com 3 folds dentro do GridSearchCV para seleção dos hiperparâmetros.
-
-Parâmetros utilizados:
-
-learning_rate = 0.1
-
-max_depth = 5
-
-n_estimators = 100
-
-subsample = 1.0
-
-Trechos do código:
-
-xgb = XGBClassifier(
-    learning_rate=0.1,
-    max_depth=5,
-    n_estimators=100,
-    subsample=1.0,
-    use_label_encoder=False,
-    eval_metric='mlogloss',
-    random_state=42
-)
-xgb.fit(X_train, y_train)
-
-Fluxo Gráfico:
-
-Input -> Preenchimento de nulos -> Codificação (One-hot) -> Normalização (StandardScaler) -> Treino/Teste -> XGBoost -> Avaliação
-
-### Modelo 2: Random Forest (Floresta Aleatória)
-
-Justificativa da escolha:
-O Random Forest é um ensemble de árvores de decisão que oferece excelente desempenho em dados com muitas variáveis categóricas. Sua principal vantagem é a robustez a overfitting e a boa interpretabilidade.
-
-Processo de amostragem:
-Assim como no XGBoost, utilizou-se divisão de 80/20 entre treino e teste. A avaliação foi feita diretamente sobre o conjunto de teste, sem uso de validação cruzada adicional.
-
-Parâmetros utilizados:
-
-random_state = 42 
-max_depth=10
-n_estimators=100  
-
-Esses parâmetros foram utilizados pois o modelo sofria de overfitting com depth e estimadores configurados no padrão.
-
-Trechos do código:
-
-rf = RandomForestClassifier(random_state = 42)
-rf.fit(X_train, y_train)
-
-Fluxo Gráfico:
-
-Input -> Preenchimento de nulos -> Codificação (One-hot) -> Normalização (StandardScaler) -> Treino/Teste -> Random Forest -> Avaliação
-
-## Resultados
-
-### Resultados obtidos com o modelo 1 (XGBoost)
-
-Acurácia: 0.8012889366272825
-              
-	      precision       recall   f1-score support
-
-        Alta       0.76    0.78      0.77    259
-       Média       0.82    0.86      0.84    559
-       Baixa       0.80    0.56      0.66    113
-
-    accuracy                         0.80    931
-    macro avg      0.79    0.73      0.76    931
-    weighted avg   0.80    0.80      0.80    931
-    
-![Matriz de Confusão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Matriz%20de%20Confus%C3%A3o%20(XGBoost).png)
-
-### Matriz de confusão: Apresenta Recall mais baixo na classe "Baixa" pois há pouca representatividade dela na base de dados. Houve o uso de SMOTE (Técnica de Sobreamostragem de Minoria Sintética) para reduzir a subrepresentatividade da classe "Baixa"
-
-![Importância das Variáveis](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Import%C3%A2ncia%20das%20Vari%C3%A1veis%20(XGBoost).png)
-
-Interpretação do modelo 1
-
-Feature Importance (principais atributos):
-
-• Idade
-
-• Cargo Atual
-
-• Tempo de experiência na área
-
-• Forma de trabalho
-
-• Gênero e UF
-
-O XGBoost constrói um modelo aditivo, onde cada nova árvore melhora o erro da anterior. A interpretação exata pode ser feita via SHAP ou ganho de informação.
-
-### Resultados obtidos com o modelo 2 (Random Forest)
-
-Acurácia: 0.7851772287862513
-
-              precision    recall  f1-score   support
-
-        Alta       0.76      0.73      0.74       259
-       Média       0.79      0.87      0.83       559
-       Baixa       0.81      0.50      0.62       113
-
-    accuracy                           0.79       931
-    macro avg      0.79      0.70      0.73       931
-    weighted avg   0.79      0.79      0.78       931
-    
-![Matriz de Confusão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Matriz%20de%20Confus%C3%A3o%20(Random%20Forest).png)
-
-### Matriz de confusão: Apresenta Recall mais baixo na classe "Baixa" pois há pouca representatividade dela na base de dados. Houve o uso de SMOTE (Técnica de Sobreamostragem de Minoria Sintética) para reduzir a subrepresentatividade da classe "Baixa"
-
-### Interpretação do modelo 2
-
-![Importância das Variáveis](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Import%C3%A2ncia%20das%20Vari%C3%A1veis%20(Random%20Forest).png)
-
-Feature Importance:
-
-• Idade
-
-• Nível (Pleno, Sênior)
-
-• Forma de trabalho
-
-• Cargo Atual
-
-As decisões da floresta são baseadas na média das previsões de várias árvores que se especializam em diferentes aspectos dos dados.
-
-### Análise comparativa dos modelos
-
-
-### Conclusão
-
-Desenvolvemos dois modelos preditivos para classificação da faixa salarial usando atributos demográficos e profissionais.
 
 
 Substitua o título pelo nome do algoritmo que será utilizado. P. ex. árvore de decisão, rede neural, SVM, etc.
