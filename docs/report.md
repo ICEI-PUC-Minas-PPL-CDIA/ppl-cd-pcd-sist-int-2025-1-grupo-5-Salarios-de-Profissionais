@@ -519,20 +519,46 @@ Para enriquecer a análise e testar a hipótese sobre a influência de indicador
 ### Observação (se for o caso)
 
 ## 🔧 Preparação dos dados para **Hipótese 4:**
-### 1. Seleção dos Atributos **Hipótese 4:**
-### 2. Tratamento dos Valores Faltantes ou Omissos (NaN) **Hipótese 4:**
-### Remoção de Linhas (se for o caso)
-### Substituição por Zero
-### 3. Tratamento dos Valores Inconsistentes **Hipótese 4:**
-### Remoção de Categorias Irrelevantes (se for o caso)
-### Unificação de Categorias (se for o caso)
-### Agrupamento de Categorias Raras (se for o caso)
-### 4. Conversão de Dados e Engenharia de Atributos **Hipótese 4:**
-### Codificação Ordinal (se for o caso)
-### Engenharia de Features de Habilidades (se for o caso)
-### Discretização de Variável Numérica (se for o caso)
-### Conversão para Formato Binário (One-Hot Encoding) (se for o caso)
-### Observação (se for o caso)
+## 2.2 Tratamento de Valores Ausentes (CORRIGIDO)
+
+**Problema anterior:**  
+Imputação inadequada usando apenas a moda
+
+**Solução implementada:**  
+Imputação inteligente baseada em salário e experiência:
+- Lógica: Profissionais com salários e experiência similares tendem a ter formação similar
+- Método:  
+  - Para experiência: KNN Imputer com k=5 vizinhos mais próximos
+
+## 2.3 Codificação de Variáveis (CORRIGIDA)
+
+**Problema anterior:**  
+Codificação ordinal forçando linearidade (1,2,3,4)
+
+**Solução implementada:**  
+Codificação dummy (one-hot encoding):
+- Vantagem: Permite relações não-lineares entre níveis de formação
+- Referência: Graduação (categoria omitida)
+
+## 2.4 Verificação de Qualidade
+
+- **Multicolinearidade:** VIF < 5 para todas as variáveis
+- **Normalização:** Variáveis numéricas padronizadas (média=0, desvio=1)
+- **Validação cruzada:** K-fold (k=5) para estimativas robustas
+
+## Seleção de Variáveis
+
+**Variável dependente:**  
+- `Salario_Medio` (em R$)
+
+**Variáveis independentes principais:**  
+- `Nivel_de_Ensino` (Graduação, Pós-graduação, Mestrado, Doutorado)  
+- `Tempo_de_experiencia_na_area_de_dados` (em anos)
+
+**Variáveis de controle:**  
+- `Setor` (categoria da empresa)  
+- `PIB_2021_OR` (PIB do estado, normalizado)  
+- `IDHM` (Índice de Desenvolvimento Humano Municipal, normalizado)
 
 # Indução de modelos 🧠
 
