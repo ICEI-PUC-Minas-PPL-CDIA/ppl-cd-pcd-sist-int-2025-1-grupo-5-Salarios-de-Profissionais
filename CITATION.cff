@@ -1,19 +1,23 @@
-cff-version: 1.2.0
+cff-version: 1.3.0
 title: >-
-  Os fatores que influenciam os salários dos profissionais
-  de dados no Brasil.
+  Os Fatores que Influenciam os Salários dos Profissionais
+  de Dados no Brasil.
 message: >-
   If you use this software, please cite it using the
   metadata from this file.
 type: software
 authors:
-  - given-names: Antonio Augusto Vieira Lopes Filho
+  - family-names: "Augusto Vieira Lopes Filho"
+    given-names: "Antonio"
     email: aavlfilho@sga.pucminas.br
-  - given-names: Diego Rodrigo Marinho Silva
+  - family-names: "Rodrigo Marinho Silva"
+    given-names: "Diego" 
     email: diego.marinho@sga.pucminas.br
-  - given-names: Ryan Junio de Oliveira
+  - family-names: "Junio de Oliveira"
+    given-names: "Ryan" 
     email: ryan.junio@sga.pucminas.br
-  - given-names: Vinicius Bigonha Cancela Moraes de Melo Filho
+  - family-names: "Bigonha Cancela Moraes de Melo Filho"
+    given-names: "Vinicius" 
     email: vbcmmfilho@sga.pucminas.br
   - name: >-
       Instituto de Informática e Ciências Exatas –
@@ -22,8 +26,10 @@ authors:
     country: BR
     post-code: 30140-100
     address: 'R. Cláudio Manoel, 1162 - Savassi, Belo Horizonte - MG'
-  - given-names: Hugo Bastos de Paula
-  - given-names: Hayala Nepomuceno Curto
+  - family-names: "Bastos de Paula"
+    given-names: "Hugo"
+  - family-names: "Nepomuceno Curto"
+    given-names: "Hayala" 
 identifiers:
   - type: url
     value: >-
