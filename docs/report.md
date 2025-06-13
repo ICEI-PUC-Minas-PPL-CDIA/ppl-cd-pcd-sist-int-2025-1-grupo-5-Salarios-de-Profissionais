@@ -929,8 +929,7 @@ O modelo XGBoost foi treinado com divisão de amostra 80% para treino e 20% para
 
 ### Matriz de confusão
 
-*A matriz de confusão não foi fornecida no relatório original, mas pode ser inserida aqui em formato de tabela ou imagem, se disponível.*
-
+![Matriz de Confusão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Matriz%20de%20Confus%C3%A3o%20(XGBoost).png)
 ### Medidas de performance
 
 | Classe | Precisão | Revocação (Recall) | F1-Score | Suporte |
@@ -955,12 +954,7 @@ O modelo XGBoost apresentou desempenho robusto, com **acurácia de 80,12%**. Dem
 
 ### Atributos mais relevantes (Feature Importances)
 
-- Idade  
-- Cargo Atual  
-- Tempo de Experiência na Área  
-- Forma de Trabalho  
-- Gênero  
-- Unidade Federativa (UF)
+![Importância das Variáveis](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Import%C3%A2ncia%20das%20Vari%C3%A1veis%20(XGBoost).png)
 
 O raciocínio do XGBoost é construído por meio de árvores iterativas (boosting), com divisões (splits) baseadas nos atributos acima. Embora o `max_depth = 5` torne as árvores mais interpretáveis, o uso do ensemble compromete a transparência global do modelo.
 
@@ -972,7 +966,7 @@ O modelo Random Forest utilizou a mesma divisão de dados (80/20), sem validaç�
 
 ### Matriz de confusão
 
-*A matriz de confusão não foi fornecida no relatório original, mas pode ser inserida aqui.*
+![Matriz de Confusão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Matriz%20de%20Confus%C3%A3o%20(Random%20Forest).png)
 
 ### Medidas de performance
 
@@ -995,10 +989,7 @@ Com **acurácia de 78,51%**, o modelo Random Forest apresentou desempenho simila
 
 ### Atributos mais relevantes (Feature Importances)
 
-- Idade  
-- Cargo Atual  
-- Forma de Trabalho  
-- Nível Hierárquico (Pleno, Sênior)
+![Importância das Variáveis](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Import%C3%A2ncia%20das%20Vari%C3%A1veis%20(Random%20Forest).png)
 
 O raciocínio da Random Forest é baseado em múltiplas árvores que votam entre si. O `max_depth = 10` permite detalhamento sem perder generalização.
 
@@ -1032,8 +1023,10 @@ O raciocínio da Random Forest é baseado em múltiplas árvores que votam entre
 ## Discussão dos resultados obtidos no trabalho
 
 Ambos os modelos alcançaram acurácia superior a 78%, mostrando eficácia geral na tarefa de classificação salarial. No entanto, o desempenho mais fraco na classe "Baixa" indica que o desbalanceamento da base impacta negativamente a capacidade preditiva dos modelos.
-### Nota
-Retirar a coluna de "Nível" (Júnior, Pleno, Sênior), não afetou os modelos de forma impactante, ao contrário das expectativas, o que indica uma robustez de ambos os modelos. A mudança foi um leve aumento na acurácia da classe "Baixa", entretanto, houve uma leve redução em todas as outras métricas analisadas.
+### Notas
+1. Retirar a coluna de "Nível" (Júnior, Pleno, Sênior), não afetou os modelos de forma impactante, ao contrário das expectativas, o que indica uma robustez de ambos os modelos. A mudança foi um leve aumento na acurácia da classe "Baixa", entretanto, houve uma leve redução em todas as outras métricas analisadas;
+
+2. Cada coluna utilizada foi iniciada manualmente, uma por vez, ou seja, cada coluna, comprovadamente, melhora a perfomance dos modelos nas métricas utilizadas
 
 ## O que foi desenvolvido
 
@@ -1070,7 +1063,6 @@ Retirar a coluna de "Nível" (Júnior, Pleno, Sênior), não afetou os modelos d
 - Técnicas mais avançadas de balanceamento (ex: ADASYN)  
 - Inclusão de atributos mais representativos  
 - Uso de métodos de explicação como LIME ou SHAP para decodificar decisões dos modelos
-
 
 # Observações Pessoais
 
