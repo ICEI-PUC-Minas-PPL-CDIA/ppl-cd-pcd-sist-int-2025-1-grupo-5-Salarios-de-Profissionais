@@ -519,7 +519,7 @@ Para enriquecer a análise e testar a hipótese sobre a influência de indicador
 ### Observação (se for o caso)
 
 ## 🔧 Preparação dos dados para **Hipótese 4:**
-## 2.2 Tratamento de Valores Ausentes (CORRIGIDO)
+##  Tratamento de Valores Ausentes 
 
 **Problema anterior:**  
 Imputação inadequada usando apenas a moda
@@ -530,7 +530,7 @@ Imputação inteligente baseada em salário e experiência:
 - Método:  
   - Para experiência: KNN Imputer com k=5 vizinhos mais próximos
 
-## 2.3 Codificação de Variáveis (CORRIGIDA)
+## Codificação de Variáveis 
 
 **Problema anterior:**  
 Codificação ordinal forçando linearidade (1,2,3,4)
@@ -540,7 +540,7 @@ Codificação dummy (one-hot encoding):
 - Vantagem: Permite relações não-lineares entre níveis de formação
 - Referência: Graduação (categoria omitida)
 
-## 2.4 Verificação de Qualidade
+##  Verificação de Qualidade
 
 - **Multicolinearidade:** VIF < 5 para todas as variáveis
 - **Normalização:** Variáveis numéricas padronizadas (média=0, desvio=1)
