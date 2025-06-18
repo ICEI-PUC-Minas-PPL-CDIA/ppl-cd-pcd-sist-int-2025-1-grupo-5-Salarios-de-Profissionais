@@ -1051,16 +1051,36 @@ O raciocínio da Random Forest é baseado em múltiplas árvores que votam entre
 
 ---
 ## Conclusão
-
 Os resultados obtidos neste trabalho confirmam a hipótese de que características demográficas e profissionais influenciam significativamente a faixa salarial dos indivíduos. Os modelos supervisionados treinados — XGBoost e Random Forest — demonstraram bom desempenho preditivo, com acurácia geral acima de 78%, sendo capazes de prever com razoável precisão a categoria salarial com base nos atributos fornecidos.
 
-O modelo XGBoost destacou-se com acurácia de 80,12%, evidenciando maior robustez, especialmente nas classes "Alta" e "Média", ainda que tenha apresentado dificuldade com a classe "Baixa", mesmo após técnicas de balanceamento. A escolha criteriosa dos hiperparâmetros e o uso de validação cruzada conferiram ao modelo maior capacidade de generalização.
+### Implicações para o Mercado
+Habilidades técnicas como diferencial salarial: Linguagens como SQL, Python e R apareceram entre as variáveis mais relevantes para a previsão salarial, reforçando a importância da qualificação técnica.
 
-Já o modelo Random Forest, com acurácia de 78,51%, ofereceu desempenho semelhante, mas se sobressaiu pela maior interpretabilidade e rapidez no treinamento, sendo especialmente útil em contextos onde a transparência do processo decisório é fundamental. Apesar de ligeiramente inferior na acurácia geral, sua estrutura facilita a comunicação dos resultados a públicos não técnicos.
+Perfil demográfico importa: Variáveis como nível de ensino, tempo de experiência e cargo atual tiveram impacto expressivo no modelo, indicando a relevância de aspectos não técnicos na composição salarial.
 
-A análise comparativa revelou que, enquanto o XGBoost é mais indicado para ambientes de alta exigência de performance e com grande volume de dados, o Random Forest é mais apropriado para contextos com foco em explicabilidade e agilidade, como na área de Recursos Humanos ou da Saúde.
+Desempenho desigual entre classes salariais: Ambos os modelos tiveram melhor desempenho na previsão de salários médios. As faixas "Baixa" e "Alta" ainda apresentam desafios preditivos, mesmo com uso de técnicas como SMOTE para balanceamento.
 
-Dessa forma, a escolha entre os modelos deve considerar não apenas a performance bruta, mas também o contexto de aplicação, os requisitos de interpretabilidade e a infraestrutura disponível. Ambos os modelos mostraram-se eficazes e úteis como ferramentas de apoio à tomada de decisão em políticas salariais, recrutamento e planejamento organizacional.
+### Próximos Passos Recomendados
+ Inclusão de novas variáveis: Incorporar dados como certificações técnicas, tipo de empresa, nível de liderança e porte da organização.
+
+ Análise regionalizada: Explorar o impacto da localização geográfica (UFs, capitais vs. interior) nos salários.
+
+ Estudo longitudinal: Acompanhar como o valor de determinadas competências varia ao longo do tempo no mercado de dados.
+
+ Avaliação de modelos interpretáveis: Testar algoritmos como Explainable Boosting Machines (EBM) para aliar performance e transparência.
+
+Perguntas Frequentes
+-Por que o modelo erra mais nas faixas 'Alta' e 'Baixa'?
+Essas faixas geralmente concentram perfis mais extremos e heterogêneos. No caso da faixa "Alta", podem incluir cargos executivos com trajetórias muito específicas; já a faixa "Baixa" pode abranger desde iniciantes até profissionais em transição de carreira.
+
+-Por que utilizar SMOTE?
+O SMOTE foi utilizado para equilibrar o número de amostras por classe no conjunto de treino, ajudando o modelo a aprender melhor os padrões das faixas menos representadas.
+
+-Como interpretar a importância das features?
+A importância atribuída a uma feature no modelo Random Forest indica o quanto ela contribui para a tomada de decisão do modelo. SQL, nível de ensino, tempo de experiência e nível do cargo estão entre as mais relevantes.
+
+-O XGBoost é sempre melhor?
+Não necessariamente. Apesar da maior acurácia, o XGBoost pode ser mais difícil de explicar para usuários não técnicos e mais custoso computacionalmente. A escolha depende do objetivo do projeto.
 
 
 # REFERÊNCIAS
