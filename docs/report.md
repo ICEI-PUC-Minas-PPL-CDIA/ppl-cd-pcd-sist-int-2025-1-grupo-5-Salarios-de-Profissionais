@@ -1023,7 +1023,7 @@ Com **acurácia de 78,51%**, o modelo Random Forest apresentou desempenho simila
 
 ![Importância das Variáveis](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Import%C3%A2ncia%20das%20Vari%C3%A1veis%20(Random%20Forest).png)
 
-O raciocínio da Random Forest é baseado em múltiplas árvores que votam entre si. O `max_depth = 10` permite detalhamento sem perder generalização.
+O raciocínio da Random Forest é baseado em múltiplas árvores que votam entre si. O `max_depth = 10` evita o overfitting sem perder aprendizado.
 
 ---
 
@@ -1050,119 +1050,17 @@ O raciocínio da Random Forest é baseado em múltiplas árvores que votam entre
 - **Random Forest**: Ambientes onde a clareza do processo de decisão é prioritária (ex: triagem médica, RH).
 
 ---
-# Conclusão 💡
+## Conclusão
 
-Este trabalho desenvolveu um sistema inteligente para analisar os fatores que influenciam os salários dos profissionais de dados no Brasil. Utilizando técnicas de aprendizado de máquina e análise estatística, o sistema processou dados como:
+Os resultados obtidos neste trabalho confirmam a hipótese de que características demográficas e profissionais influenciam significativamente a faixa salarial dos indivíduos. Os modelos supervisionados treinados — XGBoost e Random Forest — demonstraram bom desempenho preditivo, com acurácia geral acima de 78%, sendo capazes de prever com razoável precisão a categoria salarial com base nos atributos fornecidos.
 
-- Escolaridade
-- Experiência
-- Porte da empresa
-- Localização
-- Conhecimentos técnicos
-- Indicadores socioeconômicos (IDH e PIB dos estados brasileiros)
-A solução automatizou a coleta, o tratamento e a modelagem dos dados, apresentando os resultados por meio de relatórios interativos e visualizações para facilitar a interpretação.
+O modelo XGBoost destacou-se com acurácia de 80,12%, evidenciando maior robustez, especialmente nas classes "Alta" e "Média", ainda que tenha apresentado dificuldade com a classe "Baixa", mesmo após técnicas de balanceamento. A escolha criteriosa dos hiperparâmetros e o uso de validação cruzada conferiram ao modelo maior capacidade de generalização.
 
-## Principais Resultados
+Já o modelo Random Forest, com acurácia de 78,51%, ofereceu desempenho semelhante, mas se sobressaiu pela maior interpretabilidade e rapidez no treinamento, sendo especialmente útil em contextos onde a transparência do processo decisório é fundamental. Apesar de ligeiramente inferior na acurácia geral, sua estrutura facilita a comunicação dos resultados a públicos não técnicos.
 
-O sistema identificou que:
+A análise comparativa revelou que, enquanto o XGBoost é mais indicado para ambientes de alta exigência de performance e com grande volume de dados, o Random Forest é mais apropriado para contextos com foco em explicabilidade e agilidade, como na área de Recursos Humanos ou da Saúde.
 
-- **Experiência profissional**
-- **Domínio de tecnologias em alta demanda**
-
-São os principais determinantes da remuneração na área de dados.
-
-## Vantagens do Sistema
-
-✔ **Tomada de decisão informada**  
-Auxilia profissionais na negociação salarial e empresas na definição de faixas competitivas.
-
-✔ **Transparência de mercado**  
-Torna as práticas salariais do setor mais claras.
-
-✔ **Escalabilidade**  
-Pode incorporar novos dados para se manter atualizado.
-
-## Limitações
-
-✖ **Viés dos dados**  
-A qualidade da análise depende da representatividade dos dados, podendo reforçar distorções existentes.
-
-✖ **Simplificação da realidade**  
-Fatores subjetivos (como soft skills e cultura organizacional) podem não ser totalmente capturados.
-
-## Melhorias Propostas
-
-1. **Ampliação das fontes de dados**
-   
-   Incluir informações de plataformas como LinkedIn, portais de emprego e pesquisas salariais.
-
-2. **Inclusão de novas variáveis**  
-
-   Incorporar fatores como:
-   - Certificações
-   - Idiomas
-   - Soft skills
-
-3. **Ferramenta de predição personalizada**  
-
-   Desenvolver um sistema interativo para estimativa salarial baseada nos dados do usuário.
-
-4. **Análise temporal**
-
-   Implementar monitoramento da evolução salarial e demanda por tecnologias.
-
-## Observações Finais
-
-O sistema oferece insights valiosos, mas sua eficácia depende:
-- Da qualidade dos dados
-- Da consideração de aspectos não quantificáveis
-
-Embora o modelo atual tenha limitações, as melhorias propostas podem aumentar sua precisão e utilidade para profissionais e empresas do setor.Add commentMore actions
-
-## Discussão dos resultados obtidos no trabalho
-
-Ambos os modelos alcançaram acurácia superior a 78%, mostrando eficácia geral na tarefa de classificação salarial. No entanto, o desempenho mais fraco na classe "Baixa" indica que o desbalanceamento da base impacta negativamente a capacidade preditiva dos modelos.
-
-### Notas
-1. Retirar a coluna de "Nível" (Júnior, Pleno, Sênior), não afetou os modelos de forma impactante, ao contrário das expectativas, o que indica uma robustez de ambos os modelos. A mudança foi um leve aumento na acurácia da classe "Baixa", entretanto, houve uma leve redução em todas as outras métricas analisadas;
-
-2. Cada coluna utilizada foi iniciada manualmente, uma por vez, ou seja, cada coluna, comprovadamente, melhora a perfomance dos modelos nas métricas utilizadas
-
-## O que foi desenvolvido
-
-- Pipeline de pré-processamento (imputação, codificação e normalização)  
-- Implementação dos algoritmos XGBoost e Random Forest  
-- Avaliação quantitativa por métricas de performance  
-- Análise qualitativa por feature importance  
-- Comparação interpretativa dos modelos
-
-## Apresentação geral dos resultados com vantagens e desvantagens
-
-### Vantagens
-
-- Alta acurácia geral  
-- Flexibilidade e capacidade de generalização  
-- Aplicação prática em contextos reais (recrutamento, planejamento salarial, etc.)
-
-### Desvantagens
-
-- Baixo desempenho em classes minoritárias  
-- Dependência de técnicas de balanceamento  
-- Redução da interpretabilidade em modelos mais complexos
-
-## Limitações e possibilidades de melhoria
-
-### Limitações
-
-- Desequilíbrio nas classes da base  
-- Sub-representação da classe "Baixa"  
-- Ausência de variáveis socioeconômicas mais robustas
-
-### Possibilidades de melhoria
-
-- Técnicas mais avançadas de balanceamento (ex: ADASYN)  
-- Inclusão de atributos mais representativos  
-- Uso de métodos de explicação como LIME ou SHAP para decodificar decisões dos modelos
+Dessa forma, a escolha entre os modelos deve considerar não apenas a performance bruta, mas também o contexto de aplicação, os requisitos de interpretabilidade e a infraestrutura disponível. Ambos os modelos mostraram-se eficazes e úteis como ferramentas de apoio à tomada de decisão em políticas salariais, recrutamento e planejamento organizacional.
 
 
 # REFERÊNCIAS
