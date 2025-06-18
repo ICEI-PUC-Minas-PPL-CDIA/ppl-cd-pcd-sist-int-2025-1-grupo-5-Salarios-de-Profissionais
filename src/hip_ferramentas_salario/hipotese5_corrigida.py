@@ -651,3 +651,178 @@ print("- analise_exploratoria_corrigida.png")
 print("- resultados_hipotese5_corrigida.png") 
 print("- distribuicao_salarial_corrigida.png")
 
+# 6. IMPLEMENTAÇÃO E TREINAMENTO DOS MODELOS
+print("\n6. IMPLEMENTAÇÃO E TREINAMENTO DOS MODELOS")
+print("-" * 50)
+
+# Preparação das variáveis
+# Codificação das variáveis categóricas
+le_ensino = LabelEncoder()
+le_setor = LabelEncoder()
+
+df_model = df.dropna().copy()
+df_model['Nivel_de_Ensino_encoded'] = le_ensino.fit_transform(df_model['Nivel_de_Ensino'])
+df_model['Setor_encoded'] = le_setor.fit_transform(df_model['Setor'])
+
+# Variáveis independentes (X) e dependente (y)
+X = df_model[['Nivel_de_Ensino_encoded', 'Tempo_de_experiencia_na_area_de_dados', 
+              'Setor_encoded', 'PIB_2021_OR', 'IDHM']]
+y = df_model['Salario_Medio']
+
+# Divisão treino/teste
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Normalização
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+print(f"Dados de treino: {X_train.shape}")
+print(f"Dados de teste: {X_test.shape}")
+
+# MODELO 1: Random Forest
+print("\n=== MODELO 1: RANDOM FOREST ===")
+rf_model = RandomForestRegressor(n_estimators=100, random_state=42, max_depth=10)
+rf_model.fit(X_train, y_train)
+
+# Predições Random Forest
+rf_pred_train = rf_model.predict(X_train)
+rf_pred_test = rf_model.predict(X_test)
+
+# Métricas Random Forest
+rf_r2_train = r2_score(y_train, rf_pred_train)
+rf_r2_test = r2_score(y_test, rf_pred_test)
+rf_mse_test = mean_squared_error(y_test, rf_pred_test)
+rf_mae_test = mean_absolute_error(y_test, rf_pred_test)
+
+print(f"R² Treino: {rf_r2_train:.4f}")
+print(f"R² Teste: {rf_r2_test:.4f}")
+print(f"MSE Teste: {rf_mse_test:.2f}")
+print(f"MAE Teste: {rf_mae_test:.2f}")
+
+# MODELO 2: Linear Regression
+print("\n=== MODELO 2: LINEAR REGRESSION ===")
+lr_model = LinearRegression()
+lr_model.fit(X_train_scaled, y_train)
+
+# Predições Linear Regression
+lr_pred_train = lr_model.predict(X_train_scaled)
+lr_pred_test = lr_model.predict(X_test_scaled)
+
+# Métricas Linear Regression
+lr_r2_train = r2_score(y_train, lr_pred_train)
+lr_r2_test = r2_score(y_test, lr_pred_test)
+lr_mse_test = mean_squared_error(y_test, lr_pred_test)
+lr_mae_test = mean_absolute_error(y_test, lr_pred_test)
+
+print(f"R² Treino: {lr_r2_train:.4f}")
+print(f"R² Teste: {lr_r2_test:.4f}")
+print(f"MSE Teste: {lr_mse_test:.2f}")
+print(f"MAE Teste: {lr_mae_test:.2f}")
+
+# 7. COMPARAÇÃO DOS MODELOS
+print("\n7. COMPARAÇÃO DOS MODELOS")
+print("-" * 40)
+
+comparison_df = pd.DataFrame({
+    'Modelo': ['Random Forest', 'Linear Regression'],
+    'R² Teste': [rf_r2_test, lr_r2_test],
+    'MSE Teste': [rf_mse_test, lr_mse_test],
+    'MAE Teste': [rf_mae_test, lr_mae_test]
+})
+
+print(comparison_df)
+
+# 8. ANÁLISE DA HIPÓTESE
+print("\n8. ANÁLISE DA HIPÓTESE")
+print("-" * 40)
+
+# Importância das variáveis (Random Forest)
+feature_importance = pd.DataFrame({
+    'Variavel': ['Nivel_de_Ensino', 'Experiencia', 'Setor', 'PIB', 'IDHM'],
+    'Importancia': rf_model.feature_importances_
+}).sort_values('Importancia', ascending=False)
+
+print("=== IMPORTÂNCIA DAS VARIÁVEIS (Random Forest) ===")
+print(feature_importance)
+
+# Coeficientes (Linear Regression)
+coefficients = pd.DataFrame({
+    'Variavel': ['Nivel_de_Ensino', 'Experiencia', 'Setor', 'PIB', 'IDHM'],
+    'Coeficiente': lr_model.coef_
+})
+
+print("\n=== COEFICIENTES (Linear Regression) ===")
+print(coefficients)
+
+# Análise por nível de ensino
+print("\n=== ANÁLISE POR NÍVEL DE ENSINO ===")
+salary_by_education = df_model.groupby('Nivel_de_Ensino')['Salario_Medio'].agg(['mean', 'std', 'count'])
+print(salary_by_education)
+
+# 9. VISUALIZAÇÕES DOS RESULTADOS
+print("\n9. GERANDO VISUALIZAÇÕES...")
+
+fig, axes = plt.subplots(2, 2, figsize=(15, 12))
+
+# 1. Comparação de performance
+models = ['Random Forest', 'Linear Regression']
+r2_scores = [rf_r2_test, lr_r2_test]
+axes[0,0].bar(models, r2_scores, color=['skyblue', 'lightcoral'])
+axes[0,0].set_title('Comparação R² dos Modelos')
+axes[0,0].set_ylabel('R² Score')
+
+# 2. Importância das variáveis
+axes[0,1].barh(feature_importance['Variavel'], feature_importance['Importancia'])
+axes[0,1].set_title('Importância das Variáveis (Random Forest)')
+
+# 3. Predições vs Real (Random Forest)
+axes[1,0].scatter(y_test, rf_pred_test, alpha=0.6)
+axes[1,0].plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')
+axes[1,0].set_xlabel('Salário Real')
+axes[1,0].set_ylabel('Salário Predito')
+axes[1,0].set_title('Random Forest: Predito vs Real')
+
+# 4. Salário médio por formação
+salary_means = df_model.groupby('Nivel_de_Ensino')['Salario_Medio'].mean()
+axes[1,1].bar(salary_means.index, salary_means.values, color='lightgreen')
+axes[1,1].set_title('Salário Médio por Nível de Formação')
+axes[1,1].tick_params(axis='x', rotation=45)
+
+plt.tight_layout()
+plt.savefig('/home/ubuntu/resultados_modelos_hipotese5.png', dpi=300, bbox_inches='tight')
+plt.show()
+
+# 10. CONCLUSÕES DA HIPÓTESE
+print("\n10. CONCLUSÕES DA HIPÓTESE")
+print("=" * 50)
+
+nivel_importance = feature_importance[feature_importance['Variavel'] == 'Nivel_de_Ensino']['Importancia'].iloc[0]
+nivel_coef = coefficients[coefficients['Variavel'] == 'Nivel_de_Ensino']['Coeficiente'].iloc[0]
+
+print(f"HIPÓTESE: Profissionais com pós-graduação tendem a ter salários mais altos")
+print(f"")
+print(f"RESULTADOS:")
+print(f"- Importância do Nível de Ensino (RF): {nivel_importance:.4f}")
+print(f"- Coeficiente do Nível de Ensino (LR): {nivel_coef:.2f}")
+print(f"- Melhor modelo: {'Random Forest' if rf_r2_test > lr_r2_test else 'Linear Regression'}")
+print(f"- R² do melhor modelo: {max(rf_r2_test, lr_r2_test):.4f}")
+
+# Diferença salarial por formação
+grad_salary = salary_by_education.loc['Graduação', 'mean']
+pos_salary = salary_by_education.loc['Pós-graduação', 'mean'] if 'Pós-graduação' in salary_by_education.index else 0
+mestrado_salary = salary_by_education.loc['Mestrado', 'mean'] if 'Mestrado' in salary_by_education.index else 0
+doutorado_salary = salary_by_education.loc['Doutorado', 'mean'] if 'Doutorado' in salary_by_education.index else 0
+
+print(f"\nDIFERENÇAS SALARIAIS:")
+print(f"- Graduação: R$ {grad_salary:.2f}")
+if pos_salary > 0:
+    print(f"- Pós-graduação: R$ {pos_salary:.2f} (+{((pos_salary/grad_salary-1)*100):.1f}%)")
+if mestrado_salary > 0:
+    print(f"- Mestrado: R$ {mestrado_salary:.2f} (+{((mestrado_salary/grad_salary-1)*100):.1f}%)")
+if doutorado_salary > 0:
+    print(f"- Doutorado: R$ {doutorado_salary:.2f} (+{((doutorado_salary/grad_salary-1)*100):.1f}%)")
+
+print(f"\nCONCLUSÃO: A hipótese é {'CONFIRMADA' if nivel_importance > 0.1 or nivel_coef > 1000 else 'PARCIALMENTE CONFIRMADA'}")
+print("=" * 50)
+
