@@ -550,17 +550,6 @@ df_novo = df_novo.dropna(subset=['faixa_salarial'])
 ```
 Com essa análise, verificamos a quantidade de valores nulos ou ausentes no dataframe e constatamos que não havia nenhum valor faltante em todos os atributos. No entanto, houve a perda de 540 registros no total.
 
-### 3. Tratamento dos Valores Inconsistentes **Hipótese 3:**
-### Remoção de Categorias Irrelevantes (se for o caso)
-### Unificação de Categorias (se for o caso)
-### Agrupamento de Categorias Raras (se for o caso)
-### 4. Conversão de Dados e Engenharia de Atributos **Hipótese 3:**
-### Codificação Ordinal (se for o caso)
-### Engenharia de Features de Habilidades (se for o caso)
-### Discretização de Variável Numérica (se for o caso)
-### Conversão para Formato Binário (One-Hot Encoding) (se for o caso)
-### Observação (se for o caso)
-
 ## 🔧 Preparação dos dados para **Hipótese 4:**
 ##  Tratamento de Valores Ausentes 
 
