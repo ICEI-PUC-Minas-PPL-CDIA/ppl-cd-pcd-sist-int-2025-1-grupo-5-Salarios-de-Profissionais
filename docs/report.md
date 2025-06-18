@@ -502,6 +502,28 @@ Para enriquecer a análise e testar a hipótese sobre a influência de indicador
 
 ## 🔧 Preparação dos dados para **Hipótese 3:**
 ### 1. Seleção dos Atributos **Hipótese 3:**
+
+Uma vez que a hipótese 3 tem como objetivo verificar se a diversidade de ferramentas influencia positivamente no salário, foi necessário selecionar para nosso dataframe somente os atributos que continha as ferramentas. Tendo como variável alvo a Faixa Salarial.
+
+```Python
+colunas_codigo = ['P2_h', 'P4_d_1', 'P4_d_2', 'P4_d_3', 'P4_d_4', 'P4_d_5', 
+                 'P4_d_6', 'P4_d_7', 'P4_d_8', 'P4_d_9', 'P4_d_10', 'P4_d_11', 
+                 'P4_d_12', 'P4_d_13', 'P4_d_14', 'P4_d_15']
+
+# Procurar strings que contêm os códigos desejados
+colunas_selecionadas = []
+for codigo in colunas_codigo:
+    colunas_correspondentes = [col for col in df.columns if codigo in col]
+    if colunas_correspondentes:
+        colunas_selecionadas.extend(colunas_correspondentes)
+
+# Criar o DataFrame com as colunas selecionadas
+df_atributos_selecionados = df[colunas_selecionadas]
+
+df_atributos_selecionados.columns
+```
+
+Por fim, foi realizado uma renomeação dos atributos para serem melhores trabalhados.
 ### 2. Tratamento dos Valores Faltantes ou Omissos (NaN) **Hipótese 3:**
 ### Remoção de Linhas (se for o caso)
 ### Substituição por Zero
