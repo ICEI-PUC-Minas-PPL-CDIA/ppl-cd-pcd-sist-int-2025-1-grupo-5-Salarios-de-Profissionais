@@ -525,8 +525,31 @@ df_atributos_selecionados.columns
 
 Por fim, foi realizado uma renomeação dos atributos para serem melhores trabalhados.
 ### 2. Tratamento dos Valores Faltantes ou Omissos (NaN) **Hipótese 3:**
-### Remoção de Linhas (se for o caso)
-### Substituição por Zero
+
+O tratamento dos valores ausentes foi orientado pela análise da variável alvo. Observou-se que, para todos os casos em que 'faixa_salarial' apresentava valores NaN, não havia um '1' em nenhum dos atributos correspondentes às ferramentas. Consequentemente, esses dados não eram úteis para a análise e foram descartados do dataframe.
+
+```Python
+nulos_df = df_novo[df_novo['faixa_salarial'].isnull()]
+print(nulos_df.describe())
+```
+
+|       |   sql |   scala |   matlab |   rust |   php |   javascript |   nao_utiliza_linguagem |     r |   python |   c_cpp_csharp |   dotnet |   java |   julia |   sas_stata |   vb_vba |
+|-------|-------|---------|----------|--------|-------|--------------|-------------------------|-------|----------|---------------|---------|-------|--------|------------|---------|
+| count | 540.0 |   540.0 |    540.0 |  540.0 | 540.0 |        540.0 |                   540.0 | 540.0 |    540.0 |         540.0 |   540.0 | 540.0 |  540.0 |      540.0 |   540.0 |
+| mean  |   0.0 |     0.0 |      0.0 |    0.0 |   0.0 |          0.0 |                     0.0 |   0.0 |      0.0 |           0.0 |     0.0 |   0.0 |    0.0 |        0.0 |     0.0 |
+| std   |   0.0 |     0.0 |      0.0 |    0.0 |   0.0 |          0.0 |                     0.0 |   0.0 |      0.0 |           0.0 |     0.0 |   0.0 |    0.0 |        0.0 |     0.0 |
+| min   |   0.0 |     0.0 |      0.0 |    0.0 |   0.0 |          0.0 |                     0.0 |   0.0 |      0.0 |           0.0 |     0.0 |   0.0 |    0.0 |        0.0 |     0.0 |
+| 25%   |   0.0 |     0.0 |      0.0 |    0.0 |   0.0 |          0.0 |                     0.0 |   0.0 |      0.0 |           0.0 |     0.0 |   0.0 |    0.0 |        0.0 |     0.0 |
+| 50%   |   0.0 |     0.0 |      0.0 |    0.0 |   0.0 |          0.0 |                     0.0 |   0.0 |      0.0 |           0.0 |     0.0 |   0.0 |    0.0 |        0.0 |     0.0 |
+| 75%   |   0.0 |     0.0 |      0.0 |    0.0 |   0.0 |          0.0 |                     0.0 |   0.0 |      0.0 |           0.0 |     0.0 |   0.0 |    0.0 |        0.0 |     0.0 |
+| max   |   0.0 |     0.0 |      0.0 |    0.0 |   0.0 |          0.0 |                     0.0 |   0.0 |      0.0 |           0.0 |     0.0 |   0.0 |    0.0 |        0.0 |     0.0 |
+
+```Python
+# Remover linhas onde 'faixa_salarial' é nula
+df_novo = df_novo.dropna(subset=['faixa_salarial'])
+```
+Com essa análise, verificamos a quantidade de valores nulos ou ausentes no dataframe e constatamos que não havia nenhum valor faltante em todos os atributos. No entanto, houve a perda de 540 registros no total.
+
 ### 3. Tratamento dos Valores Inconsistentes **Hipótese 3:**
 ### Remoção de Categorias Irrelevantes (se for o caso)
 ### Unificação de Categorias (se for o caso)
