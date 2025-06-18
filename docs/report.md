@@ -1053,6 +1053,8 @@ O raciocínio da Random Forest é baseado em múltiplas árvores que votam entre
 ## Conclusão
 Os resultados obtidos neste trabalho confirmam a hipótese de que características demográficas e profissionais influenciam significativamente a faixa salarial dos indivíduos. Os modelos supervisionados treinados — XGBoost e Random Forest — demonstraram bom desempenho preditivo, com acurácia geral acima de 78%, sendo capazes de prever com razoável precisão a categoria salarial com base nos atributos fornecidos.
 
+NOTA: O modelo foi treinado usando o nível dos funcionários (Júnior, Pleno, Sênior), entretanto, ao contrário das expectativas, a retirada desse atributo não impacta o modelo de forma a torná-lo ineficaz, a perda é mínima (cerca de 2 a 5%), o que representa uma robustez dos modelos.
+
 ### Implicações para o Mercado
 Habilidades técnicas como diferencial salarial: Linguagens como SQL, Python e R apareceram entre as variáveis mais relevantes para a previsão salarial, reforçando a importância da qualificação técnica.
 
