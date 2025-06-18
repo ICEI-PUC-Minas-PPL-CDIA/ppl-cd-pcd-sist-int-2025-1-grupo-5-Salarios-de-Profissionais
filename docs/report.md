@@ -1051,8 +1051,7 @@ O raciocínio da Random Forest é baseado em múltiplas árvores que votam entre
 
 ---
 # Conclusão 💡
----
-# Observações Pessoais
+
 Este trabalho desenvolveu um sistema inteligente para analisar os fatores que influenciam os salários dos profissionais de dados no Brasil. Utilizando técnicas de aprendizado de máquina e análise estatística, o sistema processou dados como:
 
 - Escolaridade
