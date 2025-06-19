@@ -594,10 +594,12 @@ Codificação dummy (one-hot encoding):
 
 # Indução de modelos 🧠
 
+## Hipótese 1 - É possível prever a faixa salarial de um profissional com base nos indicadores socioeconômicos (PIB e IDH) do estado onde ele trabalha?
+
 ---
 # Modelo 1
 ---
-## Hipótese 1 - É possível prever a faixa salarial de um profissional com base nos indicadores socioeconômicos (PIB e IDH) do estado onde ele trabalha?
+
 ## Árvore de Decisão 🌳  
 
 ### Justificativa da Escolha  
@@ -673,6 +675,72 @@ O processo para treinar e avaliar o modelo de Árvore de Decisão seguiu um flux
    - Comparar resultados com os valores reais (`y_teste`) para calcular métricas de performance (ex: acurácia)
 
 ![Arvore de decisão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Arvore%20de%20Decis%C3%A3o%20Classifica%C3%A7%C3%A3o%20salarial.png)
+
+# Resultado 🎯
+
+### Resultados obtidos com o Modelo 1: Árvore de Decisão
+
+O modelo de Árvore de Decisão foi treinado e avaliado utilizando uma partição de 75% dos dados para treino e 25% para teste. As métricas de performance foram calculadas sobre o conjunto de teste, que o modelo nunca havia visto antes.
+
+O modelo alcançou uma acurácia de **0.69 no treino e 0.67 no teste**. Para uma análise mais detalhada, os seguintes resultados foram gerados:
+
+#### Matriz de Confusão
+A matriz de confusão abaixo ilustra a performance do modelo para cada classe. A diagonal principal (em vermelho mais escuro) mostra a quantidade de previsões corretas para cada faixa salarial (1: Baixo, 2: Médio, 3: Alto). As outras células indicam onde ocorreram os erros de classificação.
+
+![Matriz de Confusão Árvore de Decisão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/MATRIZ%20DE%20CONFUS%C3%83O%20ARVORE%20ULTIMA.png)
+
+#### Métricas de Performance (Precisão, Revocação e F-Measure)
+O relatório de classificação detalha a performance do modelo para cada classe individualmente:
+
+- **Precisão (Precision):** Das vezes que o modelo previu uma classe, quantas ele acertou?  
+- **Revocação (Recall):** De todos os exemplos de uma classe, quantos o modelo conseguiu encontrar?  
+- **F1-Score:** Média harmônica entre precisão e revocação, oferecendo um balanço entre as duas.    
+
+```python
+Relatório de Classificação:
+              precision    recall  f1-score   support
+
+           1       0.77      0.71      0.74       384
+           2       0.58      0.56      0.57       433
+           3       0.66      0.76      0.71       325
+
+    accuracy                           0.67      1142
+   macro avg       0.67      0.68      0.67      1142
+weighted avg       0.67      0.67      0.67      1142
+````
+
+| ✅ EXEMPLO DE SUCESSO         | ❌ EXEMPLO DE FALHA          |
+|-------------------------------|-------------------------------|
+| **Métrica** \| **Valor**      | **Métrica** \| **Valor**      |
+| IDHM \| 0.806                 | IDHM \| 0.806                 |
+| PIB_2021_OR \| 2719751.000    | PIB_2021_OR \| 2719751.000    |
+| Nível_1.0 \| 0.000            | Nível_1.0 \| 0.000            |
+| Nível_2.0 \| 0.000            | Nível_2.0 \| 1.000            |
+| Nível_3.0 \| 1.000            | Nível_3.0 \| 0.000            |
+| Nivel_de_Ensino \| 3.000      | Nivel_de_Ensino \| 3.000      |
+| Grupo_Ferramentas_Ordinal \| 4.000 | Grupo_Ferramentas_Ordinal \| 4.000 |
+| Grupo_Linguagens_Ordinal \| 3.000 | Grupo_Linguagens_Ordinal \| 2.000 |
+| Nivel_Experiencia_Ordinal \| 3.000 | Nivel_Experiencia_Ordinal \| 3.000 |
+| Microsoft PowerBI \| 1.000    | Microsoft PowerBI \| 1.000    |
+| Nivel_Salarial_Real \| 2.000  | Nivel_Salarial_Real \| 1.000  |
+| Nivel_Salarial_Previsto \| 2.000 | Nivel_Salarial_Previsto \| 2.000 |
+
+### Interpretação do Modelo 1: Árvore de Decisão
+
+#### Parâmetros do Modelo Obtido
+O modelo foi construído com os seguintes hiperparâmetros para controlar sua complexidade:
+- `criterion='gini'`: Métrica usada para medir a qualidade das divisões nos nós.  
+- `max_depth=5`: Profundidade máxima da árvore, limitada a 5 níveis para evitar superajuste.  
+
+#### Regras de "Raciocínio" do Modelo
+A grande vantagem da Árvore de Decisão é que seu processo de "raciocínio" é totalmente transparente. As regras de decisão podem ser visualizadas diretamente na estrutura da árvore abaixo. Cada nó representa uma pergunta sobre uma variável (ex: "O `Nivel_Experiencia_Ordinal` é menor ou igual a 2.5?"), e cada ramo representa a resposta ("sim" ou "não"), guiando até uma classificação final em uma das folhas.
+
+
+#### Importância das Features
+O modelo nos permite ver quais atributos foram mais influentes para a tomada de decisão. A importância é medida pela capacidade de cada feature em reduzir a impureza (critério Gini) nos nós da árvore. Conforme o gráfico abaixo, as variáveis mais decisivas para prever a faixa salarial foram...
+
+![Feature Importance arvore de decisão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/FEATURE%20IMPORTANTE%20ARVORE%20ULTIMA.png)
+
 
 ---
 # Modelo 2 
@@ -758,74 +826,6 @@ O fluxo para o modelo KNN incluiu uma etapa de pré-processamento adicional, cru
 
 ![Froteira de decisão do modelo knn](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/Fronteiras%20de%20Decis%C3%A3o%20do%20Modelo%20KNN%20(k%3D20).png)
 
-# Resultado 🎯
-
-## Hipótese 1
-
-### Resultados obtidos com o Modelo 1: Árvore de Decisão
-
-O modelo de Árvore de Decisão foi treinado e avaliado utilizando uma partição de 75% dos dados para treino e 25% para teste. As métricas de performance foram calculadas sobre o conjunto de teste, que o modelo nunca havia visto antes.
-
-O modelo alcançou uma acurácia de **0.69 no treino e 0.67 no teste**. Para uma análise mais detalhada, os seguintes resultados foram gerados:
-
-#### Matriz de Confusão
-A matriz de confusão abaixo ilustra a performance do modelo para cada classe. A diagonal principal (em vermelho mais escuro) mostra a quantidade de previsões corretas para cada faixa salarial (1: Baixo, 2: Médio, 3: Alto). As outras células indicam onde ocorreram os erros de classificação.
-
-![Matriz de Confusão Árvore de Decisão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/MATRIZ%20DE%20CONFUS%C3%83O%20ARVORE%20ULTIMA.png)
-
-#### Métricas de Performance (Precisão, Revocação e F-Measure)
-O relatório de classificação detalha a performance do modelo para cada classe individualmente:
-
-- **Precisão (Precision):** Das vezes que o modelo previu uma classe, quantas ele acertou?  
-- **Revocação (Recall):** De todos os exemplos de uma classe, quantos o modelo conseguiu encontrar?  
-- **F1-Score:** Média harmônica entre precisão e revocação, oferecendo um balanço entre as duas.    
-
-```python
-Relatório de Classificação:
-              precision    recall  f1-score   support
-
-           1       0.77      0.71      0.74       384
-           2       0.58      0.56      0.57       433
-           3       0.66      0.76      0.71       325
-
-    accuracy                           0.67      1142
-   macro avg       0.67      0.68      0.67      1142
-weighted avg       0.67      0.67      0.67      1142
-````
-
-| ✅ EXEMPLO DE SUCESSO         | ❌ EXEMPLO DE FALHA          |
-|-------------------------------|-------------------------------|
-| **Métrica** \| **Valor**      | **Métrica** \| **Valor**      |
-| IDHM \| 0.806                 | IDHM \| 0.806                 |
-| PIB_2021_OR \| 2719751.000    | PIB_2021_OR \| 2719751.000    |
-| Nível_1.0 \| 0.000            | Nível_1.0 \| 0.000            |
-| Nível_2.0 \| 0.000            | Nível_2.0 \| 1.000            |
-| Nível_3.0 \| 1.000            | Nível_3.0 \| 0.000            |
-| Nivel_de_Ensino \| 3.000      | Nivel_de_Ensino \| 3.000      |
-| Grupo_Ferramentas_Ordinal \| 4.000 | Grupo_Ferramentas_Ordinal \| 4.000 |
-| Grupo_Linguagens_Ordinal \| 3.000 | Grupo_Linguagens_Ordinal \| 2.000 |
-| Nivel_Experiencia_Ordinal \| 3.000 | Nivel_Experiencia_Ordinal \| 3.000 |
-| Microsoft PowerBI \| 1.000    | Microsoft PowerBI \| 1.000    |
-| Nivel_Salarial_Real \| 2.000  | Nivel_Salarial_Real \| 1.000  |
-| Nivel_Salarial_Previsto \| 2.000 | Nivel_Salarial_Previsto \| 2.000 |
-
-### Interpretação do Modelo 1: Árvore de Decisão
-
-#### Parâmetros do Modelo Obtido
-O modelo foi construído com os seguintes hiperparâmetros para controlar sua complexidade:
-- `criterion='gini'`: Métrica usada para medir a qualidade das divisões nos nós.  
-- `max_depth=5`: Profundidade máxima da árvore, limitada a 5 níveis para evitar superajuste.  
-
-#### Regras de "Raciocínio" do Modelo
-A grande vantagem da Árvore de Decisão é que seu processo de "raciocínio" é totalmente transparente. As regras de decisão podem ser visualizadas diretamente na estrutura da árvore abaixo. Cada nó representa uma pergunta sobre uma variável (ex: "O `Nivel_Experiencia_Ordinal` é menor ou igual a 2.5?"), e cada ramo representa a resposta ("sim" ou "não"), guiando até uma classificação final em uma das folhas.
-
-
-#### Importância das Features
-O modelo nos permite ver quais atributos foram mais influentes para a tomada de decisão. A importância é medida pela capacidade de cada feature em reduzir a impureza (critério Gini) nos nós da árvore. Conforme o gráfico abaixo, as variáveis mais decisivas para prever a faixa salarial foram...
-
-![Feature Importance arvore de decisão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/FEATURE%20IMPORTANTE%20ARVORE%20ULTIMA.png)
-
----
 
 ## Resultados obtidos com o Modelo 2: K-Vizinhos Mais Próximos (KNN)
 
@@ -947,6 +947,113 @@ Imaginando cenários práticos, podemos extrapolar onde cada modelo brilharia:
    Se o objetivo fosse apenas ter uma primeira estimativa (baseline) da dificuldade do problema de classificação sem se aprofundar em regras, o KNN seria um ótimo ponto de partida pela sua simplicidade de implementação.
  
 ---
+
+# Conclusão 💡
+
+---
+
+# Observações Pessoais DIEGO
+
+Este trabalho desenvolveu um sistema inteligente para analisar os fatores que influenciam os salários dos profissionais de dados no Brasil. Utilizando técnicas de aprendizado de máquina e análise estatística, o sistema processou dados como:
+
+
+
+- Escolaridade
+
+- Experiência
+
+- Porte da empresa
+
+- Localização
+
+- Conhecimentos técnicos
+
+- Indicadores socioeconômicos (IDH e PIB dos estados brasileiros)
+
+A solução automatizou a coleta, o tratamento e a modelagem dos dados, apresentando os resultados por meio de relatórios interativos e visualizações para facilitar a interpretação.
+
+
+## Principais Resultados
+
+
+O sistema identificou que:
+
+
+- **Experiência profissional**
+
+- **Domínio de tecnologias em alta demanda**
+
+São os principais determinantes da remuneração na área de dados.
+
+
+## Vantagens do Sistema
+
+
+✔ **Tomada de decisão informada**  
+
+Auxilia profissionais na negociação salarial e empresas na definição de faixas competitivas.
+
+✔ **Transparência de mercado**  
+
+
+Torna as práticas salariais do setor mais claras.
+
+
+✔ **Escalabilidade**  
+
+Pode incorporar novos dados para se manter atualizado.
+
+
+## Limitações
+
+
+✖ **Viés dos dados**  
+
+A qualidade da análise depende da representatividade dos dados, podendo reforçar distorções existentes.
+
+
+✖ **Simplificação da realidade**  
+
+Fatores subjetivos (como soft skills e cultura organizacional) podem não ser totalmente capturados.
+
+## Melhorias Propostas
+
+1. **Ampliação das fontes de dados**
+
+
+   Incluir informações de plataformas como LinkedIn, portais de emprego e pesquisas salariais.
+
+
+2. **Inclusão de novas variáveis**  
+
+   Incorporar fatores como:
+
+   - Certificações
+
+   - Idiomas
+
+   - Soft skills
+
+3. **Ferramenta de predição personalizada**  
+
+   Desenvolver um sistema interativo para estimativa salarial baseada nos dados do usuário.
+
+
+4. **Análise temporal**
+
+   Implementar monitoramento da evolução salarial e demanda por tecnologias.
+
+
+## Observações Finais
+
+O sistema oferece insights valiosos, mas sua eficácia depende:
+
+- Da qualidade dos dados
+
+- Da consideração de aspectos não quantificáveis
+
+Embora o modelo atual tenha limitações, as melhorias propostas podem aumentar sua precisão e utilidade para profissionais e empresas do setor.
+
 # Resultados
 
 ## Hipótese
