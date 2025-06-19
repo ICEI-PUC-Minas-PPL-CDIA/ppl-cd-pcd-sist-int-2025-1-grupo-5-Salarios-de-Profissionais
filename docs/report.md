@@ -404,11 +404,10 @@ Considerando que o problema central deste projeto é entender quais característ
 
 **Hipótese 4:** Nível de formação acadêmica: Profissionais com pós-graduação, mestrado ou doutorado tendem a receber salários mais altos do que aqueles com apenas graduação?
 
-## 🔧 Preparação dos dados para **Hipótese 1:**
 
 A etapa de preparação dos dados foi fundamental para garantir a qualidade e a adequação das informações para a modelagem. O processo envolveu a limpeza, transformação e engenharia de novos atributos a partir do dataset *State of Data Brazil 2023*, *IDH 2021* e *PIB 2021*, com o objetivo de criar uma base de treino robusta para os algoritmos de classificação (*Árvore de Decisão* e *k-NN*). A preparação consistiu nos seguintes passos:
 
-### 1. Seleção dos Atributos **Hipótese 1:**
+### 1. Seleção dos Atributos para a **Hipótese 1:**
 
 Após um processo de limpeza e engenharia de features, foram selecionados os seguintes atributos para compor a base de dados final utilizada no treinamento dos modelos. A variável `Salario_target` foi definida como a variável alvo (target).
 
@@ -484,24 +483,7 @@ Para enriquecer a análise e testar a hipótese sobre a influência de indicador
 - **Fonte**: [IPEA DATA](http://www.ipeadata.gov.br/Default.aspx).
 - **Justificativa do Ano**: Utilizou-se a base de 2021 por ser a mais recente com dados consolidados por estado disponíveis na plataforma no momento da coleta.
 
-## 🔧 Preparação dos dados para **Hipótese 2:**
-### 1. Seleção dos Atributos **Hipótese 2:**
-### 2. Tratamento dos Valores Faltantes ou Omissos (NaN) **Hipótese 2:**
-### Remoção de Linhas (se for o caso)
-### Substituição por Zero
-### 3. Tratamento dos Valores Inconsistentes **Hipótese 2:**
-### Remoção de Categorias Irrelevantes (se for o caso)
-### Unificação de Categorias (se for o caso)
-### Agrupamento de Categorias Raras (se for o caso)
-### 4. Conversão de Dados e Engenharia de Atributos **Hipótese 2:**
-### Codificação Ordinal (se for o caso)
-### Engenharia de Features de Habilidades (se for o caso)
-### Discretização de Variável Numérica (se for o caso)
-### Conversão para Formato Binário (One-Hot Encoding) (se for o caso)
-### Observação (se for o caso)
-
-## 🔧 Preparação dos dados para **Hipótese 3:**
-### 1. Seleção dos Atributos **Hipótese 3:**
+### 1. Seleção dos Atributos para a **Hipótese 3:**
 
 Uma vez que a hipótese 3 tem como objetivo verificar se a diversidade de ferramentas influencia positivamente no salário, foi necessário selecionar para nosso dataframe somente os atributos que continha as ferramentas. Tendo como variável alvo a Faixa Salarial.
 
@@ -550,7 +532,7 @@ df_novo = df_novo.dropna(subset=['faixa_salarial'])
 ```
 Com essa análise, verificamos a quantidade de valores nulos ou ausentes no dataframe e constatamos que não havia nenhum valor faltante em todos os atributos. No entanto, houve a perda de 540 registros no total.
 
-## 🔧 Preparação dos dados para **Hipótese 4:**
+## Preparação dos dados específica para **Hipótese 4:**
 ##  Tratamento de Valores Ausentes 
 
 **Problema anterior:**  
