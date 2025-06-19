@@ -879,36 +879,58 @@ O KNN não possui um método direto para calcular a importância das features. P
 ---
 # Análise Comparativa dos Modelos
 
-
 ## Hipótese 1
 
+### Comparativo de Modelos - Árvore de Decisão vs KNN
 
-## 🌳 Árvore de Decisão (Modelo 1)
+### 📊 Acurácia Geral
 
-### Forças
+| Modelo            | Acurácia de Treino | Acurácia de Teste | Diferença |
+|-------------------|-------------------|------------------|-----------|
+| Árvore de Decisão | 0.69              | 0.67             | 0.02      |
+| KNN               | 0.6738            | 0.6635           | 0.0103    |
 
-- **Interpretabilidade (Ponto Mais Forte):** A maior vantagem deste modelo é ser uma "caixa-branca". As regras de decisão são explícitas e podem ser facilmente comunicadas a stakeholders não-técnicos (como gestores de RH). É possível responder com clareza por que um profissional foi classificado em uma determinada faixa salarial (ex: "profissionais com `Nivel_Experiencia_Ordinal > 3` e que usam Microsoft PowerBI tendem a ter um salário na faixa 3").
-- **Rapidez na Predição:** Uma vez que a árvore está construída, classificar um novo profissional é extremamente rápido, pois consiste apenas em percorrer um caminho de regras if/else.
-- **Não Requer Escalonamento de Dados:** O modelo lida nativamente com variáveis em diferentes escalas, simplificando o pipeline de pré-processamento.
+> **Observação**: Ambos os modelos apresentam acurácias muito semelhantes, com a Árvore de Decisão tendo ligeira vantagem no treino.
 
-### Fragilidades
+### 🔍 Comparativo por Classe
 
-- **Propensão a Overfitting:** Mesmo com a profundidade limitada (`max_depth=5`), árvores de decisão podem criar regras muito específicas para os dados de treinamento, o que pode não generalizar bem para novos dados. Uma pequena mudança nos dados de entrada pode gerar uma árvore completamente diferente.
-- **Fronteiras de Decisão "Em Caixa":** As decisões da árvore são sempre perpendiculares aos eixos das variáveis (ex: `PIB <= X`). Ela não consegue criar fronteiras de decisão suaves ou diagonais, o que pode ser uma limitação se a relação real entre as variáveis for mais complexa.
+### Classe 1 (Faixa Inferior)
+- **KNN tem vantagem**:  
+  ✅ Melhor em Precisão, Recall e F1-Score
 
-## ⚙️ K-Vizinhos Mais Próximos (KNN) (Modelo 2)
+### Classe 2 (Faixa Média)
+- **Ponto fraco de ambos**:  
+  ⚠️ Métricas mais baixas (dificuldade inerente aos dados)
 
-### Forças
+### Classe 3 (Faixa Superior)
+- **Árvore tem vantagem**:  
+  📈 Recall 0.76 (vs 0.72 do KNN)  
+  F1-Score 0.71 (vs 0.69 do KNN)
 
-- **Simplicidade e Intuição:** O conceito de "diga-me com quem andas e te direi quem és" é muito fácil de entender. O modelo classifica um profissional com base na faixa salarial de seus "vizinhos" mais próximos.
-- **Flexibilidade nas Fronteiras de Decisão:** Por ser um algoritmo não-paramétrico, o KNN pode criar fronteiras de decisão altamente complexas e não-lineares, adaptando-se a "nichos" e padrões nos dados que uma árvore com regras rígidas poderia não capturar.
-- **Treinamento "Instantâneo":** Não há uma fase de treinamento propriamente dita; o algoritmo simplesmente armazena os dados de treino. Todo o trabalho computacional ocorre no momento da predição.
+### ⚖️ Overfitting/Generalização
 
-### Fragilidades
+| Modelo            | Diferença Treino-Teste | Conclusão                     |
+|-------------------|-----------------------|-------------------------------|
+| Árvore de Decisão | 2%                    | Boa generalização             |
+| KNN               | ~1%                   | Generalização excelente       |
 
-- **Falta de Interpretabilidade (Ponto Mais Fraco):** O KNN é um modelo "caixa-preta". Ele pode prever com precisão, mas não consegue explicar o porquê daquela previsão em termos de regras de negócio. A sua lógica é baseada puramente em similaridade matemática.
-- **Lento em Produção:** Fazer uma previsão é computacionalmente caro, pois o modelo precisa calcular a distância do novo ponto a todos os pontos do conjunto de treinamento. Isso o torna inviável para aplicações que exigem baixa latência com grandes volumes de dados.
-- **Necessidade Crítica de Escalonamento:** Se as variáveis não forem padronizadas, uma feature com uma escala grande (como o PIB) irá dominar completamente o cálculo da distância, tornando outras variáveis (como o nível de experiência) praticamente irrelevantes.
+> Ambos mostram capacidade adequada de generalização, com KNN ligeiramente mais estável.
+
+### 🏆 Observações
+
+### Similaridade de Performance
+- Performance global muito similar nos dois modelos
+- Nenhum "vencedor" claro pelas métricas globais
+
+### Escolha do Modelo
+| Critério                | Modelo Recomendado       |
+|-------------------------|--------------------------|
+| Interpretabilidade       | Árvore de Decisão 🌳     |
+| Simplicidade/Robustez   | KNN ⚙️                  |
+
+**Fatores decisivos**:
+- Para RH/explicabilidade: Árvore de Decisão
+- Para implementação simples: KNN
 
 ## Cenários de Uso: Qual Modelo se Sairia Melhor?
 
