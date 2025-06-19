@@ -719,7 +719,7 @@ A grande vantagem da Árvore de Decisão é que seu processo de "raciocínio" é
 
 
 #### Importância das Features
-O modelo nos permite ver quais atributos foram mais influentes para a tomada de decisão. A importância é medida pela capacidade de cada feature em reduzir a impureza (critério Gini) nos nós da árvore. Conforme o gráfico abaixo, as variáveis mais decisivas para prever a faixa salarial foram...
+O modelo nos permite ver quais atributos foram mais influentes para a tomada de decisão. A importância é medida pela capacidade de cada feature em reduzir a impureza (critério Gini) nos nós da árvore. Conforme o gráfico abaixo, as variáveis mais decisivas para prever a faixa salarial foram:
 
 ![Feature Importance arvore de decisão](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/docs/imagens/FEATURE%20IMPORTANTE%20ARVORE%20ULTIMA.png)
 
@@ -967,9 +967,10 @@ São os principais determinantes da remuneração na área de dados.
 
 
 ✔ **Tomada de decisão informada**  
-Auxilia profissionais na negociação salarial e empresas na definição de faixas competitivas.
-✔ **Transparência de mercado**  
 
+Auxilia profissionais na negociação salarial e empresas na definição de faixas competitivas.
+
+✔ **Transparência de mercado**  
 
 Torna as práticas salariais do setor mais claras.
 
