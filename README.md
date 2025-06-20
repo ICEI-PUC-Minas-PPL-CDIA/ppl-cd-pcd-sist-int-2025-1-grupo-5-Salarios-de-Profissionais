@@ -16,9 +16,25 @@ Prof. Hugo Bastos de Paula
 
 Prof. Hayala Nepomuceno Curto
 
-## Instruções de utilização
+# Índice
+
+1. [Instruções de Utilização do Modelo de Classificação Salarial](#instruções-de-utilização-do-modelo-de-classificação-salarial)
+2. [Pré-requisitos](#pré-requisitos)
+3. [Instalação das Dependências](#instalação-das-dependências)
+4. [Execução do Modelo](#execução-do-modelo)
+5. [Estrutura do Código](#estrutura-do-código)
+   - [Pré-processamento](#pré-processamento)
+   - [Modelos Implementados](#modelos-implementados)
+   - [Avaliação](#avaliação)
+   - [Visualização](#visualização)
+6. [Personalização](#personalização)
+7. [Saídas Geradas](#saídas-geradas)
+
+## Instruções de Utilização do Modelo de Classificação Salarial
 
 Este projeto implementa modelos de machine learning para classificação salarial com base em características profissionais e demográficas. Abaixo estão as instruções para configurar e executar a aplicação.
+Pré-requisitos
+
 Pré-requisitos
 
 Antes de executar o projeto, certifique-se de ter instalado:
