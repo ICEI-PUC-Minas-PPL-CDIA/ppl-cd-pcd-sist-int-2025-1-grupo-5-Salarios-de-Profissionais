@@ -8,7 +8,7 @@ from sklearn.metrics import classification_report, accuracy_score, confusion_mat
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import cohen_kappa_score
-from imblearn.over_sampling import SMOTE  # ADICIONADO
+from imblearn.over_sampling import SMOTE  
 
 # 1. Carregamento e limpeza do dataset
 df = pd.read_csv("uniao_das_bases.csv")
@@ -40,9 +40,21 @@ df["Faixa_Salarial_Agrupada"] = df["Faixa_Salarial"].apply(agrupa_faixas)
 
 # 3. Seleção de colunas de entrada e target
 cols = [
-    "Idade", "Num_func_empresa_que_trabalha", "Setor", "Cargo_Atual",
-    "Nivel_de_Ensino", "Nível", "Tempo_de_experiencia_na_area_de_dados",
-    "Uf", "Genero", "Cor/Raça/Etnia", "Atual_forma_de_trabalho", "Situacao_atual_de_trabalho", "Python", "R", "SQL"
+    "Idade", 
+    "Num_func_empresa_que_trabalha", 
+    "Setor", 
+    "Cargo_Atual",
+    "Nivel_de_Ensino", 
+    "Tempo_de_experiencia_na_area_de_dados",
+    "Uf", 
+    "Genero", 
+    "Cor/Raça/Etnia", 
+    "Atual_forma_de_trabalho", 
+    "Situacao_atual_de_trabalho", 
+    "Python", 
+    "R", 
+    "SQL", 
+    "Nível"
 ]
 X = df[cols].copy()
 y = df["Faixa_Salarial_Agrupada"].copy()
@@ -70,7 +82,7 @@ smote = SMOTE(random_state=42)
 X_train_res, y_train_res = smote.fit_resample(X_train, y_train)
 
 # 9. Treinar modelo Random Forest com dados balanceados
-rf = RandomForestClassifier(random_state=42)
+rf = RandomForestClassifier(random_state=42, max_depth = 7, n_estimators = 100, max_features=0.5, min_samples_leaf=5, class_weight='balanced')
 rf.fit(X_train_res, y_train_res)
 
 # 10. Previsão e avaliação
@@ -103,5 +115,28 @@ sns.barplot(x=importances[indices], y=features)
 plt.title("Top 15 Variáveis Mais Importantes - Random Forest")
 plt.xlabel("Importância")
 plt.ylabel("Variável")
+plt.tight_layout()
+plt.show()
+
+# Avaliar o desempenho no conjunto de treino (após o ajuste com SMOTE)
+y_train_pred = rf.predict(X_train_res)
+print("\n--- Desempenho no conjunto de TREINO ---")
+print("Acurácia (treino):", accuracy_score(y_train_res, y_train_pred))
+print(classification_report(y_train_res, y_train_pred, target_names=le.classes_))
+
+# Comparação treino vs teste
+acc_train = accuracy_score(y_train_res, y_train_pred)
+acc_test = accuracy_score(y_test, y_pred)
+
+results_rf = pd.DataFrame({
+    "Conjunto": ["Treino", "Teste"],
+    "Acurácia": [acc_train, acc_test]
+})
+
+plt.figure(figsize=(6, 4))
+sns.barplot(data=results_rf, x="Conjunto", y="Acurácia", palette="Blues")
+plt.ylim(0, 1)
+plt.title("Acurácia Random Forest - Treino vs Teste")
+plt.ylabel("Acurácia")
 plt.tight_layout()
 plt.show()
