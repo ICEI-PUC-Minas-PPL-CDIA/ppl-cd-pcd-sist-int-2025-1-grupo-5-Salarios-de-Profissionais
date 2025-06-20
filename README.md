@@ -35,7 +35,7 @@ Prof. Hayala Nepomuceno Curto
 Este projeto implementa modelos de machine learning para classificação salarial com base em características profissionais e demográficas. Abaixo estão as instruções para configurar e executar a aplicação.
 Pré-requisitos
 
-Pré-requisitos
+## Pré-requisitos
 
 Antes de executar o projeto, certifique-se de ter instalado:
 
@@ -43,7 +43,7 @@ Antes de executar o projeto, certifique-se de ter instalado:
 
     Gerenciador de pacotes pip
 
-Instalação das Dependências
+## Instalação das Dependências
 
     Clone o repositório: https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais.git
 
@@ -53,7 +53,7 @@ python -m venv venv
 source venv/bin/activate  # Linux/Mac
 venv\Scripts\activate     # Windows
 
-Instale as dependências:
+## Instale as dependências:
 
 pip install -r requirements.txt
 
@@ -61,7 +61,7 @@ Ou instale manualmente os pacotes necessários:
 
 pip install pandas numpy scikit-learn matplotlib seaborn yellowbrick
 
-Execução do Modelo
+## Execução do Modelo
 
     Coloque seu arquivo de dados (state_idh_pib.csv) na pasta /content/ (ou ajuste o caminho no código)
 
@@ -77,11 +77,11 @@ Execução do Modelo
 
         Geração de visualizações
 
-Estrutura do Código
+## Estrutura do Código
 
 O projeto contém os seguintes componentes principais:
 
-    Pré-processamento:
+    ##Pré-processamento:
 
         Tratamento de valores faltantes
 
@@ -89,13 +89,13 @@ O projeto contém os seguintes componentes principais:
 
         Engenharia de features (agrupamento de salários, experiência, etc.)
 
-    Modelos Implementados:
+    ## Modelos Implementados:
 
         Árvore de Decisão
 
         K-Vizinhos Mais Próximos (KNN)
 
-    Avaliação:
+    ## Avaliação:
 
         Métricas de acurácia
 
@@ -105,7 +105,7 @@ O projeto contém os seguintes componentes principais:
 
         Curvas de aprendizado
 
-    Visualização:
+    ## Visualização:
 
         Gráficos de importância de features
 
@@ -113,7 +113,7 @@ O projeto contém os seguintes componentes principais:
 
         Fronteiras de decisão (para KNN)
 
-Personalização
+## Personalização
 
 Para usar com seus próprios dados:
 
@@ -123,7 +123,7 @@ Para usar com seus próprios dados:
 
     Modifique os parâmetros dos modelos na seção de configuração
 
-Saídas Geradas
+## Saídas Geradas
 
 O script produzirá:
 
