@@ -18,7 +18,105 @@ Prof. Hayala Nepomuceno Curto
 
 ## Instruções de utilização
 
-Assim que a primeira versão do sistema estiver disponível, deverá complementar com as instruções de utilização. Descreva como instalar eventuais dependências e como executar a aplicação.
+Este projeto implementa modelos de machine learning para classificação salarial com base em características profissionais e demográficas. Abaixo estão as instruções para configurar e executar a aplicação.
+Pré-requisitos
+
+Antes de executar o projeto, certifique-se de ter instalado:
+
+    Python 3.8 ou superior
+
+    Gerenciador de pacotes pip
+
+Instalação das Dependências
+
+    Clone o repositório: https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais.git
+
+Crie e ative um ambiente virtual (recomendado):
+
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
+
+Instale as dependências:
+
+pip install -r requirements.txt
+
+Ou instale manualmente os pacotes necessários:
+
+pip install pandas numpy scikit-learn matplotlib seaborn yellowbrick
+
+Execução do Modelo
+
+    Coloque seu arquivo de dados (state_idh_pib.csv) na pasta /content/ (ou ajuste o caminho no código)
+
+    Execute o script principal: assets/models/MODELOS_ArvoreDecisão_KNN_HIPOTESE 1.ipynb
+
+    O script realizará:
+
+        Pré-processamento dos dados
+
+        Treinamento dos modelos (Árvore de Decisão e KNN)
+
+        Avaliação dos modelos
+
+        Geração de visualizações
+
+Estrutura do Código
+
+O projeto contém os seguintes componentes principais:
+
+    Pré-processamento:
+
+        Tratamento de valores faltantes
+
+        Codificação de variáveis categóricas
+
+        Engenharia de features (agrupamento de salários, experiência, etc.)
+
+    Modelos Implementados:
+
+        Árvore de Decisão
+
+        K-Vizinhos Mais Próximos (KNN)
+
+    Avaliação:
+
+        Métricas de acurácia
+
+        Matrizes de confusão
+
+        Importância das features
+
+        Curvas de aprendizado
+
+    Visualização:
+
+        Gráficos de importância de features
+
+        Árvores de decisão plotadas
+
+        Fronteiras de decisão (para KNN)
+
+Personalização
+
+Para usar com seus próprios dados:
+
+    Substitua state_idh_pib.csv por seu conjunto de dados
+
+    Ajuste os nomes das colunas no código conforme necessário
+
+    Modifique os parâmetros dos modelos na seção de configuração
+
+Saídas Geradas
+
+O script produzirá:
+
+    Relatórios de classificação no console
+
+    Gráficos salvos como imagens PNG
+
+    Análise de exemplos de acertos e erros
+
 
 ## Histórico de versões
 
