@@ -43,7 +43,6 @@ cols = [
     "Setor", 
     "Cargo_Atual", 
     "Nivel_de_Ensino", 
-    "Nível",
     "Tempo_de_experiencia_na_area_de_dados", 
     "Uf", 
     "Genero", 
@@ -73,10 +72,6 @@ y_encoded = le.fit_transform(y)
 # Treino/teste
 X_train, X_test, y_train, y_test = train_test_split(X_scaled, y_encoded, test_size=0.2, random_state=42)
 
-# Aplicar SMOTE
-smote = SMOTE(random_state=42)
-X_train_res, y_train_res = smote.fit_resample(X_train, y_train)
-
 # Treinar XGBoost com hiperparâmetros otimizados
 xgb = XGBClassifier(
     learning_rate=0.1,
@@ -87,7 +82,7 @@ xgb = XGBClassifier(
     eval_metric="mlogloss",
     random_state=42
 )
-xgb.fit(X_train_res, y_train_res)
+xgb.fit(X_train, y_train)
 
 # Avaliar XGBoost
 y_pred = xgb.predict(X_test)
@@ -118,7 +113,7 @@ plt.tight_layout()
 plt.show()
 
 # Comparação de performance no treino e teste (XGBoost)
-acc_xgb_train = xgb.score(X_train_res, y_train_res)
+acc_xgb_train = xgb.score(X_train, y_train)
 acc_xgb_test = xgb.score(X_test, y_test)
 
 results_xgb = pd.DataFrame({
@@ -133,3 +128,19 @@ plt.title("Acurácia XGBoost - Treino vs Teste")
 plt.ylabel("Acurácia")
 plt.tight_layout()
 plt.show()
+
+# Avaliação no conjunto de treino
+y_train_pred = xgb.predict(X_train)
+
+print("\n--- Desempenho no conjunto de TREINO ---")
+print("Acurácia (treino):", accuracy_score(y_train, y_train_pred))
+print(classification_report(y_train, y_train_pred, target_names=le.classes_))
+print("Cohen's Quadratic Kappa (treino):", cohen_kappa_score(y_train, y_train_pred, weights='quadratic'))
+
+# Matriz de confusão no treino (opcional, mas útil)
+cm_train = confusion_matrix(y_train, y_train_pred, labels=labels_ordinais)
+disp_train = ConfusionMatrixDisplay(confusion_matrix=cm_train, display_labels=ordem_desejada)
+disp_train.plot(cmap="Blues")
+plt.title("Matriz de Confusão (Treino) - XGBoost")
+plt.show()
+
