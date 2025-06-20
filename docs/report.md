@@ -1059,7 +1059,6 @@ O modelo XGBoost é um algoritmo de aprendizado de máquina baseado em árvores 
 ## Indução do Modelo 1
 
 - Dados foram divididos em 80% treino e 20% teste.
-- Aplicou-se SMOTE para balancear as classes no conjunto de treino.
 - Foi utilizada **validação cruzada com 3 folds**.
 - Hiperparâmetros ajustados via `GridSearchCV`.
 
@@ -1079,20 +1078,19 @@ O modelo XGBoost é um algoritmo de aprendizado de máquina baseado em árvores 
 | Classe | Precisão | Revocação | F1-Score | Suporte |
 | ------ | -------- | --------- | -------- | ------- |
 | Alta   | 0.78     | 0.67      | 0.72     | 259     |
-| Baixa  | 0.87     | 0.47      | 0.61     | 113     |
 | Média  | 0.78     | 0.90      | 0.84     | 559     |
+| Baixa  | 0.87     | 0.47      | 0.61     | 113     |
 
 
 ### Acurácia: **85,40%** (Treino)
 | Classe | Precisão | Revocação | F1-Score | Suporte |
 | ------ | -------- | --------- | -------- | ------- |
 | Alta   | 0.84     | 0.79      | 0.81     | 1128    |
-| Baixa  | 0.96     | 0.67      | 0.79     | 391     |
 | Média  | 0.85     | 0.92      | 0.88     | 2201    |
+| Baixa  | 0.96     | 0.67      | 0.79     | 391     |
 
 
 - O modelo obteve ótimo desempenho nas faixas "Alta" e "Média", mas enfrentou **dificuldade na previsão da faixa "Baixa"**, reflexo do desbalanceamento de dados.
-- O uso de SMOTE ajudou, mas não resolveu completamente a sensibilidade à classe minoritária.
 
 ![Matriz de Confusão XGBoost](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/results/Matriz%20de%20Confus%C3%A3o%20(XGBoost).png)
 
@@ -1106,14 +1104,18 @@ Random Forest é um algoritmo baseado em múltiplas árvores de decisão treinad
 
 ## Indução do Modelo 2
 
-- Usou-se a **mesma divisão (80/20)** e o **mesmo SMOTE** para balanceamento.
+- Usou-se a **mesma divisão (80/20)**
+- O uso de SMOTE ajudou, mas não resolveu completamente a sensibilidade à classe minoritária.
 - Hiperparâmetros foram definidos manualmente.
 - Não houve validação cruzada.
 
 ### Parâmetros utilizados:
 - `random_state`: 42  
-- `max_depth`: 10  
-- `n_estimators`: 100  
+- `max_depth`: 7  
+- `n_estimators`: 100
+- `max_features`: 0.5
+- `min_samples_leaf`: 5
+- `class_weight`: 'balanced'
 
 ---
 
@@ -1149,9 +1151,9 @@ Random Forest é um algoritmo baseado em múltiplas árvores de decisão treinad
 
 | Critério                   | XGBoost     | Random Forest |
 |----------------------------|-------------|----------------|
-| Acurácia                   | 80,12%      | 74,54%         |
-| Precisão (Classe Baixa)   | 0.80        | 0.65           |
-| Revocação (Classe Baixa)  | 0.56        | 0.62          |
+| Acurácia                   | 78,63%      | 74,54%         |
+| Precisão (Classe Baixa)   | 0.87        | 0.65           |
+| Revocação (Classe Baixa)  | 0.47        | 0.62          |
 | Interpretação              | Moderada    | Alta           |
 | Velocidade de Treinamento | Média       | Alta           |
 | Robustez ao Ruído         | Alta        | Alta           |
