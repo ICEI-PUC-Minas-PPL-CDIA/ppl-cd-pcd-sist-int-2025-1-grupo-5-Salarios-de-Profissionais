@@ -1,5 +1,37 @@
 # Os fatores que influenciam os salários dos profissionais de dados no Brasil.
 
+# Índice
+
+1. [Integrantes](#integrantes)
+2. [Professores](#professores)
+3. [Resumo](#resumo)
+4. [Introdução](#introdução)
+5. [Contextualização](#contextualização)
+6. [Problema](#problema)
+7. [Objetivos](#objetivos)
+   - [Objetivo Geral](#objetivo-geral)
+   - [Objetivos Específicos](#objetivos-específicos)
+8. [Justificativas](#justificativas)
+9. [Público Alvo](#público-alvo)
+10. [Análise Exploratória dos Dados](#análise-exploratória-dos-dados)
+    - [State of Data Brazil 2023](#state-of-data-brazil-2023)
+    - [Dicionário de Dados](#dicionário-de-dados)
+    - [Descrição de Dados](#descrição-de-dados-bar_chart)
+11. [Preparação dos Dados](#preparação-dos-dados)
+    - [Hipóteses](#hipóteses)
+    - [Tratamento de Dados](#tratamento-de-dados)
+12. [Indução de Modelos](#indução-de-modelos)
+    - [Hipótese 1](#hipótese-1)
+      - [Modelo 1 - Árvore de Decisão](#modelo-1)
+      - [Modelo 2 - KNN](#modelo-2)
+      - [Análise Comparativa](#análise-comparativa-dos-modelos)
+    - [Hipótese 3](#hipótese-3)
+    - [Hipótese 4](#hipótese-4)
+13. [Conclusão](#conclusão)
+14. [Observações Pessoais](#observações-pessoais)
+15. [Referências](#referências)
+16. [Apêndices](#apêndices)
+
 INTEGRANTES:
 
 Antonio Augusto Vieira Lopes Filho, aavlfilho@sga.pucminas.br
