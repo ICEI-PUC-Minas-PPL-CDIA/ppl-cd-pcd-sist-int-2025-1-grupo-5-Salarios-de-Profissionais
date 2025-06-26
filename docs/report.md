@@ -32,7 +32,7 @@
 15. [Referências](#referências)
 16. [Apêndices](#apêndices)
 
-INTEGRANTES:
+## INTEGRANTES:
 
 Antonio Augusto Vieira Lopes Filho, aavlfilho@sga.pucminas.br
 
