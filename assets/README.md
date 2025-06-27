@@ -1,6 +1,5 @@
 # Artefatos do projeto
 
-Liste os artefatos produzidos, com suas localizaçãoes e descrição do conteúdo.
 
 
 * `/data` - Pasta com os dados do projeto
