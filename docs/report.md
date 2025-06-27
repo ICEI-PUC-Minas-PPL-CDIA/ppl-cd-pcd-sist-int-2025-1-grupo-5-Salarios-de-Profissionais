@@ -1375,13 +1375,15 @@ Não necessariamente. Apesar da maior acurácia, o XGBoost pode ser mais difíci
 
 **Colocar link:**
 
-Do código (armazenado no repositório);
+[Código (Hipótese 1 - Modelo 1 e 2)](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/models/MODELOS_ArvoreDecis%C3%A3o_KNN_HIPOTESE%201.ipynb)
 
-Dos artefatos (armazenado do repositório);
+[Código (Hipótese 2 - Modelo 1)](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/models/modeloXGBoost.py)
 
-Da apresentação final (armazenado no repositório);
+[Código (Hipótese 2 - Modelo 2)](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/models/modeloRandomForest.py)
 
-Do vídeo de apresentação (armazenado no repositório).
+[Apresentação final](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/pdf%20slide.pdf)
+
+[Vídeo da apresentação](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/Quais%20Fatores%20Influenciam%20os%20Sal%C3%A1rios%20dos%20Profissionais%20de%20Dados%20no%20Brasil%202.mp4)
 
 
 
