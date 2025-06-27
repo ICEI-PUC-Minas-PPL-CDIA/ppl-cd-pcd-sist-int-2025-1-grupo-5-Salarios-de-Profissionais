@@ -1490,6 +1490,15 @@ A importância atribuída a uma feature no modelo Random Forest indica o quanto 
 -O XGBoost é sempre melhor?
 Não necessariamente. Apesar da maior acurácia, o XGBoost pode ser mais difícil de explicar para usuários não técnicos e mais custoso computacionalmente. A escolha depende do objetivo do projeto.
 
+# REFERÊNCIAS
+
+**[1]** - DATA HACKERS. State of Data - Brasil 2023. Kaggle, 2023. Disponível em: https://www.kaggle.com/datasets/datahackers/state-of-data-brazil-2023.
+
+**[2]** - BASE DOS DADOS. Produto Interno Bruto do Brasil (PIB). Instituto Brasileiro de Geografia e Estatística (IBGE), 2025. Disponível em: https://basedosdados.org/dataset/fcf025ca-8b19-4131-8e2d-5ddb12492347?table=93007431-7ce9-42ee-8740-8c2274d345ad.
+
+**[3]** - PROGRAMA DAS NAÇÕES UNIDAS PARA O DESENVOLVIMENTO (PNUD). Base de Dados do Índice de Desenvolvimento Humano (IDH). PNUD Brasil, 2021. Disponível em: https://www.undp.org/pt/brazil/desenvolvimento-humano/publications/base-de-dados-xls.
+
+
 
 # APÊNDICES
 
@@ -1499,7 +1508,7 @@ Não necessariamente. Apesar da maior acurácia, o XGBoost pode ser mais difíci
 
 [Código (Hipótese 2 - Modelo 2)](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/models/modeloRandomForest.py)
 
-[Código (Hipótese 3)](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/models/model_hip3.ipynb)
+[Código (Hipótese 3)](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/models/modeloRandomForest.py)
 
 [Apresentação final](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/pdf%20slide.pdf)
 
