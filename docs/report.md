@@ -147,6 +147,19 @@
 * [Análise comparativa dos modelos](#análise-comparativa-dos-modelos)
     * [Forças e Fragilidades](#forças-e-fragilidades)
     * [Exemplos de uso ideal:](#exemplos-de-uso-ideal)
+* [Hipótese 3 (Modelo)](#hipótese-3)
+   * [Resumo dos Dados](#resumo-dos-dados)
+   * [Modelo](#modelo)
+     * [Divisão dos Dados](#divisao-dos-dados)
+     * [Balanceamento dos Dados](#balanceamento-dos-dados)
+     * [Modelo de Classificação](#modelo-de-classificacao)
+* [Resultados do Modelo](#resultados-do-modelo)
+* [Relatório de Classificação](#relatorio-de-classificacao)
+* [Insights Principais](#insights-principais)
+   * [Distribuição Salarial](#distribuicao-salarial)
+   * [Linguagens Mais Impactantes no Salário](#linguagens-mais-impactantes-no-salario)
+* [Interpretação dos Resultados](#interpretacao-dos-resultados)
+* [Implicações para o Mercado](#implicacoes-para-o-mercado)
 * [Conclusão](#conclusão)
     * [Implicações para o Mercado](#implicações-para-o-mercado)
     * [Próximos Passos Recomendados](#próximos-passos-recomendados)
@@ -1325,7 +1338,7 @@ Random Forest é um algoritmo baseado em múltiplas árvores de decisão treinad
 
 ---
 
-# Conclusão
+### Conclusão
 
 Os testes realizados confirmam a hipótese de que dados demográficos e profissionais influenciam a faixa salarial. Ambos os modelos alcançaram desempenho satisfatório, com o XGBoost ligeiramente superior em termos de acurácia geral.
 
@@ -1335,7 +1348,114 @@ Contudo, a dificuldade persistente de ambos os modelos em prever a faixa "Baixa"
 - Análise mais profunda da distribuição e qualidade dos dados.
 
 No contexto prático, a escolha entre XGBoost e Random Forest dependerá do equilíbrio entre performance e interpretabilidade exigido pela aplicação.
+
 ---
+
+## Hipótese 3
+
+Como dito anteriormente, a hipótese 3 tinha como objetivo analisar quais ferramentas, sobretudo linguagens de programação, tem influência direta ou indireta no salário do profissional de dados.
+
+### Resumo dos Dados
+
+Analisou dados provenientes da pesquisa que captura informações sobre os profissionais. Os dados incluem:
+
+- Informações sobre faixas salariais dos profissionais
+- Linguagens de programação utilizadas (SQL, Python, R, C/C++/C#, .NET, Java, Julia, SAS/Stata, VB/VBA, Scala, Matlab, Rust, PHP, JavaScript)
+- Aproximadamente 5.000 registros de profissionais (baseado na soma das faixas salariais)
+
+### Modelo
+
+**Divisão dos Dados:**
+
+O conjunto de dados foi dividido em 60% para treino e 40% para teste.
+
+   ```python
+   X_train, X_test, y_train, y_test = train_test_split(X_filtered, y_filtered, test_size=0.4, random_state=0)
+   ```
+
+**Balanceamento dos Dados:**
+
+Aplicação do SMOTE para balancear as classes no conjunto de treinamento.
+
+   ```python
+   smote = SMOTE(random_state=0, sampling_strategy='auto', k_neighbors=5)
+   X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
+   ```
+**Modelo de Classificação:**
+   - Utilização do `BalancedRandomForestClassifier` para lidar com o desbalanceamento dos dados.
+   - Ajuste dos hiperparâmetros utilizando `GridSearchCV`.
+
+   ```python
+   param_grid = {
+       'n_estimators': [50, 100, 200],
+       'max_depth': [None, 10, 20, 30],
+       'min_samples_split': [2, 5, 10],
+       'min_samples_leaf': [1, 2, 4]
+   }
+
+   grid_search = GridSearchCV(estimator=BalancedRandomForestClassifier(random_state=42),
+                              param_grid=param_grid, cv=5, n_jobs=-1, verbose=2)
+   grid_search.fit(X_train_resampled, y_train_resampled)
+   ```
+
+### Resultados do Modelo
+
+- **Melhores Hiperparâmetros:** `{'max_depth': 10, 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 50}`
+- **Acurácia no Conjunto de Teste:** `0.5553`
+- **Acurácia no Conjunto de Treinamento:** `0.6257`
+
+### Relatório de Classificação
+
+| Classe | Precisão | Recall | F1-score | Suporte |
+|--------|----------|--------|----------|---------|
+| Alto   | 0.26     | 0.63   | 0.37     | 181     |
+| Baixo  | 0.35     | 0.45   | 0.39     | 354     |
+| Médio  | 0.78     | 0.57   | 0.66     | 1354    |
+
+- **Acurácia Geral:** `0.56`
+- **Média Macro:** Precisão: `0.46`, Recall: `0.55`, F1-score: `0.47`
+- **Média Ponderada:** Precisão: `0.65`, Recall: `0.56`, F1-score: `0.58`
+
+### Insights Principais
+
+#### Distribuição Salarial
+A distribuição das faixas salariais mostra uma concentração nas faixas intermediárias:
+- **Faixa mais comum**: R$ 8.001 a R$ 12.000/mês (1.026 profissionais)
+- **Segunda mais comum**: R$ 4.001 a R$ 6.000/mês (745 profissionais)
+- **Terceira mais comum**: R$ 12.001 a R$ 16.000/mês (650 profissionais)
+
+#### Linguagens Mais Impactantes no Salário
+Nossa análise de importância de features revelou quais linguagens têm maior correlação com as faixas salariais:
+
+1. **SQL** - Importância de 26,4%
+2. **Python** - Importância de 15,8% 
+3. **Scala** - Importância de 7,5%
+4. **VB/VBA** - Importância de 6,6% 
+5. **R** - Importância de 6,5%
+
+Interessantemente, "não utilizar nenhuma linguagem" aparece com uma importância significativa de 19,1%.
+
+### Interpretação dos Resultados
+
+- O modelo tem melhor precisão na identificação da faixa salarial "Médio" (78%)
+- Desempenho mais fraco nas faixas "Alto" (26%) e "Baixo" (35%)
+
+### Implicações para o Mercado
+
+1. **Importância do SQL**: O domínio de SQL demonstra ser um diferencial significativo para a remuneração, sugerindo a contínua relevância de habilidades relacionadas a banco de dados.
+
+2. **Python como ferramenta essencial**: Confirma-se a posição do Python como linguagem fundamental na área de dados.
+
+3. **Valorização de habilidades específicas**: Linguagens como Scala, embora menos comuns, parecem associadas a salários mais elevados, possivelmente por sua aplicação em contextos especializados como Big Data.
+
+### Conclusão
+
+A análise revela padrões claros de distribuição salarial entre profissionais de dados no Brasil, com concentração nas faixas intermediárias de R$ 4.000 a R$ 16.000/mês. As habilidades técnicas, especialmente em SQL e Python, demonstram forte correlação com maiores faixas salariais.
+
+O modelo preditivo desenvolvido, apesar de suas limitações (acurácia de 55,5%), oferece insights valiosos sobre quais competências técnicas podem influenciar positivamente a remuneração de profissionais da área.
+
+---
+
 ## Conclusão
 Os resultados obtidos neste trabalho confirmam a hipótese de que características demográficas e profissionais influenciam significativamente a faixa salarial dos indivíduos. Os modelos supervisionados treinados — XGBoost e Random Forest — demonstraram bom desempenho preditivo, com acurácia geral acima de 78%, sendo capazes de prever com razoável precisão a categoria salarial com base nos atributos fornecidos.
 
@@ -1373,13 +1493,13 @@ Não necessariamente. Apesar da maior acurácia, o XGBoost pode ser mais difíci
 
 # APÊNDICES
 
-**Colocar link:**
-
 [Código (Hipótese 1 - Modelo 1 e 2)](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/models/MODELOS_ArvoreDecis%C3%A3o_KNN_HIPOTESE%201.ipynb)
 
 [Código (Hipótese 2 - Modelo 1)](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/models/modeloXGBoost.py)
 
 [Código (Hipótese 2 - Modelo 2)](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/models/modeloRandomForest.py)
+
+[Código (Hipótese 3)](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/assets/models/model_hip3.ipynb)
 
 [Apresentação final](https://github.com/ICEI-PUC-Minas-PPL-CDIA/ppl-cd-pcd-sist-int-2025-1-grupo-5-Salarios-de-Profissionais/blob/main/pdf%20slide.pdf)
 
